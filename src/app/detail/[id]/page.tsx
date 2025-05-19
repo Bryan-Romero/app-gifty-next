@@ -27,7 +27,7 @@ export async function generateMetadata({
           alt: gif.title || "GIF",
         },
       ],
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/detail/${params.id}`,
+      url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/detail/${params.id}`,
       type: "video.other",
     },
     twitter: {
