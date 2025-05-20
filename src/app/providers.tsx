@@ -7,6 +7,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 import * as React from "react";
 import SessionErrorHandler from "../components/SessionErrorHandler";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -43,6 +44,7 @@ export default function Providers({ children, themeProps }: ProvidersProps) {
           </NextThemesProvider>
         </HeroUIProvider>
       </SessionProvider>
+      <SpeedInsights /> {/** Collection performance metrics */}
     </QueryClientProvider>
   );
 }
