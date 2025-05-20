@@ -12,7 +12,7 @@ interface ButtonsSectionProps {
 
 export const ButtonsSection = ({ className, gif }: ButtonsSectionProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { handleDownload, handleCopyLink } = useGifActions(gif);
+  const { handleDownload, handleCopyLink, downloading } = useGifActions(gif);
 
   return (
     <>
@@ -44,8 +44,10 @@ export const ButtonsSection = ({ className, gif }: ButtonsSectionProps) => {
           className="hidden md:flex text-lg"
           color="primary"
           variant="flat"
-          startContent={<DownloadIcon />}
+          {...(!downloading && { startContent: <DownloadIcon /> })}
           onPress={handleDownload}
+          disabled={downloading}
+          isLoading={downloading}
         >
           Download
         </Button>
@@ -74,8 +76,10 @@ export const ButtonsSection = ({ className, gif }: ButtonsSectionProps) => {
           color="primary"
           variant="flat"
           onPress={handleDownload}
+          disabled={downloading}
+          isLoading={downloading}
         >
-          <DownloadIcon size="xl" />
+          {!downloading && <DownloadIcon size="xl" />}
         </Button>
       </div>
       <ModalShare

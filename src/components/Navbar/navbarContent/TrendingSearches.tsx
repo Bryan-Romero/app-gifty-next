@@ -36,7 +36,7 @@ export const TrendingSearches = () => {
           <ScrollShadow
             orientation="horizontal"
             hideScrollBar
-            className="w-full flex flex-row gap-3 overflow-x-auto"
+            className="w-full grid grid-flow-col auto-cols-max gap-3 overflow-x-auto"
             ref={scrollRef}
           >
             {trendingSearches.data.map((trending, index) => (
@@ -44,8 +44,8 @@ export const TrendingSearches = () => {
                 as={Link}
                 color="secondary"
                 variant="flat"
-                href={`/search/${trending}`}
-                className="text-lg flex-none font-light"
+                href={`/search/${encodeURIComponent(trending)}`}
+                className="text-lg font-light"
                 startContent={<ArrowTrendUpIcon className="w-5 h-5" />}
                 key={`${trending}-${index}`}
                 size="sm"

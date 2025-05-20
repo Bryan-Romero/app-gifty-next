@@ -1,5 +1,5 @@
-export * from "./AcmeLogoIcon";
 export * from "./ArrowTrendUpIcon";
+export * from "./BarsIcon";
 export * from "./ChevronsIcons";
 export * from "./DownloadIcon";
 export * from "./ExpandIcon";

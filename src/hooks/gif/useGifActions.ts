@@ -1,9 +1,10 @@
 import { useAlerts } from "@/hooks";
-import { useCallback } from "react";
 import { DataGifs } from "@/types";
+import { useCallback, useState } from "react";
 
 export function useGifActions(gif?: DataGifs) {
   const { pushAlert } = useAlerts();
+  const [downloading, setDownloading] = useState(false);
 
   // Descargar GIF
   const handleDownload = useCallback(async () => {
@@ -15,6 +16,8 @@ export function useGifActions(gif?: DataGifs) {
       });
       return;
     }
+
+    setDownloading(true);
     const url = gif.images.original.url;
     const fileName = gif.title || "download.gif";
     try {
@@ -35,6 +38,7 @@ export function useGifActions(gif?: DataGifs) {
         description: "Please try again later.",
       });
     }
+    setDownloading(false);
   }, [gif, pushAlert]);
 
   // Copiar enlace
@@ -68,5 +72,6 @@ export function useGifActions(gif?: DataGifs) {
     twitterUrl,
     whatsappUrl,
     linkedinUrl,
+    downloading,
   };
 }

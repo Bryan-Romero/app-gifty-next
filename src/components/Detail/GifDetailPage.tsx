@@ -1,14 +1,15 @@
 "use client";
 
-import { ButtonsSection, UserSection } from "@/components/Detail";
 import { Image, Spinner } from "@heroui/react";
 import { useGifByID } from "@/hooks";
+import { UserSection } from "./UserSection";
+import { ButtonsSection } from "./ButtonsSection";
 
 interface Props {
   gif_id: string;
 }
 
-export default function GifDetailClient({ gif_id }: Props) {
+export default function GifDetailPage({ gif_id }: Props) {
   const { data: gif, isLoading, isError } = useGifByID(gif_id);
 
   if (isError) {
@@ -33,7 +34,7 @@ export default function GifDetailClient({ gif_id }: Props) {
 
   return (
     <div
-      className="self-center w-full max-w-[95rem] h-auto
+      className="self-center w-full max-w-[95rem]
         px-3 md:px-0 py-5 md:py-10
         grid gap-3 md:gap-10 
         grid-cols-[1fr_auto] md:grid-cols-[1fr_800px_1fr]"
