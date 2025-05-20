@@ -72,7 +72,9 @@ const NavbarComponent = () => {
             placeholder="Type to search..."
             type="search"
             startContent={<SearchIcon size="lg" />}
-            className="text-lg"
+            classNames={{
+              input: "text-lg",
+            }}
           />
         </NavbarContent>
 
