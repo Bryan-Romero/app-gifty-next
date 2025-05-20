@@ -16,9 +16,9 @@ import { SearchIcon } from "../Icons";
 import { ModalSignIn } from "../Modals/ModalSignIn";
 import { ModalSignUp } from "../Modals/ModalSignUp";
 import { ThemeSwitch } from "../ThemeSwitch";
-import { LoggedInNavbar } from "./navbarContent/LoggedInNavbar";
-import { LoggedOutNavbar } from "./navbarContent/LoggedOutNavbar";
-import { TrendingSearches } from "./navbarContent/TrendingSearches";
+import { LoggedInNavbar } from "./components/LoggedInNavbar";
+import { LoggedOutNavbar } from "./components/LoggedOutNavbar";
+import { TrendingSearches } from "./components/TrendingSearches";
 
 const NavbarComponent = () => {
   const signInModalControl = useDisclosure();
@@ -78,8 +78,14 @@ const NavbarComponent = () => {
           />
         </NavbarContent>
 
-        {/* Navbar menu */}
         <NavbarContent
+          as="div"
+          justify="center"
+        >
+          <ThemeSwitch />
+        </NavbarContent>
+        {/* Navbar menu */}
+        {/* <NavbarContent
           as="div"
           justify="center"
         >
@@ -96,7 +102,7 @@ const NavbarComponent = () => {
               isMenuOpen={isMenuOpen}
             />
           )}
-        </NavbarContent>
+        </NavbarContent> */}
       </NextUINavbar>
 
       {/* Trending Searches */}

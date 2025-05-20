@@ -14,7 +14,7 @@ import {
   LinkIcon,
   WhatsappIcon,
   XTwitterIcon,
-} from "../Icons";
+} from "../../Icons";
 import { useGifActions } from "@/hooks";
 
 export const ModalShare = ({

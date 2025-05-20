@@ -1,6 +1,6 @@
 "use client";
 
-import { useSignUp } from "@/hooks/useSewrvices/useSignUp";
+import { useSignUp } from "@/hooks/useServices/useSignUp";
 import { TSignUpSchema, signUpSchema } from "@/types";
 import {
   faEnvelope,

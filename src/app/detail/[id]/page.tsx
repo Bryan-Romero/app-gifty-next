@@ -1,4 +1,4 @@
-import GifDetailPage from "@/components/Detail/GifDetailPage";
+import DetailPage from "@/components/Detail/DetailPage";
 import { getGifByID } from "@/services";
 import type { Metadata } from "next";
 
@@ -40,5 +40,5 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  return <GifDetailPage gif_id={params.id} />;
+  return <DetailPage gif_id={params.id} />;
 }

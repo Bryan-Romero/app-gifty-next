@@ -2,6 +2,7 @@ import { DataGifs } from "@/types";
 import {
   Button,
   Image,
+  Link,
   Modal,
   ModalBody,
   ModalContent,
@@ -10,7 +11,6 @@ import {
   ModalProps,
   Spinner,
 } from "@heroui/react";
-import NextLink from "next/link";
 import { useState } from "react";
 
 type ModalGifProps = Omit<ModalProps, "children"> & DataGifs;
@@ -87,9 +87,8 @@ export function ModalGif({
               </Button>
               <Button
                 color="primary"
-                as={NextLink}
+                as={Link}
                 href={`/detail/${id}`}
-                target="_blank"
               >
                 Detail
               </Button>
