@@ -71,8 +71,8 @@ const NavbarComponent = () => {
             onKeyDown={handleKeyDown}
             placeholder="Type to search..."
             type="search"
-            classNames={{ input: "text-lg" }}
             startContent={<SearchIcon size="lg" />}
+            className="text-lg"
           />
         </NavbarContent>
 

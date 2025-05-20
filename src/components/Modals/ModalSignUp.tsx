@@ -80,6 +80,7 @@ export function ModalSignUp({
             color={errors.username ? "danger" : "default"}
             errorMessage={errors.username?.message}
             isDisabled={isSubmitting}
+            className="text-base"
             {...register("username")}
           />
           <Input
@@ -97,6 +98,7 @@ export function ModalSignUp({
             color={errors.email ? "danger" : "default"}
             errorMessage={errors.email?.message}
             isDisabled={isSubmitting}
+            className="text-base"
             {...register("email")}
           />
           <Input
@@ -130,6 +132,7 @@ export function ModalSignUp({
             color={errors.password ? "danger" : "default"}
             errorMessage={errors.password?.message}
             isDisabled={isSubmitting}
+            className="text-base"
             {...register("password")}
           />
           <Input
@@ -141,6 +144,7 @@ export function ModalSignUp({
             color={errors.confirmPassword ? "danger" : "default"}
             errorMessage={errors.confirmPassword?.message}
             isDisabled={isSubmitting}
+            className="text-base"
             {...register("confirmPassword")}
           />
         </ModalBody>

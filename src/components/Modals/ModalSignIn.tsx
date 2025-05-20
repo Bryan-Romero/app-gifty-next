@@ -87,6 +87,7 @@ export function ModalSignIn({
                 className="pointer-events-none"
               />
             }
+            className="text-base"
             label="Email"
             placeholder="Enter your email"
             variant="bordered"
@@ -118,6 +119,7 @@ export function ModalSignIn({
                 )}
               </button>
             }
+            className="text-base"
             label="Password"
             placeholder="Enter your password"
             type={isVisible ? "text" : "password"}
