@@ -1,6 +1,6 @@
+import GifDetailPage from "@/components/Detail/GifDetailPage";
 import { getGifByID } from "@/services";
 import type { Metadata } from "next";
-import GifDetailClient from "./GifDetailClient";
 
 export async function generateMetadata({
   params,
@@ -27,7 +27,7 @@ export async function generateMetadata({
           alt: gif.title || "GIF",
         },
       ],
-      url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/detail/${params.id}`,
+      url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/detail/${params.id}`,
       type: "video.other",
     },
     twitter: {
@@ -40,5 +40,5 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  return <GifDetailClient gif_id={params.id} />;
+  return <GifDetailPage gif_id={params.id} />;
 }

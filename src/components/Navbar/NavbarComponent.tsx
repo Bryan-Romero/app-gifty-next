@@ -4,20 +4,26 @@ import {
   Input,
   NavbarBrand,
   NavbarContent,
+  NavbarItem,
   Navbar as NextUINavbar,
+  useDisclosure,
 } from "@heroui/react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { memo, useState } from "react";
 import { SearchIcon } from "../Icons";
-import { AcmeLogoIcon } from "../Icons/AcmeLogoIcon";
+import { ModalSignIn } from "../Modals/ModalSignIn";
+import { ModalSignUp } from "../Modals/ModalSignUp";
 import { ThemeSwitch } from "../ThemeSwitch";
 import { LoggedInNavbar } from "./navbarContent/LoggedInNavbar";
 import { LoggedOutNavbar } from "./navbarContent/LoggedOutNavbar";
 import { TrendingSearches } from "./navbarContent/TrendingSearches";
 
 const NavbarComponent = () => {
+  const signInModalControl = useDisclosure();
+  const signUpModalControl = useDisclosure();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const { data: session } = useSession();
   const router = useRouter();
@@ -33,23 +39,32 @@ const NavbarComponent = () => {
       <NextUINavbar
         maxWidth="2xl"
         isBordered
+        isMenuOpen={isMenuOpen}
+        onMenuOpenChange={setIsMenuOpen}
       >
-        <NavbarContent as="div">
+        {/* Logo */}
+        <NavbarContent
+          as="div"
+          justify="center"
+        >
           <NavbarBrand>
             <Link
               href="/"
-              className="flex items-center "
+              className="flex items-center"
               onClick={() => setInputValue("")}
             >
-              <AcmeLogoIcon size={50} />
-              <p className="hidden sm:flex font-bold text-inherit text-xl">
+              <h1 className="font-bold text-inherit text-xl select-none">
                 GIFty
-              </p>
+              </h1>
             </Link>
           </NavbarBrand>
         </NavbarContent>
 
-        <NavbarContent as="div">
+        {/* Search input */}
+        <NavbarContent
+          as="div"
+          className="max-w-lg"
+        >
           <Input
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -61,21 +76,33 @@ const NavbarComponent = () => {
           />
         </NavbarContent>
 
+        {/* Navbar menu */}
         <NavbarContent
           as="div"
-          justify="end"
+          justify="center"
         >
-          <ThemeSwitch />
+          <NavbarItem className="hidden md:flex">
+            <ThemeSwitch />
+          </NavbarItem>
 
           {session && session.user ? (
             <LoggedInNavbar {...session} />
           ) : (
-            <LoggedOutNavbar />
+            <LoggedOutNavbar
+              signInModalControl={signInModalControl}
+              signUpModalControl={signUpModalControl}
+              isMenuOpen={isMenuOpen}
+            />
           )}
         </NavbarContent>
       </NextUINavbar>
 
+      {/* Trending Searches */}
       <TrendingSearches />
+
+      {/* Modals Sign In/Up */}
+      <ModalSignIn {...signInModalControl} />
+      <ModalSignUp {...signUpModalControl} />
     </>
   );
 };

@@ -1,5 +1,6 @@
 export * from "./alerts/useAlerts";
 export * from "./gif/useGifActions";
+export * from "./theme/useCustomTheme";
 export * from "./useScroll/useScrollButtons";
 export * from "./useSewrvices/useGifByID";
 export * from "./useSewrvices/useGifsSearch";

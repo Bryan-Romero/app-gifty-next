@@ -7,6 +7,7 @@ export * from "./apiRes/message-res";
 export * from "./apiRes/user";
 export * from "./common/error.enum";
 export * from "./common/iconSvgProps";
+export * from "./common/modalControl";
 export * from "./common/next-auth.d";
 export * from "./giphy/gif";
 export * from "./giphy/gifs";

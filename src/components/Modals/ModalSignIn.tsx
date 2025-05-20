@@ -66,7 +66,7 @@ export function ModalSignIn({
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       onClose={handleOnClose}
-      placement="top-center"
+      placement="center"
     >
       <ModalContent
         as="form"
