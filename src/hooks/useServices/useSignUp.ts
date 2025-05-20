@@ -34,7 +34,7 @@ export function useSignUp(
         // console.log(error);
         throw error;
       } else {
-        await queryClient.invalidateQueries({ queryKey: ["signUp"] });
+        await queryClient.invalidateQueries({ queryKey: ["sign-up"] });
       }
     },
   });

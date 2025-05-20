@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export function useTrendingSearches() {
   return useQuery({
-    queryKey: ["TrendingSearches"],
+    queryKey: ["trending-searches"],
     queryFn: () => getTrendingSearches(),
   });
 }

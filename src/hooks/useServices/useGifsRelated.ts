@@ -1,15 +1,16 @@
-import { getGifsTrending } from "@/services/giphy/getGifsTrending";
+import { getGifsRelated } from "@/services";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-export function useGifsTrending() {
+export function useGifsRelated(gif_id: string) {
   const { ref: scrollTriggerRef, inView } = useInView();
 
   const data = useInfiniteQuery({
-    queryKey: ["gifs"],
+    queryKey: ["gifs-related"],
     queryFn: ({ pageParam = 0 }) =>
-      getGifsTrending({
+      getGifsRelated({
+        gif_id,
         offset: pageParam,
       }),
     initialPageParam: 0,

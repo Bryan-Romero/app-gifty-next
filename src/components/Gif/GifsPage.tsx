@@ -1,44 +1,15 @@
-import { Gifs as GifsInterface } from "@/types";
+import { Gifs } from "@/types";
 import { Spinner } from "@heroui/react";
-import { InfiniteData } from "@tanstack/react-query";
-import { Gif } from "./Gif";
+import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
+import { Gif } from "./components/Gif";
+import { twMerge } from "tailwind-merge";
 
-// Props de GifsPage
-
-/**
- * @param data
- *   Objeto de datos paginados (infinite scroll) que contiene los GIFs a mostrar.
- *   Tipo: InfiniteData<GifsInterface, unknown>
- *
- * @param isLoading
- *   Indica si los datos iniciales están cargando.
- *   Tipo: boolean
- *
- * @param hasNextPage
- *   Indica si hay más páginas de GIFs disponibles para cargar.
- *   Tipo: boolean
- *
- * @param isFetchingNextPage
- *   Indica si se está cargando la siguiente página de GIFs.
- *   Tipo: boolean
- *
- * @param scrollTriggerRef
- *   Referencia de React para el elemento que dispara la carga de más GIFs al hacer scroll.
- *   Tipo: (node?: Element | null) => void
- *
- * @param search
- *   (Opcional) Término de búsqueda actual para filtrar los GIFs.
- *   Tipo: string
- */
-
-interface GifsProps {
-  data: InfiniteData<GifsInterface, unknown>;
-  isLoading: boolean;
-  hasNextPage: boolean;
-  isFetchingNextPage: boolean;
+type GifsProps = UseInfiniteQueryResult<InfiniteData<Gifs, unknown>, Error> & {
   scrollTriggerRef: (node?: Element | null) => void;
+  inView: boolean;
   search?: string;
-}
+  related?: string;
+};
 
 export const GifsPage = ({
   data,
@@ -46,7 +17,19 @@ export const GifsPage = ({
   isFetchingNextPage,
   scrollTriggerRef,
   search,
+  related,
+  isError,
 }: GifsProps) => {
+  if (isError) {
+    return (
+      <div className="flex flex-1 justify-center items-center">
+        <h3 className="text-2xl md:text-4xl font-semibold">
+          Oops! Something went wrong.
+        </h3>
+      </div>
+    );
+  }
+
   if (!data?.pages) {
     return (
       <div className="flex flex-1 items-center justify-center">
@@ -60,11 +43,19 @@ export const GifsPage = ({
 
   return (
     <div className="flex flex-col self-center w-full max-w-[95rem] p-4 gap-4">
-      <h3 className="text-2xl md:text-4xl font-semibold">
-        {search
-          ? search.charAt(0).toUpperCase() + search.slice(1)
-          : "Trending Now"}
-      </h3>
+      <div className="">
+        <h3
+          className={twMerge(
+            "text-2xl md:text-4xl font-semibold",
+            related && "text-xl md:text-xl"
+          )}
+        >
+          {search
+            ? search.charAt(0).toUpperCase() + search.slice(1)
+            : "Trending Now"}
+        </h3>
+        {related && <p className="text-gray-400">{related}</p>}
+      </div>
 
       <div
         className="
@@ -86,7 +77,7 @@ export const GifsPage = ({
       {hasNextPage ? (
         <div
           ref={scrollTriggerRef}
-          className="pt-10 pb-40"
+          className="w-full flex justify-center items-center pt-10 pb-40"
         >
           {isFetchingNextPage && (
             <Spinner
@@ -96,8 +87,8 @@ export const GifsPage = ({
           )}
         </div>
       ) : (
-        <div className="text-center text-gray-500 py-10 text-xl">
-          No more GIFs
+        <div className="w-full text-center text-gray-500 py-10 text-xl">
+          <span>No more GIFs</span>
         </div>
       )}
     </div>

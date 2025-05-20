@@ -2,8 +2,13 @@ import { useGifActions } from "@/hooks";
 import { DataGifs } from "@/types";
 import { Button, useDisclosure } from "@heroui/react";
 import { twMerge } from "tailwind-merge";
-import { DownloadIcon, LinkIcon, NotLikeIcon, PaperPlaneIcom } from "../Icons";
-import { ModalShare } from "../Modals/ModalShare";
+import {
+  DownloadIcon,
+  LinkIcon,
+  NotLikeIcon,
+  PaperPlaneIcom,
+} from "../../Icons";
+import { ModalShare } from "./ModalShare";
 
 interface ButtonsSectionProps {
   className?: string;

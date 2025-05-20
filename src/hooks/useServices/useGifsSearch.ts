@@ -7,7 +7,7 @@ export function useGifsSearch(query: string) {
   const { ref: scrollTriggerRef, inView } = useInView();
 
   const data = useInfiniteQuery({
-    queryKey: ["gifs", query],
+    queryKey: ["gifs-search", query],
     queryFn: ({ pageParam = 0 }) =>
       getGifsSearch({
         q: query,

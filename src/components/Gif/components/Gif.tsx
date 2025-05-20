@@ -1,14 +1,14 @@
 import { Button, Image as ImgGif, useDisclosure } from "@heroui/react";
-import { ModalGif } from "../Modals/ModalGif";
+import { ModalGif } from "./ModalGif";
 import { DataGifs } from "@/types";
 import { memo, MouseEvent } from "react";
 import Link from "next/link";
-import { ExpandIcon, LikeIcon, NotLikeIcon } from "../Icons";
+import { ExpandIcon, LikeIcon, NotLikeIcon } from "@/components/Icons";
 
 export const Gif = memo(
   function Gif(gif: DataGifs) {
     const { images, id, title } = gif;
-    const modalControl = useDisclosure();
+    const modalGifControl = useDisclosure();
 
     const handleAddToFavorites = (
       e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -16,7 +16,6 @@ export const Gif = memo(
       e.preventDefault(); // Evita que se siga el enlace
       e.stopPropagation(); // Evita que el clic se propague al Link
       // Tu lógica...
-      alert(`Adding ${id} to favorites`);
     };
 
     const handleRemoveFromFavorites = (
@@ -25,7 +24,6 @@ export const Gif = memo(
       e.preventDefault(); // Evita que se siga el enlace
       e.stopPropagation(); // Evita que el clic se propague al Link
       // Tu lógica...
-      alert(`Removing ${id} from favorites`);
     };
 
     const handleExpand = (
@@ -34,14 +32,13 @@ export const Gif = memo(
       e.preventDefault(); // Evita que se siga el enlace
       e.stopPropagation(); // Evita que el clic se propague al Link
       // Tu lógica...
-      modalControl.onOpen();
+      modalGifControl.onOpen();
     };
 
     return (
       <>
         <Link
           href={`/detail/${id}`}
-          target="_blank"
           className="
           h-full border-none rounded-md overflow-hidden group/item relative 
 
@@ -106,7 +103,7 @@ export const Gif = memo(
 
         <ModalGif
           {...gif}
-          {...modalControl}
+          {...modalGifControl}
         />
       </>
     );

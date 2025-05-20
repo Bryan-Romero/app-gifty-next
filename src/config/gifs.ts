@@ -1,7 +1,7 @@
 import { GifsTrendingProps } from "@/services";
 
 export const gifs: GifsTrendingProps = {
-  limit: 10,
+  limit: 8,
   offset: 0,
-  rating: "g",
+  rating: "pg-13",
 };
