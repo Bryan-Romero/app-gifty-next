@@ -1,3 +1,5 @@
+"use client";
+
 import { BarsIcon, MoonFilledIcon, SunFilledIcon } from "@/components/Icons";
 import { useCustomTheme } from "@/hooks";
 import { ModalControl } from "@/types";
@@ -8,14 +10,13 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@heroui/react";
-import { useState } from "react";
 
 interface NavbarMenuComponentProps {
   signInModalControl: ModalControl;
   signUpModalControl: ModalControl;
 }
 
-export const NavbarMenuComponent = ({
+export const LoggedOutMenuNavbar = ({
   signInModalControl,
   signUpModalControl,
 }: NavbarMenuComponentProps) => {

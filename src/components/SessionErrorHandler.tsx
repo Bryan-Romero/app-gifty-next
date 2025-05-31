@@ -1,3 +1,5 @@
+"use client";
+
 import { ErrorEnum } from "@/types";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect } from "react";
@@ -7,7 +9,7 @@ export default function SessionErrorHandler() {
 
   useEffect(() => {
     if (session?.error === ErrorEnum.RefreshAccessTokenError) {
-      signOut({ redirect: false });
+      signOut({ callbackUrl: "/" });
     }
   }, [session?.error]);
 

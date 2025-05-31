@@ -2,6 +2,7 @@
 
 import {
   Input,
+  Link,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
@@ -9,7 +10,6 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { memo, useState } from "react";
 import { SearchIcon } from "../Icons";
@@ -23,7 +23,6 @@ import { TrendingSearches } from "./components/TrendingSearches";
 const NavbarComponent = () => {
   const signInModalControl = useDisclosure();
   const signUpModalControl = useDisclosure();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const { data: session } = useSession();
   const router = useRouter();
@@ -39,8 +38,6 @@ const NavbarComponent = () => {
       <NextUINavbar
         maxWidth="2xl"
         isBordered
-        isMenuOpen={isMenuOpen}
-        onMenuOpenChange={setIsMenuOpen}
       >
         {/* Logo */}
         <NavbarContent
@@ -52,8 +49,9 @@ const NavbarComponent = () => {
               href="/"
               className="flex items-center"
               onClick={() => setInputValue("")}
+              color="foreground"
             >
-              <h1 className="font-bold text-inherit text-xl select-none">
+              <h1 className="font-bold text-inherit text-4xl select-none">
                 GIFty
               </h1>
             </Link>
@@ -78,14 +76,14 @@ const NavbarComponent = () => {
           />
         </NavbarContent>
 
-        <NavbarContent
+        {/* <NavbarContent
           as="div"
           justify="center"
         >
           <ThemeSwitch />
-        </NavbarContent>
+        </NavbarContent> */}
         {/* Navbar menu */}
-        {/* <NavbarContent
+        <NavbarContent
           as="div"
           justify="center"
         >
@@ -99,10 +97,9 @@ const NavbarComponent = () => {
             <LoggedOutNavbar
               signInModalControl={signInModalControl}
               signUpModalControl={signUpModalControl}
-              isMenuOpen={isMenuOpen}
             />
           )}
-        </NavbarContent> */}
+        </NavbarContent>
       </NextUINavbar>
 
       {/* Trending Searches */}

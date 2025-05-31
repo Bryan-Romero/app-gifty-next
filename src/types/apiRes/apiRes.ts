@@ -1,5 +1,4 @@
 export interface ApiRes<T> {
-  data: T;
+  data: T | null;
   statusCode: number;
-  error: any;
 }

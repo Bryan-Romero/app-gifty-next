@@ -4,10 +4,15 @@ import { MessageRes } from "@/types/apiRes/message-res";
 import { TSignUpSchema } from "@/types/schemas/signUp";
 import { AxiosError } from "axios";
 
-export const signUp = (data: TSignUpSchema) => {
-  return ApiClient.post<ApiRes<MessageRes>>("auth/signup", data)
-    .then((res) => res.data.data)
-    .catch((err: AxiosError<any>) => {
-      throw err;
-    });
-};
+export async function signUp(data: TSignUpSchema): Promise<MessageRes | null> {
+  try {
+    const res = await ApiClient.post<ApiRes<MessageRes>>("auth/signup", data);
+    return res.data.data;
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      const errorResponse = err.response?.data?.response;
+      throw { fieldErrors: errorResponse };
+    }
+    throw err;
+  }
+}

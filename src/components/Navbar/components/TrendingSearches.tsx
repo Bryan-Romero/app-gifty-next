@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowTrendUpIcon,
   ChevronLeftIcon,
@@ -11,7 +13,7 @@ export const TrendingSearches = () => {
   const { atEnd, atStart, scrollLeft, scrollRef, scrollRight } =
     useScrollButtons([trendingSearches]);
 
-  if (!isLoading && !isError)
+  if (!isLoading && !isError) {
     return (
       <div className="flex justify-center mt-4 md:mt-6">
         <div className="relative group w-full max-w-[95rem] px-4">
@@ -74,4 +76,7 @@ export const TrendingSearches = () => {
         </div>
       </div>
     );
+  } else {
+    return null;
+  }
 };

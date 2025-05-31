@@ -1,3 +1,5 @@
+"use client";
+
 import { UserGiphy } from "@/types";
 import { Avatar, Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
 import { useEffect, useRef, useState } from "react";

@@ -1,3 +1,5 @@
+"use client";
+
 import { DataGifs } from "@/types";
 import {
   Button,
@@ -88,7 +90,7 @@ export function ModalGif({
               <Button
                 color="primary"
                 as={Link}
-                href={`/detail/${id}`}
+                href={`/gif/${id}`}
               >
                 Detail
               </Button>

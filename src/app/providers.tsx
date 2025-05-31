@@ -1,13 +1,14 @@
 "use client";
 
-import { AlertProps, HeroUIProvider } from "@heroui/react";
+import { XMarkIcon } from "@/components/Icons";
+import { AlertProps, HeroUIProvider, ToastProvider } from "@heroui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 import * as React from "react";
 import SessionErrorHandler from "../components/SessionErrorHandler";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -29,14 +30,24 @@ export default function Providers({ children, themeProps }: ProvidersProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SpeedInsights /> {/** Collection performance metrics */}
       <SessionProvider
         // Re-fetch session every 5 minutes
         refetchInterval={5 * 60}
         // Re-fetches session when window is focused
-        refetchOnWindowFocus={true}
+        refetchOnWindowFocus={false}
       >
         <SessionErrorHandler />
         <HeroUIProvider>
+          <ToastProvider
+            toastProps={{
+              classNames: {
+                closeButton:
+                  "opacity-100 absolute right-4 top-1/2 -translate-y-1/2",
+              },
+              closeIcon: <XMarkIcon size="2x" />,
+            }}
+          />
           <NextThemesProvider {...themeProps}>
             <appContext.Provider value={{ alerts, setAlerts }}>
               {children}
@@ -44,7 +55,6 @@ export default function Providers({ children, themeProps }: ProvidersProps) {
           </NextThemesProvider>
         </HeroUIProvider>
       </SessionProvider>
-      <SpeedInsights /> {/** Collection performance metrics */}
     </QueryClientProvider>
   );
 }

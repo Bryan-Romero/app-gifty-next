@@ -1,18 +1,18 @@
-import { useAlerts } from "@/hooks";
 import { DataGifs } from "@/types";
+import { addToast, Button } from "@heroui/react";
 import { useCallback, useState } from "react";
 
 export function useGifActions(gif?: DataGifs) {
-  const { pushAlert } = useAlerts();
   const [downloading, setDownloading] = useState(false);
 
   // Descargar GIF
   const handleDownload = useCallback(async () => {
     if (!gif) {
-      pushAlert({
+      addToast({
         color: "danger",
         title: "No GIF found",
         description: "Please try again later.",
+        timeout: 3000,
       });
       return;
     }
@@ -32,25 +32,27 @@ export function useGifActions(gif?: DataGifs) {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(blobUrl);
     } catch (error) {
-      pushAlert({
+      addToast({
         color: "danger",
         title: "Something went wrong",
         description: "Please try again later.",
+        timeout: 3000,
       });
     }
     setDownloading(false);
-  }, [gif, pushAlert]);
+  }, [gif]);
 
   // Copiar enlace
   const handleCopyLink = useCallback(() => {
     navigator.clipboard.writeText(window.location.href).then(() => {
-      pushAlert({
+      addToast({
         color: "success",
         title: "Link copied",
         description: "The link has been copied to the clipboard.",
+        timeout: 3000,
       });
     });
-  }, [pushAlert]);
+  }, []);
 
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
     window.location.href

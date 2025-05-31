@@ -13,16 +13,21 @@ export async function getGifsTrending({
   limit,
   offset,
   rating,
-}: GifsTrendingProps = gifs) {
-  return await ApiClientGiphy.get<Gifs>("gifs/trending", {
-    params: {
-      limit,
-      offset,
-      rating,
-    },
-  })
-    .then((res) => res.data)
-    .catch((err: AxiosError<any>) => {
-      throw err;
+}: GifsTrendingProps = gifs): Promise<Gifs | null> {
+  try {
+    const response = await ApiClientGiphy.get<Gifs>("gifs/trending", {
+      params: {
+        limit,
+        offset,
+        rating,
+      },
     });
+    return response.data;
+  } catch (err) {
+    // Puedes loguear el error aquí si lo necesitas
+    // console.error("Error en getMe:", err);
+    // return null; // O puedes lanzar un error si prefieres
+    // throw new Error("No se pudo obtener el usuario");
+    throw { gifty: "ERROR" };
+  }
 }

@@ -1,3 +1,6 @@
+"use client";
+
+import { useGifActions } from "@/hooks";
 import {
   Button,
   Link,
@@ -15,7 +18,6 @@ import {
   WhatsappIcon,
   XTwitterIcon,
 } from "../../Icons";
-import { useGifActions } from "@/hooks";
 
 export const ModalShare = ({
   isOpen,

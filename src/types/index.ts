@@ -12,5 +12,7 @@ export * from "./common/next-auth.d";
 export * from "./giphy/gif";
 export * from "./giphy/gifs";
 export * from "./giphy/trendingSearches";
+export * from "./schemas/email";
+export * from "./schemas/resetPassword";
 export * from "./schemas/signIn";
 export * from "./schemas/signUp";
