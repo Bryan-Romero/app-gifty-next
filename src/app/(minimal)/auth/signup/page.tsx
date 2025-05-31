@@ -6,7 +6,7 @@ import { CircleCheckIcon } from "@/components/Icons";
 import { useSignUpForm } from "@/hooks";
 import { Button, Card, CardBody, Link } from "@heroui/react";
 
-export default function page() {
+export default function Page() {
   const formId = "sign-up-form";
   const {
     form,

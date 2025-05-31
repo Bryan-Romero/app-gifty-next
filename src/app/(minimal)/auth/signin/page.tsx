@@ -7,7 +7,7 @@ import { ErrorEnum } from "@/types";
 import { Button, Card, CardBody, Link } from "@heroui/react";
 import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function Page() {
   const formId = "sign-in-form";
   const { form, errorSignIn, setErrorSignIn, isSubmitting, onSubmit } =
     useSignInForm({ redirect: "/" });

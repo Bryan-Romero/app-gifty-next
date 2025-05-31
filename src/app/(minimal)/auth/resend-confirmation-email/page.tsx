@@ -6,7 +6,7 @@ import { useResendEmailForm } from "@/hooks";
 import { Button, Form, Input, Link } from "@heroui/react";
 import { useEffect } from "react";
 
-export default function page() {
+export default function Page() {
   const formId = "resend-confirmation-email-form";
   const {
     errorResendEmail,

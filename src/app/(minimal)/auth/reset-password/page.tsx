@@ -7,7 +7,7 @@ import { Button, Form, Input, Link } from "@heroui/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function page() {
+export default function Page() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const formId = "reset-password-form";

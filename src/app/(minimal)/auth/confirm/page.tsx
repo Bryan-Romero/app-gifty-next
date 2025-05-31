@@ -6,7 +6,7 @@ import { useVerificationEmail } from "@/hooks/useServices/useVerificationEmail";
 import { Button, Link, Spinner } from "@heroui/react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function page() {
+export default function Page() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const { isLoading, isError, error } = useVerificationEmail(token);
