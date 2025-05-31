@@ -1,8 +1,10 @@
+"use client";
+
 import { Gifs } from "@/types";
 import { Spinner } from "@heroui/react";
 import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
-import { Gif } from "./components/Gif";
 import { twMerge } from "tailwind-merge";
+import { Gif } from "./components/Gif";
 
 type GifsProps = UseInfiniteQueryResult<InfiniteData<Gifs, unknown>, Error> & {
   scrollTriggerRef: (node?: Element | null) => void;

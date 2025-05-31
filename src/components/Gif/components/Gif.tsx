@@ -1,9 +1,11 @@
-import { Button, Image as ImgGif, useDisclosure } from "@heroui/react";
-import { ModalGif } from "./ModalGif";
-import { DataGifs } from "@/types";
-import { memo, MouseEvent } from "react";
-import Link from "next/link";
+"use client";
+
 import { ExpandIcon, LikeIcon, NotLikeIcon } from "@/components/Icons";
+import { DataGifs } from "@/types";
+import { Button, Image as ImgGif, useDisclosure } from "@heroui/react";
+import Link from "next/link";
+import { memo, MouseEvent } from "react";
+import { ModalGif } from "./ModalGif";
 
 export const Gif = memo(
   function Gif(gif: DataGifs) {
@@ -38,7 +40,7 @@ export const Gif = memo(
     return (
       <>
         <Link
-          href={`/detail/${id}`}
+          href={`/gif/${id}`}
           className="
           h-full border-none rounded-md overflow-hidden group/item relative 
 

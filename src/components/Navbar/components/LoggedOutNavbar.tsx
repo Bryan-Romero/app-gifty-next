@@ -1,11 +1,12 @@
+"use client";
+
 import { ModalControl } from "@/types";
 import { Button, NavbarItem } from "@heroui/react";
-import { NavbarMenuComponent } from "./NavbarMenuComponent";
+import { LoggedOutMenuNavbar } from "./LoggedOutMenuNavbar";
 
 interface LoggedOutNavbarProps {
   signInModalControl: ModalControl;
   signUpModalControl: ModalControl;
-  isMenuOpen: boolean;
 }
 
 export const LoggedOutNavbar = ({
@@ -36,7 +37,7 @@ export const LoggedOutNavbar = ({
 
       {/* Mobile Navbar menu */}
       <NavbarItem className="flex md:hidden">
-        <NavbarMenuComponent
+        <LoggedOutMenuNavbar
           signInModalControl={signInModalControl}
           signUpModalControl={signUpModalControl}
         />

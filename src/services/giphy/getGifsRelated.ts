@@ -22,8 +22,11 @@ export async function getGifsRelated(
       params,
     });
     return response.data;
-  } catch (error) {
-    console.error("Error fetching related GIFs:", error);
-    return null;
+  } catch (err) {
+    // Puedes loguear el error aquí si lo necesitas
+    // console.error("Error en getMe:", err);
+    // return null; // O puedes lanzar un error si prefieres
+    // throw new Error("No se pudo obtener el usuario");
+    throw err;
   }
 }

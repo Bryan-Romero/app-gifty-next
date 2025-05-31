@@ -5,9 +5,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Navbar } from "../components/Navbar/NavbarComponent";
 import Providers from "./providers";
-import { Alerts } from "@/components/Alerts";
 
 config.autoAddCss = false;
 
@@ -49,9 +47,7 @@ export default function RootLayout({
           themeProps={{ attribute: "class", defaultTheme: "dark", children }}
         >
           <div className="relative flex flex-col min-h-screen">
-            <Navbar />
             <main className="flex flex-col flex-1">{children}</main>
-            <Alerts />
           </div>
         </Providers>
       </body>

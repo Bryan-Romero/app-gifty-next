@@ -3,6 +3,10 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
+/** useQuery: For simple data retrieval (GET, without pagination).
+    useInfiniteQuery: For paginated/infinite data retrieval (GET, with pagination or infinite scrolling).
+    useMutation: For creating, updating, or deleting data (POST, PUT, PATCH, DELETE). */
+
 export function useGifsSearch(query: string) {
   const { ref: scrollTriggerRef, inView } = useInView();
 

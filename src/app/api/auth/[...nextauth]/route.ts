@@ -20,21 +20,24 @@ const handler = NextAuth({
           placeholder: "**********",
         },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         try {
-          if (!credentials?.email || !credentials?.password) return null;
+          if (!credentials?.email || !credentials?.password)
+            throw new Error("Email and password required");
+
+          const res = await signIn({
+            email: credentials.email,
+            password: credentials.password,
+          });
 
           return await signIn({
             email: credentials.email,
             password: credentials.password,
           });
-        } catch (error: any) {
-          console.log(error);
-          if (error?.response?.status === 403) {
-            throw new Error("Invalid credentials");
-          } else {
-            throw new Error("Something went wrong");
-          }
+        } catch (error) {
+          /** NextAuth will always respond to the frontend with a 401
+           * When you throw an error in authorize */
+          throw error;
         }
       },
     }),

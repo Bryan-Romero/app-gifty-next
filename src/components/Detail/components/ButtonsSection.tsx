@@ -1,3 +1,5 @@
+"use client";
+
 import { useGifActions } from "@/hooks";
 import { DataGifs } from "@/types";
 import { Button, useDisclosure } from "@heroui/react";

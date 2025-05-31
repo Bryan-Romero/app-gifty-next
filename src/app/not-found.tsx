@@ -1,12 +1,55 @@
-import Link from "next/link";
+"use client";
+
+import { FaceFrownIcon } from "@/components/Icons";
+import { NavbarMinimal } from "@/components/Navbar/minimal/NavbarMinimal";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Link,
+} from "@heroui/react";
 
 export default function NotFound() {
   //IDWVaONxBtkcPOd6pc
   return (
-    <div className="flex flex-1 justify-center items-center">
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-      <Link href="/">Return Home</Link>
-    </div>
+    <>
+      <NavbarMinimal />
+      <div className="flex-1 flex flex-col items-center justify-center p-4">
+        <Card
+          className="max-w-md gap-2 p-4"
+          shadow="md"
+        >
+          <CardHeader className="flex justify-center">
+            <FaceFrownIcon
+              size="6x"
+              color="#ef4444"
+            />
+          </CardHeader>
+
+          <CardBody>
+            <h1 className="text-3xl font-bold text-center mb-2">
+              404 - Page Not Found
+            </h1>
+            <p className="text-center text-gray-600">
+              Sorry, the page you are looking for does not exist or has been
+              moved.
+            </p>
+          </CardBody>
+
+          <CardFooter className="flex justify-center">
+            <Button
+              variant="solid"
+              color="primary"
+              as={Link}
+              href="/"
+            >
+              Go to Homepage
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+    </>
   );
 }
