@@ -50,7 +50,7 @@ export default function Page() {
               className="mb-4"
             />
             <p className="text-lg font-semibold text-center">
-              ¡Unconfirmed mail!"
+              ¡Unconfirmed mail!
             </p>
             <p className="text-gray-500 text-center text-sm mt-2">
               {error.message}

@@ -67,7 +67,7 @@ export default function Page() {
         <Card className="w-full max-w-md mt-5">
           <CardBody className="text-center">
             <p className="text-base text-gray-600">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 color="primary"
                 href="/auth/signup"
