@@ -1,7 +1,6 @@
 import { gifs } from "@/config";
 import ApiClientGiphy from "@/lib/axios-client-giphy";
 import { Gifs } from "@/types";
-import { AxiosError } from "axios";
 
 export interface GifsTrendingProps {
   limit?: number;

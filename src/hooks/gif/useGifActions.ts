@@ -1,9 +1,47 @@
-import { DataGifs } from "@/types";
-import { addToast, Button } from "@heroui/react";
-import { useCallback, useState } from "react";
+import { DataGif, ModalControl } from "@/types";
+import { addToast } from "@heroui/react";
+import { useSession } from "next-auth/react";
+import { MouseEvent, useCallback, useState } from "react";
+import { useAddFavorite } from "../useServices/useAddFavorite";
+import { useRemoveFavorite } from "../useServices/useRemoveFavorite";
 
-export function useGifActions(gif?: DataGifs) {
+export function useGifActions(gif?: DataGif, modal?: ModalControl) {
+  const { data: session } = useSession();
+  const addFavorite = useAddFavorite();
+  const removeFavorite = useRemoveFavorite();
   const [downloading, setDownloading] = useState(false);
+
+  const handleAddToFavorites = async (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    e.preventDefault(); // Evita que se siga el enlace
+    e.stopPropagation(); // Evita que el clic se propague al Link
+    // Tu lógica...
+    if (!session) {
+      modal?.onOpen();
+    } else {
+      await addFavorite.mutateAsync({
+        gifId: gif.id,
+        token: session.tokens.access_token,
+      });
+    }
+  };
+
+  const handleRemoveFromFavorites = async (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    e.preventDefault(); // Evita que se siga el enlace
+    e.stopPropagation(); // Evita que el clic se propague al Link
+    // Tu lógica...
+    if (!session) {
+      modal?.onOpen();
+    } else {
+      await removeFavorite.mutateAsync({
+        gifId: gif.id,
+        token: session.tokens.access_token,
+      });
+    }
+  };
 
   // Descargar GIF
   const handleDownload = useCallback(async () => {
@@ -68,6 +106,8 @@ export function useGifActions(gif?: DataGifs) {
   )}`;
 
   return {
+    handleAddToFavorites,
+    handleRemoveFromFavorites,
     handleDownload,
     handleCopyLink,
     facebookUrl,

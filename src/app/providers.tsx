@@ -18,11 +18,15 @@ export interface ProvidersProps {
 const queryClient = new QueryClient();
 
 const appContext = React.createContext<{
-  alerts: AlertProps[];
-  setAlerts: React.Dispatch<React.SetStateAction<AlertProps[]>>;
+  alerts: {
+    data: AlertProps[];
+    set: React.Dispatch<React.SetStateAction<AlertProps[]>>;
+  };
 }>({
-  alerts: [],
-  setAlerts: () => {},
+  alerts: {
+    data: [],
+    set: () => {},
+  },
 });
 
 export default function Providers({ children, themeProps }: ProvidersProps) {
@@ -49,7 +53,14 @@ export default function Providers({ children, themeProps }: ProvidersProps) {
             }}
           />
           <NextThemesProvider {...themeProps}>
-            <appContext.Provider value={{ alerts, setAlerts }}>
+            <appContext.Provider
+              value={{
+                alerts: {
+                  data: alerts,
+                  set: setAlerts,
+                },
+              }}
+            >
               {children}
             </appContext.Provider>
           </NextThemesProvider>

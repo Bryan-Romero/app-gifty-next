@@ -1,12 +1,14 @@
 import ApiClientGiphy from "@/lib/axios-client-giphy";
-import { TrendingSearches } from "@/types";
+import { Gifs } from "@/types";
 
-export async function getTrendingSearches(): Promise<TrendingSearches | null> {
+export async function getGifsByID(ids: string[]): Promise<Gifs | null> {
   try {
-    const response = await ApiClientGiphy.get<TrendingSearches>(
-      "trending/searches"
-    );
-    return response.data;
+    const res = await ApiClientGiphy.get<Gifs>(`gifs`, {
+      params: {
+        ids: ids.join(","),
+      },
+    });
+    return res.data;
   } catch (err) {
     // Puedes loguear el error aquí si lo necesitas
     // console.error("Error en getMe:", err);

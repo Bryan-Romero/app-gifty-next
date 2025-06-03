@@ -1,6 +1,6 @@
-import { DataGifs, Meta } from "./gifs";
+import { DataGif, Meta } from "./gifs";
 
 export interface Gif {
-  data: DataGifs;
+  data: DataGif;
   meta: Meta;
 }

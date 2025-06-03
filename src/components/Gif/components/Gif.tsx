@@ -1,32 +1,27 @@
 "use client";
 
 import { ExpandIcon, LikeIcon, NotLikeIcon } from "@/components/Icons";
-import { DataGifs } from "@/types";
+import { ModalSignIn } from "@/components/Modals/ModalSignIn";
+import { useGifActions } from "@/hooks";
+import { DataGif } from "@/types";
 import { Button, Image as ImgGif, useDisclosure } from "@heroui/react";
 import Link from "next/link";
 import { memo, MouseEvent } from "react";
 import { ModalGif } from "./ModalGif";
 
+interface GifProps extends DataGif {
+  isInFavorites: boolean;
+}
+
 export const Gif = memo(
-  function Gif(gif: DataGifs) {
+  function Gif({ isInFavorites, ...gif }: GifProps) {
     const { images, id, title } = gif;
-    const modalGifControl = useDisclosure();
-
-    const handleAddToFavorites = (
-      e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-      e.preventDefault(); // Evita que se siga el enlace
-      e.stopPropagation(); // Evita que el clic se propague al Link
-      // Tu lógica...
-    };
-
-    const handleRemoveFromFavorites = (
-      e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-      e.preventDefault(); // Evita que se siga el enlace
-      e.stopPropagation(); // Evita que el clic se propague al Link
-      // Tu lógica...
-    };
+    const gifModalControl = useDisclosure();
+    const signInModalControl = useDisclosure();
+    const { handleAddToFavorites, handleRemoveFromFavorites } = useGifActions(
+      gif,
+      signInModalControl
+    );
 
     const handleExpand = (
       e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -34,7 +29,7 @@ export const Gif = memo(
       e.preventDefault(); // Evita que se siga el enlace
       e.stopPropagation(); // Evita que el clic se propague al Link
       // Tu lógica...
-      modalGifControl.onOpen();
+      gifModalControl.onOpen();
     };
 
     return (
@@ -70,7 +65,7 @@ export const Gif = memo(
           </div>
 
           <div className="overflow-hidden absolute right-0 top-0 z-10 h-full flex flex-col justify-start gap-2 p-1">
-            {false ? (
+            {isInFavorites ? (
               <Button
                 isIconOnly
                 onClick={handleRemoveFromFavorites} //Usar onClick solo en los botones dentro de <Link></Link>
@@ -105,12 +100,16 @@ export const Gif = memo(
 
         <ModalGif
           {...gif}
-          {...modalGifControl}
+          {...gifModalControl}
         />
+        <ModalSignIn {...signInModalControl} />
       </>
     );
   },
   (prevProps, nextProps) => {
-    return prevProps.id === nextProps.id;
+    return (
+      prevProps.id === nextProps.id &&
+      prevProps.isInFavorites === nextProps.isInFavorites
+    );
   }
 );

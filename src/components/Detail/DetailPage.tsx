@@ -1,6 +1,6 @@
 "use client";
 
-import { useGifByID, useGifsRelated } from "@/hooks";
+import { useAllIDsFavorites, useGifByID, useGifsRelated } from "@/hooks";
 import { Image, Spinner } from "@heroui/react";
 import { GifsPage } from "../Gif/GifsPage";
 import { ButtonsSection } from "./components/ButtonsSection";
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default function DetailPage({ gif_id }: Props) {
+  const { data: favoritesIDs } = useAllIDsFavorites();
   const { gif, isLoading, isError } = useGifByID(gif_id);
   const data = useGifsRelated(gif_id);
 
@@ -72,14 +73,15 @@ export default function DetailPage({ gif_id }: Props) {
         {/** BUTTONS */}
         <ButtonsSection
           className="row-start-3 md:row-start-2"
-          gif={gif.data}
+          isInFavorites={favoritesIDs.includes(gif_id)}
+          {...gif.data}
         />
       </div>
 
       {/** Related GIFs */}
       <GifsPage
-        search="Related GIFs"
-        related={gif.data.title}
+        tittle="Related GIFs"
+        subTittle={gif.data.title}
         {...data}
       />
     </>

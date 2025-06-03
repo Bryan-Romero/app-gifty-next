@@ -1,16 +1,16 @@
 "use client";
 
+import { useAllIDsFavorites } from "@/hooks";
 import { Gifs } from "@/types";
 import { Spinner } from "@heroui/react";
 import { InfiniteData, UseInfiniteQueryResult } from "@tanstack/react-query";
-import { twMerge } from "tailwind-merge";
 import { Gif } from "./components/Gif";
 
 type GifsProps = UseInfiniteQueryResult<InfiniteData<Gifs, unknown>, Error> & {
   scrollTriggerRef: (node?: Element | null) => void;
   inView: boolean;
-  search?: string;
-  related?: string;
+  tittle?: string;
+  subTittle?: string;
 };
 
 export const GifsPage = ({
@@ -18,10 +18,13 @@ export const GifsPage = ({
   hasNextPage,
   isFetchingNextPage,
   scrollTriggerRef,
-  search,
-  related,
+  tittle,
+  subTittle,
   isError,
 }: GifsProps) => {
+  const { data: favoritesIDs } = useAllIDsFavorites();
+  const hasGifs = data?.pages.some((page) => page?.data.length > 0);
+
   if (isError) {
     return (
       <div className="flex flex-1 justify-center items-center">
@@ -44,19 +47,15 @@ export const GifsPage = ({
   }
 
   return (
-    <div className="flex flex-col self-center w-full max-w-[95rem] p-4 gap-4">
+    <div className="flex-1 flex flex-col self-center w-full max-w-[95rem] p-4 gap-4">
       <div className="">
-        <h3
-          className={twMerge(
-            "text-2xl md:text-4xl font-semibold",
-            related && "text-xl md:text-xl"
-          )}
-        >
-          {search
-            ? search.charAt(0).toUpperCase() + search.slice(1)
-            : "Trending Now"}
-        </h3>
-        {related && <p className="text-gray-400">{related}</p>}
+        {tittle && (
+          <h3 className="text-2xl md:text-4xl font-semibold">
+            {tittle.charAt(0).toUpperCase() + tittle.slice(1)}
+          </h3>
+        )}
+
+        {subTittle && <p className="text-gray-400">{subTittle}</p>}
       </div>
 
       <div
@@ -70,6 +69,7 @@ export const GifsPage = ({
           page.data.map((gif) => (
             <Gif
               key={gif.id}
+              isInFavorites={favoritesIDs.includes(gif.id)}
               {...gif}
             />
           ))
@@ -88,9 +88,13 @@ export const GifsPage = ({
             />
           )}
         </div>
-      ) : (
+      ) : hasGifs ? (
         <div className="w-full text-center text-gray-500 py-10 text-xl">
           <span>No more GIFs</span>
+        </div>
+      ) : (
+        <div className="w-full flex-1 flex justify-center items-center text-center text-gray-500 py-10 text-2xl font-semibold">
+          <span>No GIFs</span>
         </div>
       )}
     </div>
