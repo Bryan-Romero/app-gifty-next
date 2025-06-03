@@ -15,6 +15,7 @@ const ApiClientGiphy = axios.create(defaultOptions);
 ApiClientGiphy.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log("🚀 ~ error:", error);
     if (error instanceof AxiosError) {
       if (!error.response) {
         // Es un error de red (Network Error, timeout, etc.)

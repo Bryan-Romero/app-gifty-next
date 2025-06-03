@@ -1,25 +1,38 @@
 "use client";
 
+import { ModalSignIn } from "@/components/Modals/ModalSignIn";
 import { useGifActions } from "@/hooks";
-import { DataGifs } from "@/types";
+import { DataGif } from "@/types";
 import { Button, useDisclosure } from "@heroui/react";
 import { twMerge } from "tailwind-merge";
 import {
   DownloadIcon,
+  LikeIcon,
   LinkIcon,
   NotLikeIcon,
   PaperPlaneIcom,
 } from "../../Icons";
 import { ModalShare } from "./ModalShare";
 
-interface ButtonsSectionProps {
+interface ButtonsSectionProps extends DataGif {
   className?: string;
-  gif: DataGifs;
+  isInFavorites: boolean;
 }
 
-export const ButtonsSection = ({ className, gif }: ButtonsSectionProps) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { handleDownload, handleCopyLink, downloading } = useGifActions(gif);
+export const ButtonsSection = ({
+  className,
+  isInFavorites,
+  ...gif
+}: ButtonsSectionProps) => {
+  const shareModalControl = useDisclosure();
+  const signInModalControl = useDisclosure();
+  const {
+    handleDownload,
+    handleCopyLink,
+    downloading,
+    handleAddToFavorites,
+    handleRemoveFromFavorites,
+  } = useGifActions(gif, signInModalControl);
 
   return (
     <>
@@ -30,14 +43,28 @@ export const ButtonsSection = ({ className, gif }: ButtonsSectionProps) => {
         )}
       >
         {/* DESKTOP SECTIO */}
-        <Button
-          className="hidden md:flex text-lg"
-          color="danger"
-          variant="flat"
-          startContent={<NotLikeIcon />}
-        >
-          Favorite
-        </Button>
+        {isInFavorites ? (
+          <Button
+            className="hidden md:flex text-lg"
+            color="danger"
+            variant="flat"
+            startContent={<LikeIcon />}
+            onClick={handleRemoveFromFavorites}
+          >
+            Remove favorite
+          </Button>
+        ) : (
+          <Button
+            className="hidden md:flex text-lg"
+            color="danger"
+            variant="flat"
+            startContent={<NotLikeIcon />}
+            onClick={handleAddToFavorites}
+          >
+            Favorite
+          </Button>
+        )}
+
         <Button
           className="hidden md:flex text-lg"
           color="success"
@@ -73,7 +100,7 @@ export const ButtonsSection = ({ className, gif }: ButtonsSectionProps) => {
           isIconOnly
           color="success"
           variant="flat"
-          onPress={onOpen}
+          onPress={shareModalControl.onOpen}
         >
           <PaperPlaneIcom size="xl" />
         </Button>
@@ -90,9 +117,10 @@ export const ButtonsSection = ({ className, gif }: ButtonsSectionProps) => {
         </Button>
       </div>
       <ModalShare
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        isOpen={shareModalControl.isOpen}
+        onOpenChange={shareModalControl.onOpenChange}
       />
+      <ModalSignIn {...signInModalControl} />
     </>
   );
 };

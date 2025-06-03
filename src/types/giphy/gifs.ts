@@ -1,10 +1,10 @@
 export interface Gifs {
-  data: Array<DataGifs>;
+  data: DataGif[];
   meta: Meta;
   pagination: Pagination;
 }
 
-export interface DataGifs {
+export interface DataGif {
   type: string;
   id: string;
   slug: string;

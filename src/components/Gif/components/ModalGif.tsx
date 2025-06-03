@@ -1,6 +1,6 @@
 "use client";
 
-import { DataGifs } from "@/types";
+import { DataGif } from "@/types";
 import {
   Button,
   Image,
@@ -15,7 +15,7 @@ import {
 } from "@heroui/react";
 import { useState } from "react";
 
-type ModalGifProps = Omit<ModalProps, "children"> & DataGifs;
+type ModalGifProps = Omit<ModalProps, "children"> & DataGif;
 
 export function ModalGif({
   title,

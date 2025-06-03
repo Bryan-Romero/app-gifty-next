@@ -9,7 +9,7 @@ export default function Page({ params }: { params: { search: string } }) {
 
   return (
     <GifsPage
-      search={search}
+      tittle={search}
       {...data}
     />
   );
