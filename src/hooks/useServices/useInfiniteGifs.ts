@@ -1,5 +1,5 @@
 import { Gifs } from "@/types";
-import { useInfiniteQuery, QueryFunction } from "@tanstack/react-query";
+import { QueryFunction, useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 

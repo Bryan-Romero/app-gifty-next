@@ -1,8 +1,8 @@
+import ApiClient from "@/lib/axios-client";
+import { AccessRes, ErrorEnum } from "@/types";
 import { ApiRes } from "@/types/apiRes/apiRes";
 import { TSignInSchema } from "@/types/schemas/signIn";
 import { AxiosError } from "axios";
-import ApiClient from "@/lib/axios-client";
-import { AccessRes, ErrorEnum } from "@/types";
 
 export async function signIn(data: TSignInSchema): Promise<AccessRes | null> {
   try {
