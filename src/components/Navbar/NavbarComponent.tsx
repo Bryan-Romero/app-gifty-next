@@ -11,7 +11,7 @@ import {
 } from "@heroui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { memo, useState } from "react";
+import { FormEvent, memo, useState } from "react";
 import { SearchIcon } from "../Icons";
 import { ModalSignIn } from "../Modals/ModalSignIn";
 import { ModalSignUp } from "../Modals/ModalSignUp";
@@ -24,13 +24,13 @@ const NavbarComponent = () => {
   const signInModalControl = useDisclosure();
   const signUpModalControl = useDisclosure();
   const [inputValue, setInputValue] = useState("");
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputValue.trim()) {
+  const handleOnSubmit = (e: FormEvent<HTMLUListElement>) => {
+    e.preventDefault();
+    if (inputValue)
       router.push(`/search/${encodeURIComponent(inputValue.trim())}`);
-    }
   };
 
   return (
@@ -60,15 +60,16 @@ const NavbarComponent = () => {
 
         {/* Search input */}
         <NavbarContent
-          as="div"
+          as="form"
           className="max-w-lg"
+          onSubmit={handleOnSubmit}
         >
           <Input
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyDown}
             placeholder="Type to search..."
             type="search"
+            enterKeyHint="search"
             startContent={<SearchIcon size="lg" />}
             classNames={{
               input: "text-lg",
@@ -76,13 +77,6 @@ const NavbarComponent = () => {
           />
         </NavbarContent>
 
-        {/* <NavbarContent
-          as="div"
-          justify="center"
-        >
-          <ThemeSwitch />
-        </NavbarContent> */}
-        {/* Navbar menu */}
         <NavbarContent
           as="div"
           justify="center"
@@ -91,7 +85,7 @@ const NavbarComponent = () => {
             <ThemeSwitch />
           </NavbarItem>
 
-          {session && session.user ? (
+          {status === "authenticated" ? (
             <LoggedInNavbar {...session} />
           ) : (
             <LoggedOutNavbar

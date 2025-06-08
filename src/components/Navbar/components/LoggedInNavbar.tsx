@@ -9,7 +9,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Link,
   NavbarItem,
 } from "@heroui/react";
 import { Session } from "next-auth";
@@ -32,7 +31,7 @@ export const LoggedInNavbar = (session: Session) => {
           <Avatar
             isBordered
             as="button"
-            className="transition-transform"
+            className="cursor-pointer transition-transform"
             color="secondary"
             name={session.user.username}
             size="sm"
@@ -70,7 +69,7 @@ export const LoggedInNavbar = (session: Session) => {
 
           {pathname !== "/" && (
             <DropdownItem
-              as={Link}
+              as="a"
               href="/"
               key="home"
               color="default"
@@ -80,7 +79,7 @@ export const LoggedInNavbar = (session: Session) => {
           )}
 
           <DropdownItem
-            as={Link}
+            as="a"
             href="/my/favorites"
             key="favorites"
             color="secondary"
@@ -89,7 +88,7 @@ export const LoggedInNavbar = (session: Session) => {
           </DropdownItem>
 
           <DropdownItem
-            as={Link}
+            as="a"
             href="/my/settings"
             key="settings"
             color="primary"

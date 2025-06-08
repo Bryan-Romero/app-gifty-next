@@ -1,15 +1,13 @@
+import { fontMono, fontSans } from "@/config";
 import { siteConfig } from "@/config/site";
 import "@/styles/globals.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import clsx from "clsx";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Providers from "./providers";
+import { Providers } from "./_lib/context";
 
 config.autoAddCss = false;
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -40,12 +38,11 @@ export default function RootLayout({
       <body
         className={clsx(
           "min-h-screen bg-background font-sans antialiased",
-          inter.className
+          fontSans.variable,
+          fontMono.variable
         )}
       >
-        <Providers
-          themeProps={{ attribute: "class", defaultTheme: "dark", children }}
-        >
+        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative flex flex-col min-h-screen">
             <main className="flex flex-col flex-1">{children}</main>
           </div>

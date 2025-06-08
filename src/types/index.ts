@@ -10,7 +10,6 @@ export * from "./common/error.enum";
 export * from "./common/iconSvgProps";
 export * from "./common/keys.enum";
 export * from "./common/modalControl";
-export * from "./common/next-auth.d";
 export * from "./giphy/gif";
 export * from "./giphy/gifs";
 export * from "./giphy/trendingSearches";

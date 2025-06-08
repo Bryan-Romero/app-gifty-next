@@ -47,7 +47,7 @@ export const GifsPage = ({
   }
 
   return (
-    <div className="flex-1 flex flex-col self-center w-full max-w-[95rem] p-4 gap-4">
+    <div className="flex-1 flex flex-col self-center w-full max-w-[90rem] p-4 gap-4">
       <div className="">
         {tittle && (
           <h3 className="text-2xl md:text-4xl font-semibold">
@@ -61,8 +61,8 @@ export const GifsPage = ({
       <div
         className="
           w-full items-center grid gap-3
-          grid-cols-gifs auto-rows-gifs
-          md:grid-cols-gifsMd md:auto-rows-gifsMd 
+          grid-cols-gifs auto-rows-gifs 
+          md:grid-cols-gifs-md md:auto-rows-gifs-md
           grid-flow-row-dense"
       >
         {data.pages.map((page) =>

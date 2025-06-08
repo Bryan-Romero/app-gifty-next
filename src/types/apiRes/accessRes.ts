@@ -1,8 +1,9 @@
+import { AdapterUser } from "next-auth/adapters";
 import { ErrorEnum } from "../common/error.enum";
 import { User } from "./user";
 
 export interface AccessRes {
-  user: UserAccessRes;
+  user: UserAccessRes & AdapterUser;
   tokens: TokenAccessRes;
   error?: ErrorEnum;
 }
