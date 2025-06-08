@@ -1,25 +1,17 @@
-import { gifs } from "@/config";
 import ApiClientGiphy from "@/lib/axios-client-giphy";
 import { Gifs } from "@/types";
+import { GetGifsParams, initialGetGifsParams } from "@/types/giphy/get-gifs";
 
-export interface GifsRelatedProps {
+interface GetRelatedGifsParams extends GetGifsParams {
   gif_id: string;
-  limit?: number;
-  offset?: number;
-  rating?: "g" | "pg" | "pg-13" | "r";
 }
 
-const initialParams: GifsRelatedProps = {
-  ...gifs,
-  gif_id: "",
-};
-
 export async function getGifsRelated(
-  params: GifsRelatedProps = initialParams
+  data: GetRelatedGifsParams = { gif_id: "", ...initialGetGifsParams }
 ): Promise<Gifs | null> {
   try {
     const response = await ApiClientGiphy.get<Gifs>("gifs/related", {
-      params,
+      params: data,
     });
     return response.data;
   } catch (err) {

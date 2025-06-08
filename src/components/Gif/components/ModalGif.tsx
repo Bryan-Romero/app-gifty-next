@@ -36,6 +36,8 @@ export function ModalGif({
       shadow="lg"
       classNames={{
         backdrop: "bg-black/80",
+        base: "max-h-5/6",
+        body: "overflow-y-auto",
       }}
       motionProps={{
         variants: {
@@ -73,7 +75,8 @@ export function ModalGif({
               <Image
                 removeWrapper
                 alt="Default Gif"
-                className="w-full"
+                className="mx-auto w-full h-full"
+                classNames={{ img: "object-contain" }}
                 src={images.downsized_medium.url}
                 onLoad={() => setLoading(false)}
                 onError={() => setLoading(false)}

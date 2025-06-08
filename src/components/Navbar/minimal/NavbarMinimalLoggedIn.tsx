@@ -7,9 +7,8 @@ import {
   NavbarItem,
   Navbar as NextUINavbar,
 } from "@heroui/react";
-import { ThemeSwitch } from "../../ThemeSwitch";
-import React from "react";
 import { useSession } from "next-auth/react";
+import { ThemeSwitch } from "../../ThemeSwitch";
 import { LoggedInNavbar } from "../components/LoggedInNavbar";
 
 export const NavbarMinimalLoggedIn = () => {

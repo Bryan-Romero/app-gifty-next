@@ -1,14 +1,16 @@
 "use client";
 
 import { XMarkIcon } from "@/components/Icons";
+import SessionErrorHandler from "@/components/SessionErrorHandler";
 import { AlertProps, HeroUIProvider, ToastProvider } from "@heroui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SessionProvider } from "next-auth/react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { ThemeProviderProps } from "next-themes/dist/types";
+import {
+  ThemeProvider as NextThemesProvider,
+  ThemeProviderProps,
+} from "next-themes";
 import * as React from "react";
-import SessionErrorHandler from "../components/SessionErrorHandler";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -29,7 +31,7 @@ const appContext = React.createContext<{
   },
 });
 
-export default function Providers({ children, themeProps }: ProvidersProps) {
+export function Providers({ children, themeProps }: ProvidersProps) {
   const [alerts, setAlerts] = React.useState<AlertProps[]>([]);
 
   return (

@@ -1,25 +1,13 @@
-import { gifs } from "@/config";
 import ApiClientGiphy from "@/lib/axios-client-giphy";
 import { Gifs } from "@/types";
+import { GetGifsParams, initialGetGifsParams } from "@/types/giphy/get-gifs";
 
-export interface GifsTrendingProps {
-  limit?: number;
-  offset?: number;
-  rating?: "g" | "pg" | "pg-13" | "r";
-}
-
-export async function getGifsTrending({
-  limit,
-  offset,
-  rating,
-}: GifsTrendingProps = gifs): Promise<Gifs | null> {
+export async function getGifsTrending(
+  data: GetGifsParams = initialGetGifsParams
+): Promise<Gifs | null> {
   try {
     const response = await ApiClientGiphy.get<Gifs>("gifs/trending", {
-      params: {
-        limit,
-        offset,
-        rating,
-      },
+      params: data,
     });
     return response.data;
   } catch (err) {

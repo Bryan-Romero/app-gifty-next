@@ -1,33 +1,17 @@
-import { gifs } from "@/config";
 import ApiClientGiphy from "@/lib/axios-client-giphy";
 import { Gifs } from "@/types";
+import { GetGifsParams, initialGetGifsParams } from "@/types/giphy/get-gifs";
 
-export interface GifsSearchProps {
+interface GetSearchGifsParams extends GetGifsParams {
   q: string;
-  limit?: number;
-  offset?: number;
-  rating?: "g" | "pg" | "pg-13" | "r";
 }
 
-const initialParams: GifsSearchProps = {
-  ...gifs,
-  q: "",
-};
-
-export async function getGifsSearch({
-  limit,
-  offset,
-  q,
-  rating,
-}: GifsSearchProps = initialParams): Promise<Gifs | null> {
+export async function getGifsSearch(
+  data: GetSearchGifsParams = { q: "", ...initialGetGifsParams }
+): Promise<Gifs | null> {
   try {
     const response = await ApiClientGiphy.get<Gifs>("gifs/search", {
-      params: {
-        q,
-        limit,
-        offset,
-        rating,
-      },
+      params: data,
     });
     return response.data;
   } catch (err) {
