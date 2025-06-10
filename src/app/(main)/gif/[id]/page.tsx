@@ -2,11 +2,9 @@ import DetailPage from "@/components/Detail/DetailPage";
 import { getGifByID } from "@/services";
 import type { Metadata } from "next";
 
-export async function generateMetadata(
-  props: {
-    params: Promise<{ id: string }>;
-  }
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
   const params = await props.params;
   const { data: gif } = await getGifByID(params.id);
 
@@ -28,7 +26,7 @@ export async function generateMetadata(
           alt: gif.title || "GIF",
         },
       ],
-      url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/detail/${params.id}`,
+      url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/gif/${params.id}`,
       type: "video.other",
     },
     twitter: {
@@ -42,5 +40,6 @@ export async function generateMetadata(
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
+
   return <DetailPage gif_id={params.id} />;
 }
