@@ -1,0 +1,26 @@
+# Módulos de Node (no formatear dependencias)
+node_modules
+
+# Salidas de build
+.next
+out
+dist
+build
+
+# Configuración de Prettier (para que no se reescriba sola)
+.prettierrc.yaml
+
+# Otros archivos de configuración que no queremos tocar
+*.config.js
+*.config.cjs
+vite.config.js
+
+# Archivos de vendor o terceros
+scripts/vendor/*.js
+
+# Assets estáticos
+public/**/*.svg
+public/**/*.png
+
+# Ignora también el propio fichero .prettierignore
+.prettierignore

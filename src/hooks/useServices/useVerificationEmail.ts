@@ -1,5 +1,6 @@
-import { getVerificationEmail } from "@/services";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query'
+
+import { getVerificationEmail } from '@/services'
 
 /** useQuery: For simple data retrieval (GET, without pagination).
     useInfiniteQuery: For paginated/infinite data retrieval (GET, with pagination or infinite scrolling).
@@ -7,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export function useVerificationEmail(token: string) {
   return useQuery({
-    queryKey: ["verification-email"],
+    queryKey: ['verification-email'],
     queryFn: () => getVerificationEmail(token),
-  });
+  })
 }

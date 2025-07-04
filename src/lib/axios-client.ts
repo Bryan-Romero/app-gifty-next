@@ -1,17 +1,17 @@
-import axios, { AxiosError, CreateAxiosDefaults } from "axios";
+import axios, { AxiosError, CreateAxiosDefaults } from 'axios'
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
-const api_key = process.env.NEXT_PUBLIC_API_KEY;
+const baseURL = process.env.NEXT_PUBLIC_API_URL
+const api_key = process.env.NEXT_PUBLIC_API_KEY
 
 const defaultOptions: CreateAxiosDefaults<any> = {
   baseURL,
   headers: {
-    "x-api-key": api_key,
-    "Content-Type": "application/json",
+    'x-api-key': api_key,
+    'Content-Type': 'application/json',
   },
-};
+}
 
-const ApiClient = axios.create(defaultOptions);
+const ApiClient = axios.create(defaultOptions)
 
 ApiClient.interceptors.response.use(
   (response) => response,
@@ -20,13 +20,13 @@ ApiClient.interceptors.response.use(
       if (!error.response) {
         // Es un error de red (Network Error, timeout, etc.)
         // Could not connect to the server
-        throw new Error("Something went wrong, please try again later");
+        throw new Error('Something went wrong, please try again later')
       }
       // Es un error HTTP (con status code)
-      throw error;
+      throw error
     }
-    throw new Error("Unknown error");
+    throw new Error('Unknown error')
   }
-);
+)
 
-export default ApiClient;
+export default ApiClient

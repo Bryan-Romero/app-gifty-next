@@ -1,51 +1,37 @@
-"use client";
+'use client'
 
-import { ModalSignIn } from "@/components/Modals/ModalSignIn";
-import { useGifActions } from "@/hooks";
-import { DataGif } from "@/types";
-import { Button, useDisclosure } from "@heroui/react";
-import { twMerge } from "tailwind-merge";
-import {
-  DownloadIcon,
-  LikeIcon,
-  LinkIcon,
-  NotLikeIcon,
-  PaperPlaneIcom,
-} from "../../Icons";
-import { ModalShare } from "./ModalShare";
+import { Button, useDisclosure } from '@heroui/react'
+import { twMerge } from 'tailwind-merge'
+
+import { ModalSignIn } from '@/components/Modals/ModalSignIn'
+import { useGifActions } from '@/hooks'
+import { DataGif } from '@/types'
+import { DownloadIcon, LikeIcon, LinkIcon, NotLikeIcon, PaperPlaneIcom } from '../../Icons'
+import { ModalShare } from './ModalShare'
 
 interface ButtonsSectionProps extends DataGif {
-  className?: string;
-  isInFavorites: boolean;
+  className?: string
+  isInFavorites: boolean
 }
 
-export const ButtonsSection = ({
-  className,
-  isInFavorites,
-  ...gif
-}: ButtonsSectionProps) => {
-  const shareModalControl = useDisclosure();
-  const signInModalControl = useDisclosure();
-  const {
-    handleDownload,
-    handleCopyLink,
-    downloading,
-    handleAddToFavorites,
-    handleRemoveFromFavorites,
-  } = useGifActions(gif, signInModalControl);
+export const ButtonsSection = ({ className, isInFavorites, ...gif }: ButtonsSectionProps) => {
+  const shareModalControl = useDisclosure()
+  const signInModalControl = useDisclosure()
+  const { handleDownload, handleCopyLink, downloading, handleAddToFavorites, handleRemoveFromFavorites } =
+    useGifActions(gif, signInModalControl)
 
   return (
     <>
       <div
         className={twMerge(
-          "w-full flex flex-row md:flex-col justify-end md:justify-start items-center md:items-start gap-3",
+          'flex w-full flex-row items-center justify-end gap-3 md:flex-col md:items-start md:justify-start',
           className
         )}
       >
         {/* DESKTOP SECTIO */}
         {isInFavorites ? (
           <Button
-            className="hidden md:flex text-lg"
+            className="hidden text-lg md:flex"
             color="danger"
             variant="flat"
             startContent={<LikeIcon />}
@@ -55,7 +41,7 @@ export const ButtonsSection = ({
           </Button>
         ) : (
           <Button
-            className="hidden md:flex text-lg"
+            className="hidden text-lg md:flex"
             color="danger"
             variant="flat"
             startContent={<NotLikeIcon />}
@@ -66,7 +52,7 @@ export const ButtonsSection = ({
         )}
 
         <Button
-          className="hidden md:flex text-lg"
+          className="hidden text-lg md:flex"
           color="success"
           variant="flat"
           startContent={<LinkIcon />}
@@ -75,7 +61,7 @@ export const ButtonsSection = ({
           Copy Link
         </Button>
         <Button
-          className="hidden md:flex text-lg"
+          className="hidden text-lg md:flex"
           color="primary"
           variant="flat"
           {...(!downloading && { startContent: <DownloadIcon /> })}
@@ -87,21 +73,10 @@ export const ButtonsSection = ({
         </Button>
 
         {/* MOBILE SECTION */}
-        <Button
-          className="flex md:hidden"
-          isIconOnly
-          color="danger"
-          variant="flat"
-        >
+        <Button className="flex md:hidden" isIconOnly color="danger" variant="flat">
           <NotLikeIcon size="xl" />
         </Button>
-        <Button
-          className="flex md:hidden"
-          isIconOnly
-          color="success"
-          variant="flat"
-          onPress={shareModalControl.onOpen}
-        >
+        <Button className="flex md:hidden" isIconOnly color="success" variant="flat" onPress={shareModalControl.onOpen}>
           <PaperPlaneIcom size="xl" />
         </Button>
         <Button
@@ -116,11 +91,8 @@ export const ButtonsSection = ({
           {!downloading && <DownloadIcon size="xl" />}
         </Button>
       </div>
-      <ModalShare
-        isOpen={shareModalControl.isOpen}
-        onOpenChange={shareModalControl.onOpenChange}
-      />
+      <ModalShare isOpen={shareModalControl.isOpen} onOpenChange={shareModalControl.onOpenChange} />
       <ModalSignIn {...signInModalControl} />
     </>
-  );
-};
+  )
+}

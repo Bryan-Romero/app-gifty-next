@@ -1,20 +1,21 @@
-import { resetPasswordSchema, TResetPasswordSchema } from "@/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useResetPassword } from "../useServices/useResetPassword";
+import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+
+import { resetPasswordSchema, TResetPasswordSchema } from '@/types'
+import { useResetPassword } from '../useServices/useResetPassword'
 
 export function useResetPasswordForm(token: string) {
-  const [errorResetPassword, setErrorResetPassword] = useState<string>();
+  const [errorResetPassword, setErrorResetPassword] = useState<string>()
   const form = useForm<TResetPasswordSchema>({
     resolver: zodResolver(resetPasswordSchema),
-  });
-  const { setError } = form;
+  })
+  const { setError } = form
 
   const resetPasswordMutation = useResetPassword({
     setError,
     setErrorResetPassword,
-  });
+  })
 
   return {
     form,
@@ -22,7 +23,6 @@ export function useResetPasswordForm(token: string) {
     setErrorResetPassword,
     isSubmitting: resetPasswordMutation.isPending,
     isSuccess: resetPasswordMutation.isSuccess,
-    onSubmit: (data: TResetPasswordSchema) =>
-      resetPasswordMutation.mutateAsync({ ...data, token }),
-  };
+    onSubmit: (data: TResetPasswordSchema) => resetPasswordMutation.mutateAsync({ ...data, token }),
+  }
 }
