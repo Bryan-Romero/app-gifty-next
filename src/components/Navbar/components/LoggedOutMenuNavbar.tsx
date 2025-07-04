@@ -1,56 +1,33 @@
-"use client";
+'use client'
 
-import { BarsIcon, MoonFilledIcon, SunFilledIcon } from "@/components/Icons";
-import { useCustomTheme } from "@/hooks";
-import { ModalControl } from "@/types";
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from "@heroui/react";
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react'
+
+import { BarsIcon, MoonFilledIcon, SunFilledIcon } from '@/components/Icons'
+import { useCustomTheme } from '@/hooks'
+import { ModalControl } from '@/types'
 
 interface NavbarMenuComponentProps {
-  signInModalControl: ModalControl;
-  signUpModalControl: ModalControl;
+  signInModalControl: ModalControl
+  signUpModalControl: ModalControl
 }
 
-export const LoggedOutMenuNavbar = ({
-  signInModalControl,
-  signUpModalControl,
-}: NavbarMenuComponentProps) => {
-  const { isDark, mounted, toggleTheme } = useCustomTheme();
+export const LoggedOutMenuNavbar = ({ signInModalControl, signUpModalControl }: NavbarMenuComponentProps) => {
+  const { isDark, mounted, toggleTheme } = useCustomTheme()
 
   return (
-    <Dropdown
-      placement="bottom-end"
-      backdrop="opaque"
-    >
+    <Dropdown placement="bottom-end" backdrop="opaque">
       <DropdownTrigger>
-        <Button
-          isIconOnly
-          className="bg-transparent"
-        >
+        <Button isIconOnly className="bg-transparent">
           <BarsIcon size="2x" />
         </Button>
       </DropdownTrigger>
-      <DropdownMenu
-        aria-label="Profile Actions"
-        variant="flat"
-      >
+      <DropdownMenu aria-label="Profile Actions" variant="flat">
         {mounted && (
           <DropdownItem
             key="theme"
             textValue="Theme"
             onClick={toggleTheme}
-            endContent={
-              isDark ? (
-                <SunFilledIcon size="lg" />
-              ) : (
-                <MoonFilledIcon size="lg" />
-              )
-            }
+            endContent={isDark ? <SunFilledIcon size="lg" /> : <MoonFilledIcon size="lg" />}
           >
             Theme
           </DropdownItem>
@@ -77,5 +54,5 @@ export const LoggedOutMenuNavbar = ({
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>
-  );
-};
+  )
+}

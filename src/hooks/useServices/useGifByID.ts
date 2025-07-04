@@ -1,5 +1,6 @@
-import { getGifByID } from "@/services";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query'
+
+import { getGifByID } from '@/services'
 
 /** useQuery: For simple data retrieval (GET, without pagination).
     useInfiniteQuery: For paginated/infinite data retrieval (GET, with pagination or infinite scrolling).
@@ -11,13 +12,13 @@ export function useGifByID(gif_id: string) {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["gif-by-id", gif_id],
+    queryKey: ['gif-by-id', gif_id],
     queryFn: () => getGifByID(gif_id),
-  });
+  })
 
   return {
     gif,
     isLoading,
     isError,
-  };
+  }
 }

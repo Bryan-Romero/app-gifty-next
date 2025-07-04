@@ -1,56 +1,38 @@
-"use client";
+'use client'
 
-import { UserGiphy } from "@/types";
-import { Avatar, Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
-import { useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { useEffect, useRef, useState } from 'react'
+import { Avatar, Card, CardBody, CardFooter, CardHeader } from '@heroui/react'
+import { twMerge } from 'tailwind-merge'
+
+import { UserGiphy } from '@/types'
 
 interface UserSectionProps extends UserGiphy {
-  className?: string;
+  className?: string
 }
 
-export const UserSection = ({
-  display_name,
-  username,
-  avatar_url,
-  description,
-  className,
-}: UserSectionProps) => {
-  const [read, setRead] = useState(false);
-  const [isOverflowing, setIsOverflowing] = useState(false);
-  const descriptionRef = useRef<HTMLParagraphElement>(null);
+export const UserSection = ({ display_name, username, avatar_url, description, className }: UserSectionProps) => {
+  const [read, setRead] = useState(false)
+  const [isOverflowing, setIsOverflowing] = useState(false)
+  const descriptionRef = useRef<HTMLParagraphElement>(null)
 
   useEffect(() => {
-    const el = descriptionRef.current;
+    const el = descriptionRef.current
     if (el) {
-      setIsOverflowing(el.scrollHeight > 80); // 80px = altura máxima estimada para 3-4 líneas
+      setIsOverflowing(el.scrollHeight > 80) // 80px = altura máxima estimada para 3-4 líneas
     }
-  }, [description]);
+  }, [description])
 
   return (
-    <Card
-      className={twMerge(
-        "w-full md:max-w-[340px]",
-        read || !isOverflowing ? "h-fit" : "max-h-40",
-        className
-      )}
-    >
+    <Card className={twMerge('w-full md:max-w-[340px]', read || !isOverflowing ? 'h-fit' : 'max-h-40', className)}>
       <CardHeader className="justify-between">
         <div className="flex gap-5">
-          <Avatar
-            isBordered
-            radius="full"
-            size="md"
-            src={avatar_url}
-          />
-          <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-small font-semibold leading-none text-default-600">
-              {display_name ? display_name : "No name"}
+          <Avatar isBordered radius="full" size="md" src={avatar_url} />
+          <div className="flex flex-col items-start justify-center gap-1">
+            <h4 className="text-small text-default-600 leading-none font-semibold">
+              {display_name ? display_name : 'No name'}
             </h4>
 
-            <h5 className="text-small tracking-tight text-default-400">
-              {username ? `@${username}` : "No username"}
-            </h5>
+            <h5 className="text-small text-default-400 tracking-tight">{username ? `@${username}` : 'No username'}</h5>
           </div>
         </div>
       </CardHeader>
@@ -59,33 +41,24 @@ export const UserSection = ({
         <>
           <CardBody
             className={twMerge(
-              "px-3 py-0 text-small text-default-400 overflow-hidden hidden md:flex",
-              !isOverflowing && "pb-3"
+              'text-small text-default-400 hidden overflow-hidden px-3 py-0 md:flex',
+              !isOverflowing && 'pb-3'
             )}
           >
-            <p
-              ref={descriptionRef}
-              className={twMerge(
-                "transition-all duration-300",
-                !read && "line-clamp-3"
-              )}
-            >
+            <p ref={descriptionRef} className={twMerge('transition-all duration-300', !read && 'line-clamp-3')}>
               {description}
             </p>
           </CardBody>
 
           {isOverflowing && (
-            <CardFooter className="gap-3 hidden md:flex justify-center ">
-              <button
-                onClick={() => setRead((prevState) => !prevState)}
-                className="bg-transparent text-sm font-medium"
-              >
-                read {read ? "less" : "more"}
+            <CardFooter className="hidden justify-center gap-3 md:flex">
+              <button onClick={() => setRead((prevState) => !prevState)} className="bg-transparent text-sm font-medium">
+                read {read ? 'less' : 'more'}
               </button>
             </CardFooter>
           )}
         </>
       )}
     </Card>
-  );
-};
+  )
+}

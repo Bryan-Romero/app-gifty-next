@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { DataGif } from "@/types";
+import { useState } from 'react'
 import {
   Button,
   Image,
@@ -12,19 +12,14 @@ import {
   ModalHeader,
   ModalProps,
   Spinner,
-} from "@heroui/react";
-import { useState } from "react";
+} from '@heroui/react'
 
-type ModalGifProps = Omit<ModalProps, "children"> & DataGif;
+import { DataGif } from '@/types'
 
-export function ModalGif({
-  title,
-  id,
-  images,
-  isOpen,
-  onOpenChange,
-}: ModalGifProps) {
-  const [loading, setLoading] = useState(true);
+type ModalGifProps = Omit<ModalProps, 'children'> & DataGif
+
+export function ModalGif({ title, id, images, isOpen, onOpenChange }: ModalGifProps) {
+  const [loading, setLoading] = useState(true)
 
   return (
     <Modal
@@ -35,9 +30,9 @@ export function ModalGif({
       backdrop="opaque"
       shadow="lg"
       classNames={{
-        backdrop: "bg-black/80",
-        base: "max-h-5/6",
-        body: "overflow-y-auto",
+        backdrop: 'bg-black/80',
+        base: 'max-h-5/6',
+        body: 'overflow-y-auto',
       }}
       motionProps={{
         variants: {
@@ -46,7 +41,7 @@ export function ModalGif({
             opacity: 1,
             transition: {
               duration: 0.3,
-              ease: "easeOut",
+              ease: 'easeOut',
             },
           },
           exit: {
@@ -54,7 +49,7 @@ export function ModalGif({
             opacity: 0,
             transition: {
               duration: 0.2,
-              ease: "easeIn",
+              ease: 'easeIn',
             },
           },
         },
@@ -65,36 +60,22 @@ export function ModalGif({
           <>
             <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
             <ModalBody>
-              {loading && (
-                <Spinner
-                  size="lg"
-                  color="primary"
-                  className="absolute inset-0 m-auto"
-                />
-              )}
+              {loading && <Spinner size="lg" color="primary" className="absolute inset-0 m-auto" />}
               <Image
                 removeWrapper
                 alt="Default Gif"
-                className="mx-auto w-full h-full"
-                classNames={{ img: "object-contain" }}
+                className="mx-auto h-full w-full"
+                classNames={{ img: 'object-contain' }}
                 src={images.downsized_medium.url}
                 onLoad={() => setLoading(false)}
                 onError={() => setLoading(false)}
               />
             </ModalBody>
             <ModalFooter>
-              <Button
-                color="danger"
-                variant="light"
-                onPress={onClose}
-              >
+              <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
-              <Button
-                color="primary"
-                as={Link}
-                href={`/gif/${id}`}
-              >
+              <Button color="primary" as={Link} href={`/gif/${id}`}>
                 Detail
               </Button>
             </ModalFooter>
@@ -102,5 +83,5 @@ export function ModalGif({
         )}
       </ModalContent>
     </Modal>
-  );
+  )
 }

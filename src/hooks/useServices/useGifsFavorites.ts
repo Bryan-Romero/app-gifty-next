@@ -1,12 +1,13 @@
-import { LIMIT } from "@/config";
-import { getFavoriteGifs } from "@/services/apiRes/getFavoriteGifs";
-import { KeysEnum } from "@/types";
-import { useSession } from "next-auth/react";
-import { useInfiniteGifs } from "./useInfiniteGifs";
+import { useSession } from 'next-auth/react'
+
+import { LIMIT } from '@/config'
+import { getFavoriteGifs } from '@/services/apiRes/getFavoriteGifs'
+import { KeysEnum } from '@/types'
+import { useInfiniteGifs } from './useInfiniteGifs'
 
 export function useGifsFavorites() {
-  const { data: session } = useSession();
-  const token = session?.tokens?.access_token ?? null;
+  const { data: session } = useSession()
+  const token = session?.tokens?.access_token ?? null
 
   return useInfiniteGifs({
     queryKey: [KeysEnum.GifsFavorites],
@@ -17,5 +18,5 @@ export function useGifsFavorites() {
         limit: LIMIT,
       }),
     enabled: !!token,
-  });
+  })
 }

@@ -1,15 +1,10 @@
-"use client";
+'use client'
 
-import { GifsPage } from "@/components/Gif/GifsPage";
-import { useGifsFavorites } from "@/hooks";
+import { GifsPage } from '@/components/Gif/GifsPage'
+import { useGifsFavorites } from '@/hooks'
 
 export default function Page() {
-  const data = useGifsFavorites();
+  const data = useGifsFavorites()
 
-  return (
-    <GifsPage
-      tittle="My Favorites"
-      {...data}
-    />
-  );
+  return <GifsPage tittle="My Favorites" {...data} />
 }
