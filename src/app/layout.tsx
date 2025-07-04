@@ -1,13 +1,18 @@
-import { fontMono, fontSans } from "@/config";
-import { siteConfig } from "@/config/site";
-import "@/styles/globals.css";
-import { config } from "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-import clsx from "clsx";
-import type { Metadata } from "next";
-import { Providers } from "./_lib/context";
+import { fontMono, fontSans } from '@/config'
+import { siteConfig } from '@/config/site'
 
-config.autoAddCss = false;
+import '@/styles/globals.css'
+
+import { config } from '@fortawesome/fontawesome-svg-core'
+
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
+import type { Metadata } from 'next'
+import clsx from 'clsx'
+
+import { Providers } from './_lib/context'
+
+config.autoAddCss = false
 
 export const metadata: Metadata = {
   title: {
@@ -18,36 +23,27 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/favicon.svg",
-        href: "/favicon.svg",
+        url: '/favicon.svg',
+        href: '/favicon.svg',
       },
     ],
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
-      <body
-        className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
-          fontMono.variable
-        )}
-      >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col min-h-screen">
-            <main className="flex flex-col flex-1">{children}</main>
+    <html lang="en" suppressHydrationWarning>
+      <body className={clsx('bg-background min-h-screen font-sans antialiased', fontSans.variable, fontMono.variable)}>
+        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+          <div className="relative flex min-h-screen flex-col">
+            <main className="flex flex-1 flex-col">{children}</main>
           </div>
         </Providers>
       </body>
     </html>
-  );
+  )
 }

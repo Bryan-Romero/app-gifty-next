@@ -1,46 +1,22 @@
-"use client";
+'use client'
 
-import { useSignInForm } from "@/hooks";
-import { ErrorEnum } from "@/types";
-import {
-  Button,
-  Link,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalProps,
-} from "@heroui/react";
-import { SignInForm } from "../Forms/SignInForm";
+import { Button, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalProps } from '@heroui/react'
 
-export function ModalSignIn({
-  isOpen,
-  onOpenChange,
-  onClose,
-}: Omit<ModalProps, "children">) {
-  const formId = "sign-in-form-modal";
-  const {
-    form,
-    errorSignIn,
-    setErrorSignIn,
-    isSubmitting,
-    onSubmit,
-    handleOnClose,
-  } = useSignInForm({ onCloseModal: onClose });
+import { useSignInForm } from '@/hooks'
+import { ErrorEnum } from '@/types'
+import { SignInForm } from '../Forms/SignInForm'
+
+export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 'children'>) {
+  const formId = 'sign-in-form-modal'
+  const { form, errorSignIn, setErrorSignIn, isSubmitting, onSubmit, handleOnClose } = useSignInForm({
+    onCloseModal: onClose,
+  })
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
-      onClose={handleOnClose}
-      placement="center"
-    >
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} onClose={handleOnClose} placement="center">
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">
-          {errorSignIn === ErrorEnum.UnverifiedEmail
-            ? "Email not verified"
-            : "Sign in"}
+          {errorSignIn === ErrorEnum.UnverifiedEmail ? 'Email not verified' : 'Sign in'}
         </ModalHeader>
 
         <ModalBody>
@@ -54,12 +30,7 @@ export function ModalSignIn({
         </ModalBody>
 
         <ModalFooter>
-          <Button
-            color="danger"
-            variant="flat"
-            onPress={handleOnClose}
-            isDisabled={isSubmitting}
-          >
+          <Button color="danger" variant="flat" onPress={handleOnClose} isDisabled={isSubmitting}>
             Close
           </Button>
           {errorSignIn === ErrorEnum.UnverifiedEmail ? (
@@ -73,18 +44,12 @@ export function ModalSignIn({
               Resend email
             </Button>
           ) : (
-            <Button
-              form={formId}
-              type="submit"
-              color="primary"
-              isDisabled={isSubmitting}
-              isLoading={isSubmitting}
-            >
+            <Button form={formId} type="submit" color="primary" isDisabled={isSubmitting} isLoading={isSubmitting}>
               Sign in
             </Button>
           )}
         </ModalFooter>
       </ModalContent>
     </Modal>
-  );
+  )
 }

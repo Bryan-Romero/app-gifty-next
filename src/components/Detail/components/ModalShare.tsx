@@ -1,30 +1,12 @@
-"use client";
+'use client'
 
-import { useGifActions } from "@/hooks";
-import {
-  Button,
-  Link,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalProps,
-} from "@heroui/react";
-import {
-  FacebookIcon,
-  LinkedinIcon,
-  LinkIcon,
-  WhatsappIcon,
-  XTwitterIcon,
-} from "../../Icons";
+import { Button, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalProps } from '@heroui/react'
 
-export const ModalShare = ({
-  isOpen,
-  onOpenChange,
-}: Omit<ModalProps, "children">) => {
-  const { handleCopyLink, facebookUrl, twitterUrl, whatsappUrl, linkedinUrl } =
-    useGifActions();
+import { useGifActions } from '@/hooks'
+import { FacebookIcon, LinkedinIcon, LinkIcon, WhatsappIcon, XTwitterIcon } from '../../Icons'
+
+export const ModalShare = ({ isOpen, onOpenChange }: Omit<ModalProps, 'children'>) => {
+  const { handleCopyLink, facebookUrl, twitterUrl, whatsappUrl, linkedinUrl } = useGifActions()
 
   return (
     <Modal
@@ -39,7 +21,7 @@ export const ModalShare = ({
             opacity: 1,
             transition: {
               duration: 0.3,
-              ease: "easeOut",
+              ease: 'easeOut',
             },
           },
           exit: {
@@ -47,7 +29,7 @@ export const ModalShare = ({
             opacity: 0,
             transition: {
               duration: 0.2,
-              ease: "easeIn",
+              ease: 'easeIn',
             },
           },
         },
@@ -65,8 +47,8 @@ export const ModalShare = ({
                 variant="flat"
                 startContent={<LinkIcon size="xl" />}
                 onPress={() => {
-                  handleCopyLink();
-                  onClose();
+                  handleCopyLink()
+                  onClose()
                 }}
               >
                 Copy Link
@@ -77,7 +59,7 @@ export const ModalShare = ({
                 href={facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="col-span-1 bg-[#1877F3] hover:bg-[#166fe0] text-white"
+                className="col-span-1 bg-[#1877F3] text-white hover:bg-[#166fe0]"
                 startContent={<FacebookIcon size="xl" />}
                 onPress={onClose}
               >
@@ -89,7 +71,7 @@ export const ModalShare = ({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="col-span-1 bg-[#25D366] hover:bg-[#1ebe57] text-white"
+                className="col-span-1 bg-[#25D366] text-white hover:bg-[#1ebe57]"
                 startContent={<WhatsappIcon size="xl" />}
                 onPress={onClose}
               >
@@ -101,7 +83,7 @@ export const ModalShare = ({
                 href={twitterUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="col-span-1 bg-black hover:bg-neutral-800 text-white"
+                className="col-span-1 bg-black text-white hover:bg-neutral-800"
                 startContent={<XTwitterIcon size="xl" />}
                 onPress={onClose}
               />
@@ -111,7 +93,7 @@ export const ModalShare = ({
                 href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="col-span-1 bg-[#0077B5] hover:bg-[#006097] text-white"
+                className="col-span-1 bg-[#0077B5] text-white hover:bg-[#006097]"
                 startContent={<LinkedinIcon size="xl" />}
                 onPress={onClose}
               >
@@ -119,11 +101,7 @@ export const ModalShare = ({
               </Button>
             </ModalBody>
             <ModalFooter>
-              <Button
-                color="danger"
-                variant="light"
-                onPress={onClose}
-              >
+              <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
             </ModalFooter>
@@ -131,5 +109,5 @@ export const ModalShare = ({
         )}
       </ModalContent>
     </Modal>
-  );
-};
+  )
+}

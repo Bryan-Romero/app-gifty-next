@@ -1,19 +1,20 @@
-"use client";
+'use client'
 
-import { useAlerts } from "@/hooks";
-import { Alert, ScrollShadow } from "@heroui/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { Alert, ScrollShadow } from '@heroui/react'
+import { AnimatePresence, motion } from 'framer-motion'
+
+import { useAlerts } from '@/hooks'
 
 export const Alerts = () => {
-  const { alerts, removeAlert } = useAlerts();
+  const { alerts, removeAlert } = useAlerts()
 
-  if (alerts.length < 1) return null;
+  if (alerts.length < 1) return null
 
   return (
     <ScrollShadow
       hideScrollBar
       visibility="top"
-      className="w-full max-w-xs h-full max-h-80 fixed bottom-4 right-4 z-50 flex flex-col-reverse gap-2 items-end pointer-events-none"
+      className="pointer-events-none fixed right-4 bottom-4 z-50 flex h-full max-h-80 w-full max-w-xs flex-col-reverse items-end gap-2"
     >
       <AnimatePresence>
         {alerts.map((alert) => (
@@ -25,17 +26,13 @@ export const Alerts = () => {
             exit={{ opacity: 0, y: 24 }}
             transition={{ duration: 0.3 }}
           >
-            <Alert
-              {...alert}
-              className="w-full pointer-events-auto"
-              onClose={() => removeAlert(alert.id)}
-            />
+            <Alert {...alert} className="pointer-events-auto w-full" onClose={() => removeAlert(alert.id)} />
           </motion.div>
         ))}
       </AnimatePresence>
     </ScrollShadow>
-  );
-};
+  )
+}
 /**
  * initial: Estado inicial cuando el componente aparece.
  *    opacity: 0 → Comienza invisible.

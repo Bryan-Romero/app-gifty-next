@@ -1,15 +1,10 @@
-"use client";
+'use client'
 
-import { GifsPage } from "@/components/Gif/GifsPage";
-import { useGifsTrending } from "@/hooks";
+import { GifsPage } from '@/components/Gif/GifsPage'
+import { useGifsTrending } from '@/hooks'
 
 export default function Page() {
-  const data = useGifsTrending();
+  const data = useGifsTrending()
 
-  return (
-    <GifsPage
-      tittle="Trending Now"
-      {...data}
-    />
-  );
+  return <GifsPage tittle="Trending Now" {...data} />
 }

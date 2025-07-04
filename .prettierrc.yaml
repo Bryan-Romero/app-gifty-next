@@ -1,0 +1,45 @@
+# .prettierrc.yaml
+# Configuración de Prettier para Next.js
+# Incluye ordenamiento de imports, clases de Tailwind y keys de JSON
+
+# Longitud de línea y tabs
+printWidth: 120        # Máxima longitud antes de saltar de línea
+tabWidth: 2            # Espacios por tabulación
+useTabs: false         # Usa espacios en lugar de tabs
+
+# Comillas y punto y coma
+singleQuote: true      # Comillas simples en lugar de dobles
+semi: false            # Omitir punto y coma final
+
+# Comas finales y espaciado
+trailingComma: es5     # Comas finales en ES5 (objetos, arrays, etc.)
+bracketSpacing: true   # Espacio dentro de llaves: { clave: valor }
+jsxSingleQuote: false  # Comillas dobles en JSX
+arrowParens: always    # Siempre paréntesis en arrow functions: (x) => x
+
+# Saltos de línea
+endOfLine: lf          # Line Feed (Unix)
+
+# Plugins para Prettier
+plugins:
+  - "@ianvs/prettier-plugin-sort-imports"    # Ordena imports según importOrder
+  - "prettier-plugin-tailwindcss"            # Ordena clases de Tailwind CSS
+  - "prettier-plugin-sort-json"              # Ordena claves en archivos .json
+
+# Reglas de orden para imports (plugin @ianvs/prettier-plugin-sort-imports)
+importOrder:
+  - "^(react/(.*)$)|^(react$)"               # 1. React
+  - "^(next/(.*)$)|^(next$)"                 # 2. Next.js
+  - "<THIRD_PARTY_MODULES>"                  # 3. Otros módulos externos
+  - ""                                       # 4. Línea vacía separadora
+  - "^@/(.*)$"                               # 5. Aliases internos (e.g., @/components)
+  - "^[./]"                                  # 6. Rutas relativas
+importOrderParserPlugins:
+  - typescript                               # Soporte para TypeScript
+  - jsx                                      # Soporte para JSX
+  - decorators-legacy                        # Soporte para decoradores legacy
+importOrderSeparation: true                  # Línea vacía entre grupos de imports
+importOrderSortSpecifiers: true              # Ordena specifiers dentro de cada import
+
+# Opciones para JSON (plugin prettier-plugin-sort-json)
+jsonRecursiveSort: true                      # Ordena recursivamente objetos anidados

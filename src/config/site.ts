@@ -1,8 +1,8 @@
-export type SiteConfig = typeof siteConfig;
+export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "GIFty",
-  description: "Web application to search for gifs.",
+  name: 'GIFty',
+  description: 'Web application to search for gifs.',
   // navItems: [
   // {
   //   label: "Home",
@@ -66,4 +66,4 @@ export const siteConfig = {
   // discord: "https://discord.gg/9b6yyZKmH4",
   // sponsor: "https://patreon.com/jrgarciadev",
   // },
-};
+}

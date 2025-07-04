@@ -1,25 +1,21 @@
-"use client";
+'use client'
 
-import { CardMinimal } from "@/components/CardMinimal";
-import { SignInForm } from "@/components/Forms/SignInForm";
-import { useSignInForm } from "@/hooks";
-import { ErrorEnum } from "@/types";
-import { Button, Card, CardBody, Link } from "@heroui/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation'
+import { Button, Card, CardBody, Link } from '@heroui/react'
+
+import { CardMinimal } from '@/components/CardMinimal'
+import { SignInForm } from '@/components/Forms/SignInForm'
+import { useSignInForm } from '@/hooks'
+import { ErrorEnum } from '@/types'
 
 export default function Page() {
-  const formId = "sign-in-form";
-  const { form, errorSignIn, setErrorSignIn, isSubmitting, onSubmit } =
-    useSignInForm({ redirect: "/" });
-  const router = useRouter();
+  const formId = 'sign-in-form'
+  const { form, errorSignIn, setErrorSignIn, isSubmitting, onSubmit } = useSignInForm({ redirect: '/' })
+  const router = useRouter()
 
   return (
     <CardMinimal
-      title={
-        errorSignIn === ErrorEnum.UnverifiedEmail
-          ? "Email not verified"
-          : "Sign in"
-      }
+      title={errorSignIn === ErrorEnum.UnverifiedEmail ? 'Email not verified' : 'Sign in'}
       body={
         <SignInForm
           formId={formId}
@@ -31,12 +27,7 @@ export default function Page() {
       }
       footer={
         <>
-          <Button
-            variant="flat"
-            color="primary"
-            as={Link}
-            href="/"
-          >
+          <Button variant="flat" color="primary" as={Link} href="/">
             Homepage
           </Button>
           {errorSignIn === ErrorEnum.UnverifiedEmail ? (
@@ -45,18 +36,12 @@ export default function Page() {
               as={Link}
               href="/auth/resend-confirmation-email"
               target="_blank"
-              onPress={() => router.push("/")}
+              onPress={() => router.push('/')}
             >
               Resend email
             </Button>
           ) : (
-            <Button
-              form={formId}
-              type="submit"
-              color="primary"
-              isDisabled={isSubmitting}
-              isLoading={isSubmitting}
-            >
+            <Button form={formId} type="submit" color="primary" isDisabled={isSubmitting} isLoading={isSubmitting}>
               Sign in
             </Button>
           )}
@@ -64,14 +49,11 @@ export default function Page() {
       }
       otherElement={
         // Sign up link
-        <Card className="w-full max-w-md mt-5">
+        <Card className="mt-5 w-full max-w-md">
           <CardBody className="text-center">
             <p className="text-base text-gray-600">
-              Don&apos;t have an account?{" "}
-              <Link
-                color="primary"
-                href="/auth/signup"
-              >
+              Don&apos;t have an account?{' '}
+              <Link color="primary" href="/auth/signup">
                 Sign up
               </Link>
             </p>
@@ -79,5 +61,5 @@ export default function Page() {
         </Card>
       }
     />
-  );
+  )
 }
