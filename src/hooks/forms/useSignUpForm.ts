@@ -17,10 +17,12 @@ export function useSignUpForm({ onCloseModal }: UseSignUpFormProps = {}) {
   const { setError, reset, clearErrors } = form
 
   const handleOnClose = () => {
-    reset()
-    clearErrors()
-    setErrorSignUp('')
-    onCloseModal?.()
+    if (!signUpMutation.isPending) {
+      reset()
+      clearErrors()
+      setErrorSignUp('')
+      onCloseModal?.()
+    }
   }
 
   const signUpMutation = useSignUp({

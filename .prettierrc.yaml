@@ -38,8 +38,6 @@ importOrderParserPlugins:
   - typescript                               # Soporte para TypeScript
   - jsx                                      # Soporte para JSX
   - decorators-legacy                        # Soporte para decoradores legacy
-importOrderSeparation: true                  # Línea vacía entre grupos de imports
-importOrderSortSpecifiers: true              # Ordena specifiers dentro de cada import
 
 # Opciones para JSON (plugin prettier-plugin-sort-json)
 jsonRecursiveSort: true                      # Ordena recursivamente objetos anidados

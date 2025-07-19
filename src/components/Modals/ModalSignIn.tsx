@@ -13,7 +13,14 @@ export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
   })
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} onClose={handleOnClose} placement="center">
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={(open) => {
+        if (!isSubmitting) onOpenChange(open)
+      }}
+      onClose={handleOnClose}
+      placement="center"
+    >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">
           {errorSignIn === ErrorEnum.UnverifiedEmail ? 'Email not verified' : 'Sign in'}
@@ -24,6 +31,7 @@ export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
             formId={formId}
             form={form}
             errorSignIn={errorSignIn}
+            isSubmitting={isSubmitting}
             setErrorSignIn={setErrorSignIn}
             onSubmit={onSubmit}
           />

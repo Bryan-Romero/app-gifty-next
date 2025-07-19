@@ -12,7 +12,14 @@ export function ModalSignUp({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
   })
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center" onClose={handleOnClose}>
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={(open) => {
+        if (!isSubmitting) onOpenChange(open)
+      }}
+      placement="center"
+      onClose={handleOnClose}
+    >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">Sign up</ModalHeader>
 
