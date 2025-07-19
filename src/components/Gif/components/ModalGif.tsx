@@ -18,7 +18,7 @@ import { DataGif } from '@/types'
 
 type ModalGifProps = Omit<ModalProps, 'children'> & DataGif
 
-export function ModalGif({ title, id, images, isOpen, onOpenChange }: ModalGifProps) {
+export function ModalGif({ title, id, images, alt_text, isOpen, onOpenChange }: ModalGifProps) {
   const [loading, setLoading] = useState(true)
 
   return (
@@ -63,7 +63,7 @@ export function ModalGif({ title, id, images, isOpen, onOpenChange }: ModalGifPr
               {loading && <Spinner size="lg" color="primary" className="absolute inset-0 m-auto" />}
               <Image
                 removeWrapper
-                alt="Default Gif"
+                alt={alt_text || title}
                 className="mx-auto h-full w-full"
                 classNames={{ img: 'object-contain' }}
                 src={images.downsized_medium.url}

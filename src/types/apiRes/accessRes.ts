@@ -9,8 +9,10 @@ export interface AccessRes {
   error?: ErrorEnum
 }
 
-export interface UserAccessRes
-  extends Pick<User, '_id' | 'createdAt' | 'updatedAt' | 'active' | 'username' | 'email' | 'emailVerified' | 'roles'> {}
+export type UserAccessRes = Pick<
+  User,
+  '_id' | 'createdAt' | 'updatedAt' | 'active' | 'username' | 'email' | 'emailVerified' | 'roles'
+>
 
 export interface TokenAccessRes {
   access_token: string

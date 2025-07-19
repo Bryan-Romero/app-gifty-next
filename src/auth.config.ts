@@ -7,10 +7,6 @@ import { signInSchema } from './types'
 export default {
   providers: [
     Credentials({
-      credentials: {
-        email: {},
-        password: {},
-      },
       authorize: async (credentials) => {
         try {
           const { email, password } = await signInSchema.parseAsync(credentials)
@@ -24,10 +20,10 @@ export default {
               id: accessRes.user._id, // AdapterUser espera 'id'
             },
           }
-        } catch (error) {
+        } catch {
           /** NextAuth will always respond to the frontend with a 401
            * When you throw an error in authorize */
-          throw error
+          return null
         }
       },
     }),

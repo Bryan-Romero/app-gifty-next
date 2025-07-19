@@ -13,6 +13,10 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.config({
     extends: ['next/core-web-vitals', 'next/typescript', 'prettier'],
+    plugins: ['unused-imports'],
+    rules: {
+      'unused-imports/no-unused-imports': 'error',
+    },
   }),
   // Dejar que prettier maneje estilos,
   // eslint-config-prettier desactiva las reglas de ESLint que pueden entrar en conflicto con Prettier

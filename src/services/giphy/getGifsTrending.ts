@@ -8,7 +8,7 @@ export async function getGifsTrending(data: GetGifsParams = initialGetGifsParams
       params: data,
     })
     return response.data
-  } catch (err) {
+  } catch {
     // Puedes loguear el error aquí si lo necesitas
     // console.error("Error en getMe:", err);
     // return null; // O puedes lanzar un error si prefieres

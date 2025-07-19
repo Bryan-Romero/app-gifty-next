@@ -16,8 +16,8 @@ interface UseForgotPasswordProps {
 export function useForgotPassword({ setError, setErrorForgotPassword }: UseForgotPasswordProps) {
   return useMutation({
     mutationFn: (data: TEmailSchema) => forgotPassword(data),
-    onError: (err: any) => {
-      if (err.fieldErrors) {
+    onError: (err) => {
+      if ('fieldErrors' in err) {
         Object.entries(err.fieldErrors).forEach(([field, messages]) => {
           if (Array.isArray(messages)) {
             setError(field as keyof TEmailSchema, {

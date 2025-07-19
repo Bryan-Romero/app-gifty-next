@@ -14,7 +14,7 @@ export function useAddFavorite() {
   return useMutation({
     mutationKey: ['add-favorites'],
     mutationFn: addFavorite,
-    onSuccess: (data, { gifId }) => {
+    onSuccess: () => {
       // queryClient.setQueryData([queryKey], (oldFavorites: [] = []) => [
       //   ...oldFavorites,
       //   gifId,

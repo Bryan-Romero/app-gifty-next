@@ -38,7 +38,7 @@ export default function Page() {
         ) : (
           <>
             <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
-              {errorResendEmail && <p className="text-center text-base text-red-400">{errorResendEmail}</p>}
+              {errorResendEmail && <p className="w-full text-center text-base text-red-400">{errorResendEmail}</p>}
               <Input
                 autoFocus
                 endContent={<EnvelopeIcon size="1x" className="pointer-events-none" />}

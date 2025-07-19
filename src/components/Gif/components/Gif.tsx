@@ -16,7 +16,7 @@ interface GifProps extends DataGif {
 
 export const Gif = memo(
   function Gif({ isInFavorites, ...gif }: GifProps) {
-    const { images, id, title } = gif
+    const { images, id, title, alt_text } = gif
     const gifModalControl = useDisclosure()
     const signInModalControl = useDisclosure()
     const { handleAddToFavorites, handleRemoveFromFavorites } = useGifActions(gif, signInModalControl)
@@ -36,7 +36,7 @@ export const Gif = memo(
         >
           <ImgGif
             removeWrapper
-            alt="Default Gif"
+            alt={alt_text || title}
             className="h-full w-full object-cover"
             radius="none"
             loading="lazy"
