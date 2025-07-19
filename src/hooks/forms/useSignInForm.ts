@@ -18,10 +18,12 @@ export function useSignInForm({ redirect, onCloseModal }: UseSignInFormProps = {
   const { reset, clearErrors } = form
 
   const handleOnClose = () => {
-    reset()
-    clearErrors()
-    setErrorSignIn('')
-    onCloseModal?.()
+    if (!signInMutation.isPending) {
+      reset()
+      clearErrors()
+      setErrorSignIn('')
+      onCloseModal?.()
+    }
   }
 
   const signInMutation = useSignIn({

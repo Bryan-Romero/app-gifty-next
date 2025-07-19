@@ -44,6 +44,7 @@ export function SignInForm({ form, errorSignIn, isSubmitting, setErrorSignIn, on
         classNames={{ input: 'text-base' }}
         label="Email"
         placeholder="Enter your email"
+        type="email"
         variant="bordered"
         isInvalid={!!errors.email}
         color={errors.email ? 'danger' : 'default'}
