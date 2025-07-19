@@ -3,7 +3,7 @@ import axios, { AxiosError, CreateAxiosDefaults } from 'axios'
 const baseURL = process.env.NEXT_PUBLIC_GIPHY_API_URL
 const api_key = process.env.NEXT_PUBLIC_GIPHY_API_KEY
 
-const defaultOptions: CreateAxiosDefaults<any> = {
+const defaultOptions: CreateAxiosDefaults = {
   baseURL,
   params: {
     api_key,

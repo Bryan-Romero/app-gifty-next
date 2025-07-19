@@ -29,8 +29,8 @@ export function useSignUp({ setError, setErrorSignUp, handleOnSuccess }: UseSign
         timeout: 10000,
       })
     },
-    onError: (err: any) => {
-      if (err.fieldErrors) {
+    onError: (err) => {
+      if ('fieldErrors' in err) {
         Object.entries(err.fieldErrors).forEach(([field, messages]) => {
           if (Array.isArray(messages)) {
             setError(field as keyof TSignUpSchema, {

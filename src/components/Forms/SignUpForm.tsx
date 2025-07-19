@@ -27,7 +27,7 @@ export function SignUpForm({ form, errorSignUp, isSubmitting, setErrorSignUp, on
 
   return (
     <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
-      {errorSignUp && <p className="text-center text-base text-red-400">{errorSignUp}</p>}
+      {errorSignUp && <p className="w-full text-center text-base text-red-400">{errorSignUp}</p>}
       <Input
         endContent={<UserIcon size="1x" className="pointer-events-none" />}
         type="text"

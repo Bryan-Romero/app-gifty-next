@@ -12,7 +12,7 @@ export async function refreshAccessToken(data: JWT): Promise<JWT | null> {
       { headers: { Authorization: `Bearer ${data.tokens.refresh_token}` } }
     )
     return res.data.data
-  } catch (err) {
+  } catch {
     return {
       ...data,
       error: ErrorEnum.RefreshAccessTokenError,

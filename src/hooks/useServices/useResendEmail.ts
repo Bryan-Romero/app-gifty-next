@@ -16,8 +16,8 @@ interface UseResendEmailProps {
 export function useResendEmail({ setError, setErrorResendEmail }: UseResendEmailProps) {
   return useMutation({
     mutationFn: (data: TEmailSchema) => getResendEmail(data),
-    onError: (err: any) => {
-      if (err.fieldErrors) {
+    onError: (err) => {
+      if ('fieldErrors' in err) {
         Object.entries(err.fieldErrors).forEach(([field, messages]) => {
           if (Array.isArray(messages)) {
             setError(field as keyof TEmailSchema, {

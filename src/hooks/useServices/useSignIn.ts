@@ -22,17 +22,18 @@ export function useSignIn({ redirect, setErrorSignIn, handleOnSuccess }: UseSign
         ...data,
         redirect: false,
       })
-      if (!res?.ok) {
+      if (res?.error) {
         // Throw the error to be caught by onError
-        throw new Error(res?.error || 'Unknown error')
+        throw new Error('Invalid credentials')
       }
       return res
     },
+
     onSuccess: () => {
       handleOnSuccess?.()
       if (redirect) router.push(redirect)
     },
-    onError: (err: any) => {
+    onError: (err) => {
       setErrorSignIn(err.message)
     },
   })

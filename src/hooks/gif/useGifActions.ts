@@ -66,7 +66,7 @@ export function useGifActions(gif?: DataGif, modal?: ModalControl) {
       link.click()
       document.body.removeChild(link)
       window.URL.revokeObjectURL(blobUrl)
-    } catch (error) {
+    } catch {
       addToast({
         color: 'danger',
         title: 'Something went wrong',

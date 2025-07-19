@@ -37,7 +37,7 @@ export function SignInForm({ form, errorSignIn, isSubmitting, setErrorSignIn, on
 
   return (
     <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
-      {errorSignIn && <p className="text-center text-base text-red-400">{errorSignIn}</p>}
+      {errorSignIn && <p className="w-full text-center text-base text-red-400">{errorSignIn}</p>}
       <Input
         autoFocus
         endContent={<EnvelopeIcon size="1x" className="pointer-events-none" />}

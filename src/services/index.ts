@@ -1,7 +1,6 @@
 export * from './apiRes/addFavorite'
 export * from './apiRes/forgotPassword'
 export * from './apiRes/getAllIDsFavorites'
-export * from './apiRes/getFavGifs'
 export * from './apiRes/getMe'
 export * from './apiRes/getResendEmail'
 export * from './apiRes/getVerificationEmail'
