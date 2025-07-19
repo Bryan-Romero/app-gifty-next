@@ -30,6 +30,7 @@ export function SignUpForm({ form, errorSignUp, isSubmitting, setErrorSignUp, on
       {errorSignUp && <p className="text-center text-base text-red-400">{errorSignUp}</p>}
       <Input
         endContent={<UserIcon size="1x" className="pointer-events-none" />}
+        type="text"
         autoFocus
         label="Username"
         placeholder="Enter username"
@@ -43,6 +44,7 @@ export function SignUpForm({ form, errorSignUp, isSubmitting, setErrorSignUp, on
       />
       <Input
         endContent={<EnvelopeIcon size="1x" className="pointer-events-none" />}
+        type="email"
         label="Email"
         placeholder="Enter email"
         variant="bordered"

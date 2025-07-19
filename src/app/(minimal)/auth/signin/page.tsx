@@ -21,6 +21,7 @@ export default function Page() {
           formId={formId}
           form={form}
           errorSignIn={errorSignIn}
+          isSubmitting={isSubmitting}
           setErrorSignIn={setErrorSignIn}
           onSubmit={onSubmit}
         />

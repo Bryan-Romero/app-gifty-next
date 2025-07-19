@@ -45,6 +45,7 @@ export default function Page() {
                 endContent={<EnvelopeIcon size="1x" className="pointer-events-none" />}
                 classNames={{ input: 'text-base' }}
                 label="Email"
+                type="email"
                 placeholder="Enter your email"
                 variant="bordered"
                 isInvalid={!!errors.email}
