@@ -8,7 +8,7 @@ import { SignInForm } from '../Forms/SignInForm'
 
 export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 'children'>) {
   const formId = 'sign-in-form-modal'
-  const { form, errorSignIn, setErrorSignIn, isSubmitting, onSubmit, handleOnClose } = useSignInForm({
+  const { form, errorSignIn, setErrorSignIn, isSubmitting, onSubmit, handleModalClose } = useSignInForm({
     onCloseModal: onClose,
   })
 
@@ -18,7 +18,7 @@ export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
       onOpenChange={(open) => {
         if (!isSubmitting) onOpenChange(open)
       }}
-      onClose={handleOnClose}
+      onClose={handleModalClose}
       placement="center"
     >
       <ModalContent>
@@ -38,7 +38,7 @@ export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
         </ModalBody>
 
         <ModalFooter>
-          <Button color="danger" variant="flat" onPress={handleOnClose} isDisabled={isSubmitting}>
+          <Button color="danger" variant="flat" onPress={handleModalClose} isDisabled={isSubmitting}>
             Close
           </Button>
           {errorSignIn === ErrorEnum.UnverifiedEmail ? (
@@ -47,7 +47,7 @@ export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
               as={Link}
               href="/auth/resend-confirmation-email"
               target="_blank"
-              onPress={handleOnClose}
+              onPress={handleModalClose}
             >
               Resend email
             </Button>

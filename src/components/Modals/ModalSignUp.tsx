@@ -7,7 +7,7 @@ import { SignUpForm } from '../Forms/SignUpForm'
 
 export function ModalSignUp({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 'children'>) {
   const formId = 'sign-up-form-modal'
-  const { form, errorSignUp, setErrorSignUp, isSubmitting, onSubmit, handleOnClose } = useSignUpForm({
+  const { form, errorSignUp, setErrorSignUp, isSubmitting, onSubmit, handleModalClose } = useSignUpForm({
     onCloseModal: onClose,
   })
 
@@ -18,7 +18,7 @@ export function ModalSignUp({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
         if (!isSubmitting) onOpenChange(open)
       }}
       placement="center"
-      onClose={handleOnClose}
+      onClose={handleModalClose}
     >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">Sign up</ModalHeader>
@@ -35,7 +35,7 @@ export function ModalSignUp({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
         </ModalBody>
 
         <ModalFooter>
-          <Button color="danger" variant="flat" onPress={handleOnClose} isDisabled={isSubmitting}>
+          <Button color="danger" variant="flat" onPress={handleModalClose} isDisabled={isSubmitting}>
             Close
           </Button>
           <Button form={formId} type="submit" color="primary" isDisabled={isSubmitting} isLoading={isSubmitting}>
