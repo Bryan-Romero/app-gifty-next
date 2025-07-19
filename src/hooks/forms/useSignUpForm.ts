@@ -17,11 +17,15 @@ export function useSignUpForm({ onCloseModal }: UseSignUpFormProps = {}) {
   const { setError, reset, clearErrors } = form
 
   const handleOnClose = () => {
+    reset()
+    clearErrors()
+    setErrorSignUp('')
+    onCloseModal?.()
+  }
+
+  const handleModalClose = () => {
     if (!signUpMutation.isPending) {
-      reset()
-      clearErrors()
-      setErrorSignUp('')
-      onCloseModal?.()
+      handleOnClose()
     }
   }
 
@@ -38,6 +42,6 @@ export function useSignUpForm({ onCloseModal }: UseSignUpFormProps = {}) {
     isSubmitting: signUpMutation.isPending,
     isSuccess: signUpMutation.isSuccess,
     onSubmit: (data: TSignUpSchema) => signUpMutation.mutateAsync(data),
-    handleOnClose,
+    handleModalClose,
   }
 }
