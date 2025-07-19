@@ -18,11 +18,15 @@ export function useSignInForm({ redirect, onCloseModal }: UseSignInFormProps = {
   const { reset, clearErrors } = form
 
   const handleOnClose = () => {
+    reset()
+    clearErrors()
+    setErrorSignIn('')
+    onCloseModal?.()
+  }
+
+  const handleModalClose = () => {
     if (!signInMutation.isPending) {
-      reset()
-      clearErrors()
-      setErrorSignIn('')
-      onCloseModal?.()
+      handleOnClose()
     }
   }
 
@@ -39,6 +43,6 @@ export function useSignInForm({ redirect, onCloseModal }: UseSignInFormProps = {
     isSubmitting: signInMutation.isPending,
     isSuccess: signInMutation.isSuccess,
     onSubmit: (data: TSignInSchema) => signInMutation.mutateAsync(data),
-    handleOnClose,
+    handleModalClose,
   }
 }
