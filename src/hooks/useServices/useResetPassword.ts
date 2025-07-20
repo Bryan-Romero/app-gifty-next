@@ -16,8 +16,8 @@ interface UseResetPasswordProps {
 export function useResetPassword({ setError, setErrorResetPassword }: UseResetPasswordProps) {
   return useMutation({
     mutationFn: (data: TResetPasswordSchema & { token: string }) => resetPassword(data),
-    onError: (err: any) => {
-      if (err.fieldErrors) {
+    onError: (err) => {
+      if ('fieldErrors' in err) {
         Object.entries(err.fieldErrors).forEach(([field, messages]) => {
           if (Array.isArray(messages)) {
             setError(field as keyof TResetPasswordSchema, {

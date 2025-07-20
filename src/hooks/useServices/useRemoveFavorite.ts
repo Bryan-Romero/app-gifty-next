@@ -14,7 +14,7 @@ export function useRemoveFavorite() {
   return useMutation({
     mutationKey: ['remove-favorites'],
     mutationFn: removeFavorite,
-    onSuccess: (data, { gifId }) => {
+    onSuccess: () => {
       // queryClient.setQueryData([queryKey], (oldFavorites: [] = []) => {
       //   return oldFavorites.filter((id) => id !== gifId); // 🔥 Remueve el ID del array
       // });

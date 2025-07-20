@@ -45,7 +45,7 @@ export default function DetailPage({ gif_id }: Props) {
         {/** GIF */}
         <Image
           removeWrapper
-          alt="Default Gif"
+          alt={gif.data.alt_text || gif.data.title}
           className="col-span-2 row-start-2 w-full md:col-span-1"
           src={gif.data.images.downsized_medium.url}
           isLoading={isLoading}

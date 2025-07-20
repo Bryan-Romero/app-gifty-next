@@ -46,7 +46,7 @@ export default function Page() {
         ) : (
           <>
             <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
-              {errorResetPassword && <p className="text-center text-base text-red-400">{errorResetPassword}</p>}
+              {errorResetPassword && <p className="w-full text-center text-base text-red-400">{errorResetPassword}</p>}
               <Input
                 endContent={
                   <button className="focus:outline-none" type="button" onClick={() => setIsVisibleP((v) => !v)}>

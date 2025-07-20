@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { DependencyList, useEffect, useRef, useState } from 'react'
 
-export function useScrollButtons(deps: any[] = []) {
+export function useScrollButtons(deps?: DependencyList) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [atStart, setAtStart] = useState(true)
   const [atEnd, setAtEnd] = useState(false)
@@ -26,7 +26,7 @@ export function useScrollButtons(deps: any[] = []) {
       el.removeEventListener('scroll', checkScroll)
       window.removeEventListener('resize', checkScroll)
     }
-  }, deps)
+  }, [deps])
 
   const scrollLeft = () => {
     if (!scrollRef.current) return

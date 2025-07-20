@@ -8,20 +8,14 @@ import { Gifs } from '@/types'
     useInfiniteQuery: For paginated/infinite data retrieval (GET, with pagination or infinite scrolling).
     useMutation: For creating, updating, or deleting data (POST, PUT, PATCH, DELETE). */
 
-type UseInfiniteGifsProps<TParams> = {
-  queryKey: any[]
+type UseInfiniteGifsProps<T> = {
+  queryKey: string[]
   queryFn: QueryFunction<Gifs, string[], number>
-  getQueryParams?: () => TParams
+  getQueryParams?: () => T
   enabled?: boolean
-  deps?: any[]
 }
 
-export function useInfiniteGifs<TParams = any>({
-  queryKey,
-  queryFn,
-  enabled = true,
-  deps = [],
-}: UseInfiniteGifsProps<TParams>) {
+export function useInfiniteGifs<T>({ queryKey, queryFn, enabled = true }: UseInfiniteGifsProps<T>) {
   const { ref: scrollTriggerRef, inView } = useInView()
   const debounceRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -50,7 +44,7 @@ export function useInfiniteGifs<TParams = any>({
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current)
     }
-  }, [inView, data.hasNextPage, data.isFetchingNextPage, data.fetchNextPage, ...deps])
+  }, [inView, data.hasNextPage, data.isFetchingNextPage, data.fetchNextPage, data])
 
   return { ...data, scrollTriggerRef, inView }
 }

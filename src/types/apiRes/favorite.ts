@@ -1,7 +1,7 @@
 export interface Favorite {
-  _id: String
+  _id: string
   createdAt: Date
   updatedAt: Date
   active: boolean
-  gifId: String
+  gifId: string
 }
