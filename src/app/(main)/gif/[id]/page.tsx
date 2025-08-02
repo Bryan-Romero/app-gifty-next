@@ -1,3 +1,5 @@
+'use server'
+
 import type { Metadata } from 'next'
 
 import DetailPage from '@/components/Detail/DetailPage'
@@ -38,7 +40,7 @@ export async function generateMetadata(props: { params: Promise<{ id: string }> 
 }
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params
+  const { id } = await props.params
 
-  return <DetailPage gif_id={params.id} />
+  return <DetailPage gif_id={id} />
 }
