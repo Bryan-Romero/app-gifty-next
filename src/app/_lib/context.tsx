@@ -17,7 +17,7 @@ export interface ProvidersProps {
 
 const queryClient = new QueryClient()
 
-const appContext = React.createContext<{
+const AppContext = React.createContext<{
   alerts: {
     data: AlertProps[]
     set: React.Dispatch<React.SetStateAction<AlertProps[]>>
@@ -52,7 +52,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
             }}
           />
           <NextThemesProvider {...themeProps}>
-            <appContext.Provider
+            <AppContext.Provider
               value={{
                 alerts: {
                   data: alerts,
@@ -61,7 +61,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
               }}
             >
               {children}
-            </appContext.Provider>
+            </AppContext.Provider>
           </NextThemesProvider>
         </HeroUIProvider>
       </SessionProvider>
@@ -69,4 +69,4 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   )
 }
 
-export const useAppContext = () => React.useContext(appContext)
+export const useAppContext = () => React.useContext(AppContext)
