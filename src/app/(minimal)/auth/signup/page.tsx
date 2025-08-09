@@ -13,19 +13,18 @@ export default function Page() {
 
   return (
     <CardMinimal
-      title="Sign up"
       body={
         isSuccess ? (
           <>
-            <CircleCheckIcon size="5x" color="#22c55e" />
+            <CircleCheckIcon color="#22c55e" size="5x" />
             <p className="mt-4 text-center text-lg font-semibold text-green-600">Account created successfully!</p>
             <p className="mt-2 text-center text-sm text-gray-500">Please check your email to verify your account.</p>
           </>
         ) : (
           <SignUpForm
-            formId={formId}
-            form={form}
             errorSignUp={errorSignUp}
+            form={form}
+            formId={formId}
             isSubmitting={isSubmitting}
             setErrorSignUp={setErrorSignUp}
             onSubmit={onSubmit}
@@ -34,7 +33,7 @@ export default function Page() {
       }
       footer={
         <>
-          <Button variant="flat" color="primary" as={Link} href="/">
+          <Button as={Link} color="primary" href="/" variant="flat">
             Homepage
           </Button>
           {isSuccess ? (
@@ -42,7 +41,7 @@ export default function Page() {
               Go to login
             </Button>
           ) : (
-            <Button form={formId} type="submit" color="primary" isDisabled={isSubmitting} isLoading={isSubmitting}>
+            <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
               Sign up
             </Button>
           )}
@@ -61,6 +60,7 @@ export default function Page() {
           </CardBody>
         </Card>
       }
+      title="Sign up"
     />
   )
 }

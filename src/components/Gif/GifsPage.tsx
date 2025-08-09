@@ -37,7 +37,7 @@ export const GifsPage = ({
   if (!data?.pages) {
     return (
       <div className="flex flex-1 items-center justify-center">
-        <Spinner size="lg" color="primary" />
+        <Spinner color="primary" size="lg" />
       </div>
     )
   }
@@ -60,7 +60,7 @@ export const GifsPage = ({
 
       {hasNextPage ? (
         <div ref={scrollTriggerRef} className="flex w-full items-center justify-center pt-10 pb-40">
-          {isFetchingNextPage && <Spinner size="lg" color="primary" />}
+          {isFetchingNextPage && <Spinner color="primary" size="lg" />}
         </div>
       ) : hasGifs ? (
         <div className="w-full py-10 text-center text-xl text-gray-500">

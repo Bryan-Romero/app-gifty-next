@@ -13,7 +13,7 @@ export default function NotFound() {
       <div className="flex flex-1 flex-col items-center justify-center p-4">
         <Card className="max-w-md gap-2 p-4" shadow="md">
           <CardHeader className="flex justify-center">
-            <FaceFrownIcon size="6x" color="#ef4444" />
+            <FaceFrownIcon color="#ef4444" size="6x" />
           </CardHeader>
 
           <CardBody>
@@ -24,7 +24,7 @@ export default function NotFound() {
           </CardBody>
 
           <CardFooter className="flex justify-center">
-            <Button variant="solid" color="primary" as={Link} href="/">
+            <Button as={Link} color="primary" href="/" variant="solid">
               Go to Homepage
             </Button>
           </CardFooter>

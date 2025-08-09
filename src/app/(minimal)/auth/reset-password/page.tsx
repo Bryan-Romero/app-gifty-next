@@ -5,7 +5,8 @@ import { useSearchParams } from 'next/navigation'
 import { Button, Form, Input, Link } from '@heroui/react'
 
 import { CardMinimal } from '@/components/CardMinimal'
-import { CircleCheckIcon, EyeIcon, EyeSlashIcon } from '@/components/Icons'
+import { CircleCheckIcon } from '@/components/Icons'
+import { PasswordVisibilityToggle } from '@/components/PasswordVisibilityToggle'
 import { useResetPasswordForm } from '@/hooks'
 
 export default function Page() {
@@ -33,11 +34,10 @@ export default function Page() {
 
   return (
     <CardMinimal
-      title="Reset password"
       body={
         isSuccess ? (
           <>
-            <CircleCheckIcon size="5x" color="#22c55e" className="mb-4" />
+            <CircleCheckIcon className="mb-4" color="#22c55e" size="5x" />
             <p className="text-center text-lg font-semibold text-green-600">Password reset!</p>
             <p className="mt-2 text-center text-sm text-gray-500">
               You will now be able to log in to your account using the updated credentials.
@@ -48,47 +48,35 @@ export default function Page() {
             <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
               {errorResetPassword && <p className="w-full text-center text-base text-red-400">{errorResetPassword}</p>}
               <Input
-                endContent={
-                  <button className="focus:outline-none" type="button" onClick={() => setIsVisibleP((v) => !v)}>
-                    {isVisibleP ? (
-                      <EyeSlashIcon size="1x" className="pointer-events-none" />
-                    ) : (
-                      <EyeIcon size="1x" className="pointer-events-none" />
-                    )}
-                  </button>
-                }
-                type={isVisibleP ? 'text' : 'password'}
-                label="Password"
-                placeholder="Enter password"
-                variant="bordered"
-                isInvalid={!!errors.password}
+                classNames={{ input: 'text-base' }}
                 color={errors.password ? 'danger' : 'default'}
+                endContent={
+                  <PasswordVisibilityToggle isVisible={isVisibleP} onToggle={() => setIsVisibleP((v) => !v)} />
+                }
                 errorMessage={errors.password?.message}
                 isDisabled={isSubmitting}
-                classNames={{ input: 'text-base' }}
+                isInvalid={!!errors.password}
+                label="Password"
+                placeholder="Enter password"
+                type={isVisibleP ? 'text' : 'password'}
+                variant="bordered"
                 {...register('password', {
                   onChange: () => setErrorResetPassword(''),
                 })}
               />
               <Input
-                endContent={
-                  <button className="focus:outline-none" type="button" onClick={() => setIsVisibleCP((v) => !v)}>
-                    {isVisibleP ? (
-                      <EyeSlashIcon size="1x" className="pointer-events-none" />
-                    ) : (
-                      <EyeIcon size="1x" className="pointer-events-none" />
-                    )}
-                  </button>
-                }
-                type={isVisibleCP ? 'text' : 'password'}
-                label="Confirm Password"
-                placeholder="Confirm your password"
-                variant="bordered"
-                isInvalid={!!errors.confirmPassword}
+                classNames={{ input: 'text-base' }}
                 color={errors.confirmPassword ? 'danger' : 'default'}
+                endContent={
+                  <PasswordVisibilityToggle isVisible={isVisibleCP} onToggle={() => setIsVisibleCP((v) => !v)} />
+                }
                 errorMessage={errors.confirmPassword?.message}
                 isDisabled={isSubmitting}
-                classNames={{ input: 'text-base' }}
+                isInvalid={!!errors.confirmPassword}
+                label="Confirm Password"
+                placeholder="Confirm your password"
+                type={isVisibleCP ? 'text' : 'password'}
+                variant="bordered"
                 {...register('confirmPassword', {
                   onChange: () => setErrorResetPassword(''),
                 })}
@@ -99,7 +87,7 @@ export default function Page() {
       }
       footer={
         <>
-          <Button variant="flat" color="primary" as={Link} href="/">
+          <Button as={Link} color="primary" href="/" variant="flat">
             Homepage
           </Button>
           {isSuccess ? (
@@ -107,12 +95,13 @@ export default function Page() {
               Go to login
             </Button>
           ) : (
-            <Button form={formId} type="submit" color="primary" isDisabled={isSubmitting} isLoading={isSubmitting}>
+            <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
               Reset password
             </Button>
           )}
         </>
       }
+      title="Reset password"
     />
   )
 }

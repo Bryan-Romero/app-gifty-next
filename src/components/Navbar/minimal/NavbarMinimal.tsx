@@ -6,16 +6,11 @@ import { ThemeSwitch } from '../../ThemeSwitch'
 
 export const NavbarMinimal = () => {
   return (
-    <NextUINavbar maxWidth="2xl" isBordered>
+    <NextUINavbar isBordered maxWidth="2xl">
       {/* Logo */}
       <NavbarContent as="div" justify="center">
         <NavbarBrand>
-          <Link
-            href="/"
-            className="flex items-center"
-            color="foreground"
-            // isDisabled
-          >
+          <Link className="flex items-center" color="foreground" href="/">
             <h1 className="text-4xl font-bold text-inherit select-none">GIFty</h1>
           </Link>
         </NavbarBrand>

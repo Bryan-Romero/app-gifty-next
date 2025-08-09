@@ -16,12 +16,12 @@ export const TrendingSearches = () => {
           {/* Botón izquierda */}
           {!atStart && (
             <Button
-              onPress={scrollLeft}
               isIconOnly
-              radius="full"
-              className="absolute top-1/2 left-0 z-10 -translate-y-1/2 bg-transparent opacity-0 transition-opacity group-hover:opacity-100"
               aria-label="Scroll left"
+              className="absolute top-1/2 left-0 z-10 -translate-y-1/2 bg-transparent opacity-0 transition-opacity group-hover:opacity-100"
+              radius="full"
               tabIndex={-1}
+              onPress={scrollLeft}
             >
               <ChevronLeftIcon size="2x" />
             </Button>
@@ -29,21 +29,21 @@ export const TrendingSearches = () => {
 
           {/* ScrollShadow con ref */}
           <ScrollShadow
-            orientation="horizontal"
+            ref={scrollRef}
             hideScrollBar
             className="grid w-full auto-cols-max grid-flow-col gap-3 overflow-x-auto"
-            ref={scrollRef}
+            orientation="horizontal"
           >
             {trendingSearches.data.map((trending, index) => (
               <Button
-                as={Link}
-                color="secondary"
-                variant="flat"
-                href={`/search/${encodeURIComponent(trending)}`}
-                className="text-lg font-light"
-                startContent={<ArrowTrendUpIcon className="h-5 w-5" />}
                 key={`${trending}-${index}`}
+                as={Link}
+                className="text-lg font-light"
+                color="secondary"
+                href={`/search/${encodeURIComponent(trending)}`}
                 size="sm"
+                startContent={<ArrowTrendUpIcon className="h-5 w-5" />}
+                variant="flat"
               >
                 {trending.charAt(0).toUpperCase() + trending.slice(1)}
               </Button>
@@ -53,12 +53,12 @@ export const TrendingSearches = () => {
           {/* Botón derecha */}
           {!atEnd && (
             <Button
-              onPress={scrollRight}
               isIconOnly
-              radius="full"
-              className="absolute top-1/2 right-0 z-10 -translate-y-1/2 bg-transparent opacity-0 transition-opacity group-hover:opacity-100"
               aria-label="Scroll right"
+              className="absolute top-1/2 right-0 z-10 -translate-y-1/2 bg-transparent opacity-0 transition-opacity group-hover:opacity-100"
+              radius="full"
               tabIndex={-1}
+              onPress={scrollRight}
             >
               <ChevronRightIcon size="2x" />
             </Button>

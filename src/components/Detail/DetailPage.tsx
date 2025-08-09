@@ -27,7 +27,7 @@ export default function DetailPage({ gif_id }: Props) {
   if (isLoading)
     return (
       <div className="flex flex-1 items-center justify-center">
-        <Spinner size="lg" color="primary" />
+        <Spinner color="primary" size="lg" />
       </div>
     )
 
@@ -47,8 +47,8 @@ export default function DetailPage({ gif_id }: Props) {
           removeWrapper
           alt={gif.data.alt_text || gif.data.title}
           className="col-span-2 row-start-2 w-full md:col-span-1"
-          src={gif.data.images.downsized_medium.url}
           isLoading={isLoading}
+          src={gif.data.images.downsized_medium.url}
         />
 
         {/** BUTTONS */}
@@ -60,7 +60,7 @@ export default function DetailPage({ gif_id }: Props) {
       </div>
 
       {/** Related GIFs */}
-      <GifsPage tittle="Related GIFs" subTittle={gif.data.title} {...data} />
+      <GifsPage subTittle={gif.data.title} tittle="Related GIFs" {...data} />
     </>
   )
 }
