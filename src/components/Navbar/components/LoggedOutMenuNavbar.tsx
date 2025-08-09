@@ -15,7 +15,7 @@ export const LoggedOutMenuNavbar = ({ signInModalControl, signUpModalControl }: 
   const { isDark, mounted, toggleTheme } = useCustomTheme()
 
   return (
-    <Dropdown placement="bottom-end" backdrop="opaque">
+    <Dropdown backdrop="opaque" placement="bottom-end">
       <DropdownTrigger>
         <Button isIconOnly className="bg-transparent">
           <BarsIcon size="2x" />
@@ -25,9 +25,9 @@ export const LoggedOutMenuNavbar = ({ signInModalControl, signUpModalControl }: 
         {mounted && (
           <DropdownItem
             key="theme"
+            endContent={isDark ? <SunFilledIcon size="lg" /> : <MoonFilledIcon size="lg" />}
             textValue="Theme"
             onClick={toggleTheme}
-            endContent={isDark ? <SunFilledIcon size="lg" /> : <MoonFilledIcon size="lg" />}
           >
             Theme
           </DropdownItem>
@@ -35,20 +35,20 @@ export const LoggedOutMenuNavbar = ({ signInModalControl, signUpModalControl }: 
 
         <DropdownItem
           key="sign_in"
-          textValue="Sign In"
-          onClick={signInModalControl.onOpen}
-          variant="light"
           color="primary"
+          textValue="Sign In"
+          variant="light"
+          onClick={signInModalControl.onOpen}
         >
           Sign In
         </DropdownItem>
 
         <DropdownItem
           key="sign_up"
-          textValue="Sign Up"
-          onClick={signUpModalControl.onOpen}
-          variant="flat"
           color="primary"
+          textValue="Sign Up"
+          variant="flat"
+          onClick={signUpModalControl.onOpen}
         >
           Sign Up
         </DropdownItem>

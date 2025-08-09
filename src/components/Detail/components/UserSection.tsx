@@ -52,7 +52,7 @@ export const UserSection = ({ display_name, username, avatar_url, description, c
 
           {isOverflowing && (
             <CardFooter className="hidden justify-center gap-3 md:flex">
-              <button onClick={() => setRead((prevState) => !prevState)} className="bg-transparent text-sm font-medium">
+              <button className="bg-transparent text-sm font-medium" onClick={() => setRead((prevState) => !prevState)}>
                 read {read ? 'less' : 'more'}
               </button>
             </CardFooter>

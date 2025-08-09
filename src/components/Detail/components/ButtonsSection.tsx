@@ -33,8 +33,8 @@ export const ButtonsSection = ({ className, isInFavorites, ...gif }: ButtonsSect
           <Button
             className="hidden text-lg md:flex"
             color="danger"
-            variant="flat"
             startContent={<LikeIcon />}
+            variant="flat"
             onClick={handleRemoveFromFavorites}
           >
             Remove favorite
@@ -43,8 +43,8 @@ export const ButtonsSection = ({ className, isInFavorites, ...gif }: ButtonsSect
           <Button
             className="hidden text-lg md:flex"
             color="danger"
-            variant="flat"
             startContent={<NotLikeIcon />}
+            variant="flat"
             onClick={handleAddToFavorites}
           >
             Favorite
@@ -54,8 +54,8 @@ export const ButtonsSection = ({ className, isInFavorites, ...gif }: ButtonsSect
         <Button
           className="hidden text-lg md:flex"
           color="success"
-          variant="flat"
           startContent={<LinkIcon />}
+          variant="flat"
           onPress={handleCopyLink}
         >
           Copy Link
@@ -65,28 +65,28 @@ export const ButtonsSection = ({ className, isInFavorites, ...gif }: ButtonsSect
           color="primary"
           variant="flat"
           {...(!downloading && { startContent: <DownloadIcon /> })}
-          onPress={handleDownload}
           disabled={downloading}
           isLoading={downloading}
+          onPress={handleDownload}
         >
           Download
         </Button>
 
         {/* MOBILE SECTION */}
-        <Button className="flex md:hidden" isIconOnly color="danger" variant="flat">
+        <Button isIconOnly className="flex md:hidden" color="danger" variant="flat">
           <NotLikeIcon size="xl" />
         </Button>
-        <Button className="flex md:hidden" isIconOnly color="success" variant="flat" onPress={shareModalControl.onOpen}>
+        <Button isIconOnly className="flex md:hidden" color="success" variant="flat" onPress={shareModalControl.onOpen}>
           <PaperPlaneIcom size="xl" />
         </Button>
         <Button
-          className="flex md:hidden"
           isIconOnly
+          className="flex md:hidden"
           color="primary"
-          variant="flat"
-          onPress={handleDownload}
           disabled={downloading}
           isLoading={downloading}
+          variant="flat"
+          onPress={handleDownload}
         >
           {!downloading && <DownloadIcon size="xl" />}
         </Button>

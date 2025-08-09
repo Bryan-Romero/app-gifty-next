@@ -15,12 +15,11 @@ export default function Page() {
 
   return (
     <CardMinimal
-      title={errorSignIn === ErrorEnum.UnverifiedEmail ? 'Email not verified' : 'Sign in'}
       body={
         <SignInForm
-          formId={formId}
-          form={form}
           errorSignIn={errorSignIn}
+          form={form}
+          formId={formId}
           isSubmitting={isSubmitting}
           setErrorSignIn={setErrorSignIn}
           onSubmit={onSubmit}
@@ -28,13 +27,13 @@ export default function Page() {
       }
       footer={
         <>
-          <Button variant="flat" color="primary" as={Link} href="/">
+          <Button as={Link} color="primary" href="/" variant="flat">
             Homepage
           </Button>
           {errorSignIn === ErrorEnum.UnverifiedEmail ? (
             <Button
-              color="primary"
               as={Link}
+              color="primary"
               href="/auth/resend-confirmation-email"
               target="_blank"
               onPress={() => router.push('/')}
@@ -42,7 +41,7 @@ export default function Page() {
               Resend email
             </Button>
           ) : (
-            <Button form={formId} type="submit" color="primary" isDisabled={isSubmitting} isLoading={isSubmitting}>
+            <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
               Sign in
             </Button>
           )}
@@ -61,6 +60,7 @@ export default function Page() {
           </CardBody>
         </Card>
       }
+      title={errorSignIn === ErrorEnum.UnverifiedEmail ? 'Email not verified' : 'Sign in'}
     />
   )
 }

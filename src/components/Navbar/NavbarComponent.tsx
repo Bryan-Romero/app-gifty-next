@@ -35,11 +35,11 @@ const NavbarComponent = () => {
 
   return (
     <>
-      <NextUINavbar maxWidth="2xl" isBordered>
+      <NextUINavbar isBordered maxWidth="2xl">
         {/* Logo */}
         <NavbarContent as="div" justify="center">
           <NavbarBrand>
-            <Link href="/" className="flex items-center" onClick={() => setInputValue('')} color="foreground">
+            <Link className="flex items-center" color="foreground" href="/" onClick={() => setInputValue('')}>
               <h1 className="text-4xl font-bold text-inherit select-none">GIFty</h1>
             </Link>
           </NavbarBrand>
@@ -48,15 +48,15 @@ const NavbarComponent = () => {
         {/* Search input */}
         <NavbarContent as="form" className="max-w-lg" onSubmit={handleOnSubmit}>
           <Input
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Type to search..."
-            type="search"
-            enterKeyHint="search"
-            startContent={<SearchIcon size="lg" />}
             classNames={{
               input: 'text-lg',
             }}
+            enterKeyHint="search"
+            placeholder="Type to search..."
+            startContent={<SearchIcon size="lg" />}
+            type="search"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
           />
         </NavbarContent>
 
