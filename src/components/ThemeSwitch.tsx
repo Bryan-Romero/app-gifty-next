@@ -11,8 +11,8 @@ export const ThemeSwitch = () => {
   return (
     <button
       aria-label={`switch to mode ${isDark ? 'light' : 'dark'}`}
-      onClick={toggleTheme}
       className="cursor-pointer bg-transparent"
+      onClick={toggleTheme}
     >
       {isDark ? <SunFilledIcon size="lg" /> : <MoonFilledIcon size="lg" />}
     </button>

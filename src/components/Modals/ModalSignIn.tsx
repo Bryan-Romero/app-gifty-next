@@ -15,11 +15,11 @@ export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
   return (
     <Modal
       isOpen={isOpen}
+      placement="center"
+      onClose={handleModalClose}
       onOpenChange={(open) => {
         if (!isSubmitting) onOpenChange(open)
       }}
-      onClose={handleModalClose}
-      placement="center"
     >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">
@@ -28,9 +28,9 @@ export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
 
         <ModalBody>
           <SignInForm
-            formId={formId}
-            form={form}
             errorSignIn={errorSignIn}
+            form={form}
+            formId={formId}
             isSubmitting={isSubmitting}
             setErrorSignIn={setErrorSignIn}
             onSubmit={onSubmit}
@@ -38,13 +38,13 @@ export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
         </ModalBody>
 
         <ModalFooter>
-          <Button color="danger" variant="flat" onPress={handleModalClose} isDisabled={isSubmitting}>
+          <Button color="danger" isDisabled={isSubmitting} variant="flat" onPress={handleModalClose}>
             Close
           </Button>
           {errorSignIn === ErrorEnum.UnverifiedEmail ? (
             <Button
-              color="primary"
               as={Link}
+              color="primary"
               href="/auth/resend-confirmation-email"
               target="_blank"
               onPress={handleModalClose}
@@ -52,7 +52,7 @@ export function ModalSignIn({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
               Resend email
             </Button>
           ) : (
-            <Button form={formId} type="submit" color="primary" isDisabled={isSubmitting} isLoading={isSubmitting}>
+            <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
               Sign in
             </Button>
           )}

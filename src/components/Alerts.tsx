@@ -13,17 +13,17 @@ export const Alerts = () => {
   return (
     <ScrollShadow
       hideScrollBar
-      visibility="top"
       className="pointer-events-none fixed right-4 bottom-4 z-50 flex h-full max-h-80 w-full max-w-xs flex-col-reverse items-end gap-2"
+      visibility="top"
     >
       <AnimatePresence>
         {alerts.map((alert) => (
           <motion.div
             key={alert.id}
             layout
-            initial={{ opacity: 0, y: -24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: -24 }}
             transition={{ duration: 0.3 }}
           >
             <Alert {...alert} className="pointer-events-auto w-full" onClose={() => removeAlert(alert.id)} />

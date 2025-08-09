@@ -28,11 +28,10 @@ export default function Page() {
 
   return (
     <CardMinimal
-      title="Forgot your password?"
       body={
         isSuccess ? (
           <>
-            <CircleCheckIcon size="5x" color="#22c55e" className="mb-4" />
+            <CircleCheckIcon className="mb-4" color="#22c55e" size="5x" />
             <p className="text-center text-lg font-semibold text-green-600">Email sent!</p>
             <p className="mt-2 text-center text-sm text-gray-500">Please check your email to change your password.</p>
           </>
@@ -44,16 +43,16 @@ export default function Page() {
               )}
               <Input
                 autoFocus
-                endContent={<EnvelopeIcon size="1x" className="pointer-events-none" />}
                 classNames={{ input: 'text-base' }}
-                label="Email"
-                type="email"
-                placeholder="Enter your email"
-                variant="bordered"
-                isInvalid={!!errors.email}
                 color={errors.email ? 'danger' : 'default'}
+                endContent={<EnvelopeIcon className="pointer-events-none" size="1x" />}
                 errorMessage={errors.email?.message}
                 isDisabled={isSubmitting}
+                isInvalid={!!errors.email}
+                label="Email"
+                placeholder="Enter your email"
+                type="email"
+                variant="bordered"
                 {...register('email', {
                   onChange: () => setErrorForgotPassword(''),
                 })}
@@ -64,15 +63,16 @@ export default function Page() {
       }
       footer={
         isSuccess ? (
-          <Button as={Link} color="primary" variant="flat" href="/">
+          <Button as={Link} color="primary" href="/" variant="flat">
             Home
           </Button>
         ) : (
-          <Button form={formId} type="submit" color="primary" isDisabled={isSubmitting} isLoading={isSubmitting}>
+          <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
             Send Email
           </Button>
         )
       }
+      title="Forgot your password?"
     />
   )
 }

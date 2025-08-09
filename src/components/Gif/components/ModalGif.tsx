@@ -23,17 +23,13 @@ export function ModalGif({ title, id, images, alt_text, isOpen, onOpenChange }: 
 
   return (
     <Modal
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
-      size="3xl"
-      placement="center"
       backdrop="opaque"
-      shadow="lg"
       classNames={{
         backdrop: 'bg-black/80',
         base: 'max-h-5/6',
         body: 'overflow-y-auto',
       }}
+      isOpen={isOpen}
       motionProps={{
         variants: {
           enter: {
@@ -54,28 +50,32 @@ export function ModalGif({ title, id, images, alt_text, isOpen, onOpenChange }: 
           },
         },
       }}
+      placement="center"
+      shadow="lg"
+      size="3xl"
+      onOpenChange={onOpenChange}
     >
       <ModalContent>
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
             <ModalBody>
-              {loading && <Spinner size="lg" color="primary" className="absolute inset-0 m-auto" />}
+              {loading && <Spinner className="absolute inset-0 m-auto" color="primary" size="lg" />}
               <Image
                 removeWrapper
                 alt={alt_text || title}
                 className="mx-auto h-full w-full"
                 classNames={{ img: 'object-contain' }}
                 src={images.downsized_medium.url}
-                onLoad={() => setLoading(false)}
                 onError={() => setLoading(false)}
+                onLoad={() => setLoading(false)}
               />
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose}>
                 Close
               </Button>
-              <Button color="primary" as={Link} href={`/gif/${id}`}>
+              <Button as={Link} color="primary" href={`/gif/${id}`}>
                 Detail
               </Button>
             </ModalFooter>

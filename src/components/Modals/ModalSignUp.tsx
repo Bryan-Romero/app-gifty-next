@@ -14,20 +14,20 @@ export function ModalSignUp({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
   return (
     <Modal
       isOpen={isOpen}
+      placement="center"
+      onClose={handleModalClose}
       onOpenChange={(open) => {
         if (!isSubmitting) onOpenChange(open)
       }}
-      placement="center"
-      onClose={handleModalClose}
     >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">Sign up</ModalHeader>
 
         <ModalBody>
           <SignUpForm
-            formId={formId}
-            form={form}
             errorSignUp={errorSignUp}
+            form={form}
+            formId={formId}
             isSubmitting={isSubmitting}
             setErrorSignUp={setErrorSignUp}
             onSubmit={onSubmit}
@@ -35,10 +35,10 @@ export function ModalSignUp({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 
         </ModalBody>
 
         <ModalFooter>
-          <Button color="danger" variant="flat" onPress={handleModalClose} isDisabled={isSubmitting}>
+          <Button color="danger" isDisabled={isSubmitting} variant="flat" onPress={handleModalClose}>
             Close
           </Button>
-          <Button form={formId} type="submit" color="primary" isDisabled={isSubmitting} isLoading={isSubmitting}>
+          <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
             Sign up
           </Button>
         </ModalFooter>
