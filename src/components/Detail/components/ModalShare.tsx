@@ -11,8 +11,6 @@ export const ModalShare = ({ isOpen, onOpenChange }: Omit<ModalProps, 'children'
   return (
     <Modal
       backdrop="opaque"
-      placement="bottom-center"
-      size="sm"
       isOpen={isOpen}
       motionProps={{
         variants: {
@@ -34,6 +32,8 @@ export const ModalShare = ({ isOpen, onOpenChange }: Omit<ModalProps, 'children'
           },
         },
       }}
+      placement="bottom-center"
+      size="sm"
       onOpenChange={onOpenChange}
     >
       <ModalContent>
@@ -44,8 +44,8 @@ export const ModalShare = ({ isOpen, onOpenChange }: Omit<ModalProps, 'children'
               <Button
                 className="col-span-2"
                 color="default"
-                variant="flat"
                 startContent={<LinkIcon size="xl" />}
+                variant="flat"
                 onPress={() => {
                   handleCopyLink()
                   onClose()
@@ -56,11 +56,11 @@ export const ModalShare = ({ isOpen, onOpenChange }: Omit<ModalProps, 'children'
 
               <Button
                 as={Link}
-                href={facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="col-span-1 bg-[#1877F3] text-white hover:bg-[#166fe0]"
+                href={facebookUrl}
+                rel="noopener noreferrer"
                 startContent={<FacebookIcon size="xl" />}
+                target="_blank"
                 onPress={onClose}
               >
                 Facebook
@@ -68,11 +68,11 @@ export const ModalShare = ({ isOpen, onOpenChange }: Omit<ModalProps, 'children'
 
               <Button
                 as={Link}
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="col-span-1 bg-[#25D366] text-white hover:bg-[#1ebe57]"
+                href={whatsappUrl}
+                rel="noopener noreferrer"
                 startContent={<WhatsappIcon size="xl" />}
+                target="_blank"
                 onPress={onClose}
               >
                 WhatsApp
@@ -80,21 +80,21 @@ export const ModalShare = ({ isOpen, onOpenChange }: Omit<ModalProps, 'children'
 
               <Button
                 as={Link}
-                href={twitterUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="col-span-1 bg-black text-white hover:bg-neutral-800"
+                href={twitterUrl}
+                rel="noopener noreferrer"
                 startContent={<XTwitterIcon size="xl" />}
+                target="_blank"
                 onPress={onClose}
               />
 
               <Button
                 as={Link}
-                href={linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="col-span-1 bg-[#0077B5] text-white hover:bg-[#006097]"
+                href={linkedinUrl}
+                rel="noopener noreferrer"
                 startContent={<LinkedinIcon size="xl" />}
+                target="_blank"
                 onPress={onClose}
               >
                 LinkedIn

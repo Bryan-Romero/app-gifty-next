@@ -16,17 +16,16 @@ export default function Page() {
   if (isLoading)
     return (
       <div className="flex flex-1 items-center justify-center">
-        <Spinner size="lg" color="primary" />
+        <Spinner color="primary" size="lg" />
       </div>
     )
 
   return (
     <CardMinimal
-      title="Email confirmation"
       body={
         !isError ? (
           <>
-            <CircleCheckIcon size="5x" color="#22c55e" className="mb-4" />
+            <CircleCheckIcon className="mb-4" color="#22c55e" size="5x" />
             <p className="text-center text-lg font-semibold text-green-600">¡Confirmed mail!</p>
             <p className="mt-2 text-center text-sm text-gray-500">
               Your email has been successfully verified.
@@ -36,7 +35,7 @@ export default function Page() {
           </>
         ) : (
           <>
-            <CircleXmarkIcon size="5x" color="#ef4444" className="mb-4" />
+            <CircleXmarkIcon className="mb-4" color="#ef4444" size="5x" />
             <p className="text-center text-lg font-semibold">¡Unconfirmed mail!</p>
             <p className="mt-2 text-center text-sm text-gray-500">{error.message}</p>
           </>
@@ -44,20 +43,20 @@ export default function Page() {
       }
       footer={
         <>
-          <Button variant="flat" color="primary" as={Link} href="/">
+          <Button as={Link} color="primary" href="/" variant="flat">
             Homepage
           </Button>
           {!isError ? (
-            <Button variant="solid" color="primary" as={Link} href="/auth/signin">
+            <Button as={Link} color="primary" href="/auth/signin" variant="solid">
               Go to login
             </Button>
           ) : (
             <Button
-              variant="solid"
-              color="primary"
               as={Link}
+              color="primary"
               href="/auth/resend-confirmation-email"
               target="_blank"
+              variant="solid"
               onPress={() => router.push('/')}
             >
               Resend email
@@ -65,6 +64,7 @@ export default function Page() {
           )}
         </>
       }
+      title="Email confirmation"
     />
   )
 }

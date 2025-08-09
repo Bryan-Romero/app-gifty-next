@@ -49,16 +49,16 @@ export const LoggedInNavbar = (session: Session) => {
           )}
 
           {pathname !== '/' && (
-            <DropdownItem as="a" href="/" key="home" color="default">
+            <DropdownItem key="home" as="a" color="default" href="/">
               Home
             </DropdownItem>
           )}
 
-          <DropdownItem as="a" href="/my/favorites" key="favorites" color="secondary">
+          <DropdownItem key="favorites" as="a" color="secondary" href="/my/favorites">
             My Favorites
           </DropdownItem>
 
-          <DropdownItem as="a" href="/my/settings" key="settings" color="primary">
+          <DropdownItem key="settings" as="a" color="primary" href="/my/settings">
             My Settings
           </DropdownItem>
 
