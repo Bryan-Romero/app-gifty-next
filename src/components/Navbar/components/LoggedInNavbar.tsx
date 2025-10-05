@@ -7,7 +7,7 @@ import { signOut } from 'next-auth/react'
 
 import { MoonFilledIcon, SunFilledIcon } from '@/components/Icons'
 import { useCustomTheme } from '@/hooks'
-import { logout } from '@/services/apiRes/logout'
+import { logout } from '@/services/api-services/logout.service'
 
 export const LoggedInNavbar = (session: Session) => {
   const { isDark, mounted, toggleTheme } = useCustomTheme()

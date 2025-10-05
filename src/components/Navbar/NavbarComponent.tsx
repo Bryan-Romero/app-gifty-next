@@ -14,8 +14,8 @@ import {
 import { useSession } from 'next-auth/react'
 
 import { SearchIcon } from '../Icons'
-import { ModalSignIn } from '../Modals/ModalSignIn'
-import { ModalSignUp } from '../Modals/ModalSignUp'
+import { ModalSignin } from '../Modals/ModalSignin'
+import { ModalSignup } from '../Modals/ModalSignup'
 import { ThemeSwitch } from '../ThemeSwitch'
 import { LoggedInNavbar } from './components/LoggedInNavbar'
 import { LoggedOutNavbar } from './components/LoggedOutNavbar'
@@ -77,8 +77,8 @@ const NavbarComponent = () => {
       <TrendingSearches />
 
       {/* Modals Sign In/Up */}
-      <ModalSignIn {...signInModalControl} />
-      <ModalSignUp {...signUpModalControl} />
+      <ModalSignin {...signInModalControl} />
+      <ModalSignup {...signUpModalControl} />
     </>
   )
 }

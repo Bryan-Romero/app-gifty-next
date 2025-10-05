@@ -1,5 +1,5 @@
 import { LIMIT } from '@/config'
-import { getGifsSearch } from '@/services/giphy/getGifsSearch'
+import { getGifsSearch } from '@/services/giphy-services/getGifsSearch.service'
 import { useInfiniteGifs } from './useInfiniteGifs'
 
 export function useGifsSearch(query: string) {
