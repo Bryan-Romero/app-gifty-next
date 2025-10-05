@@ -1,41 +1,35 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { use, useActionState, useEffect, useState } from 'react'
 import { Button, Form, Input, Link } from '@heroui/react'
 
 import { CardMinimal } from '@/components/CardMinimal'
 import { CircleCheckIcon } from '@/components/Icons'
 import { PasswordVisibilityToggle } from '@/components/PasswordVisibilityToggle'
-import { useResetPasswordForm } from '@/hooks'
+import { resetPassword } from '@/lib/actions/resetPassword'
 
-export default function Page() {
-  const searchParams = useSearchParams()
-  const token = searchParams.get('token')
+export default function Page({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
+  const token = use(searchParams).token
   const formId = 'reset-password-form'
-  const { errorResetPassword, form, onSubmit, setErrorResetPassword, isSubmitting, isSuccess } =
-    useResetPasswordForm(token)
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = form
   const [isVisibleP, setIsVisibleP] = useState(false)
   const [isVisibleCP, setIsVisibleCP] = useState(false)
+  const [state, formAction, isPending] = useActionState(resetPassword, {
+    values: { token },
+  })
 
   useEffect(() => {
-    if (isSuccess) {
+    if (state?.success) {
       const timeout = setTimeout(() => {
         window.close()
       }, 1000)
       return () => clearTimeout(timeout)
     }
-  }, [isSuccess])
+  }, [state?.success])
 
   return (
     <CardMinimal
       body={
-        isSuccess ? (
+        state?.success ? (
           <>
             <CircleCheckIcon className="mb-4" color="#22c55e" size="5x" />
             <p className="text-center text-lg font-semibold text-green-600">Password reset!</p>
@@ -45,41 +39,33 @@ export default function Page() {
           </>
         ) : (
           <>
-            <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
-              {errorResetPassword && <p className="w-full text-center text-base text-red-400">{errorResetPassword}</p>}
+            <Form action={formAction} id={formId} validationErrors={state?.errors}>
+              {state?.errors?.message && (
+                <p className="w-full text-center text-base text-red-400">{state?.errors?.message}</p>
+              )}
               <Input
                 classNames={{ input: 'text-base' }}
-                color={errors.password ? 'danger' : 'default'}
                 endContent={
                   <PasswordVisibilityToggle isVisible={isVisibleP} onToggle={() => setIsVisibleP((v) => !v)} />
                 }
-                errorMessage={errors.password?.message}
-                isDisabled={isSubmitting}
-                isInvalid={!!errors.password}
+                isDisabled={isPending}
                 label="Password"
+                name="password"
                 placeholder="Enter password"
                 type={isVisibleP ? 'text' : 'password'}
                 variant="bordered"
-                {...register('password', {
-                  onChange: () => setErrorResetPassword(''),
-                })}
               />
               <Input
                 classNames={{ input: 'text-base' }}
-                color={errors.confirmPassword ? 'danger' : 'default'}
                 endContent={
                   <PasswordVisibilityToggle isVisible={isVisibleCP} onToggle={() => setIsVisibleCP((v) => !v)} />
                 }
-                errorMessage={errors.confirmPassword?.message}
-                isDisabled={isSubmitting}
-                isInvalid={!!errors.confirmPassword}
+                isDisabled={isPending}
                 label="Confirm Password"
+                name="confirmPassword"
                 placeholder="Confirm your password"
                 type={isVisibleCP ? 'text' : 'password'}
                 variant="bordered"
-                {...register('confirmPassword', {
-                  onChange: () => setErrorResetPassword(''),
-                })}
               />
             </Form>
           </>
@@ -90,12 +76,12 @@ export default function Page() {
           <Button as={Link} color="primary" href="/" variant="flat">
             Homepage
           </Button>
-          {isSuccess ? (
+          {state?.success ? (
             <Button as={Link} color="success" href="/auth/signin">
               Go to login
             </Button>
           ) : (
-            <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
+            <Button color="primary" form={formId} isDisabled={isPending} isLoading={isPending} type="submit">
               Reset password
             </Button>
           )}

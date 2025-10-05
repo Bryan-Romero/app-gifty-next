@@ -1,34 +1,28 @@
 'use client'
 
+import { useActionState } from 'react'
 import { Button, Card, CardBody, Link } from '@heroui/react'
 
 import { CardMinimal } from '@/components/CardMinimal'
-import { SignUpForm } from '@/components/Forms/SignUpForm'
+import { SignupForm } from '@/components/Forms/SignupForm'
 import { CircleCheckIcon } from '@/components/Icons'
-import { useSignUpForm } from '@/hooks'
+import { signup } from '@/lib/actions/signup'
 
 export default function Page() {
   const formId = 'sign-up-form'
-  const { form, errorSignUp, setErrorSignUp, isSubmitting, onSubmit, isSuccess } = useSignUpForm()
+  const [state, formAction, isPending] = useActionState(signup, {})
 
   return (
     <CardMinimal
       body={
-        isSuccess ? (
+        state?.success ? (
           <>
             <CircleCheckIcon color="#22c55e" size="5x" />
             <p className="mt-4 text-center text-lg font-semibold text-green-600">Account created successfully!</p>
             <p className="mt-2 text-center text-sm text-gray-500">Please check your email to verify your account.</p>
           </>
         ) : (
-          <SignUpForm
-            errorSignUp={errorSignUp}
-            form={form}
-            formId={formId}
-            isSubmitting={isSubmitting}
-            setErrorSignUp={setErrorSignUp}
-            onSubmit={onSubmit}
-          />
+          <SignupForm formAction={formAction} formId={formId} isPending={isPending} state={state} />
         )
       }
       footer={
@@ -36,12 +30,12 @@ export default function Page() {
           <Button as={Link} color="primary" href="/" variant="flat">
             Homepage
           </Button>
-          {isSuccess ? (
+          {state?.success ? (
             <Button as={Link} color="success" href="/auth/signin">
               Go to login
             </Button>
           ) : (
-            <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
+            <Button color="primary" form={formId} isDisabled={isPending} isLoading={isPending} type="submit">
               Sign up
             </Button>
           )}

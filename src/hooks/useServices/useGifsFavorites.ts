@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react'
 
 import { LIMIT } from '@/config'
-import { getFavoriteGifs } from '@/services/apiRes/getFavoriteGifs'
+import { getFavoriteGifs } from '@/services/api-services/getFavoriteGifs.service'
 import { KeysEnum } from '@/types'
 import { useInfiniteGifs } from './useInfiniteGifs'
 

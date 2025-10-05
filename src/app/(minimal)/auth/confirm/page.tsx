@@ -5,7 +5,7 @@ import { Button, Link, Spinner } from '@heroui/react'
 
 import { CardMinimal } from '@/components/CardMinimal'
 import { CircleCheckIcon, CircleXmarkIcon } from '@/components/Icons'
-import { useVerificationEmail } from '@/hooks/useServices/useVerificationEmail'
+import { useVerificationEmail } from '@/hooks'
 
 export default function Page() {
   const searchParams = useSearchParams()

@@ -1,5 +1,5 @@
 import { LIMIT } from '@/config'
-import { getGifsTrending } from '@/services/giphy/getGifsTrending'
+import { getGifsTrending } from '@/services/giphy-services/getGifsTrending.service'
 import { useInfiniteGifs } from './useInfiniteGifs'
 
 export function useGifsTrending() {

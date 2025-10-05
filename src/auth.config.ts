@@ -1,17 +1,17 @@
-import type { NextAuthConfig } from 'next-auth'
+import { CredentialsSignin, type NextAuthConfig } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 
-import { signIn } from './services'
-import { signInSchema } from './types'
+import { signinSchema } from './lib/validations/signin.schema'
+import { signin } from './services'
 
 export default {
   providers: [
     Credentials({
       authorize: async (credentials) => {
         try {
-          const { email, password } = await signInSchema.parseAsync(credentials)
+          const { email, password } = await signinSchema.parseAsync(credentials)
 
-          const accessRes = await signIn({ email, password })
+          const accessRes = await signin({ email, password })
 
           return {
             ...accessRes,
@@ -20,10 +20,12 @@ export default {
               id: accessRes.user._id, // AdapterUser espera 'id'
             },
           }
-        } catch {
+        } catch (error) {
           /** NextAuth will always respond to the frontend with a 401
            * When you throw an error in authorize */
-          return null
+          const newError = new CredentialsSignin()
+          newError.code = error.message
+          throw newError
         }
       },
     }),
