@@ -1,35 +1,29 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useActionState, useEffect } from 'react'
 import { Button, Form, Input, Link } from '@heroui/react'
 
 import { CardMinimal } from '@/components/CardMinimal'
 import { CircleCheckIcon, EnvelopeIcon } from '@/components/Icons'
-import { useForgotPasswordForm } from '@/hooks'
+import { forgotPassword } from '@/lib/actions/forgotPassword'
 
 export default function Page() {
   const formId = 'forgot-password-form'
-  const { errorForgotPassword, form, onSubmit, setErrorForgotPassword, isSubmitting, isSuccess } =
-    useForgotPasswordForm()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = form
+  const [state, formAction, isPending] = useActionState(forgotPassword, {})
 
   useEffect(() => {
-    if (isSuccess) {
+    if (state?.success) {
       const timeout = setTimeout(() => {
         window.close()
       }, 1000)
       return () => clearTimeout(timeout)
     }
-  }, [isSuccess])
+  }, [state?.success])
 
   return (
     <CardMinimal
       body={
-        isSuccess ? (
+        state?.success ? (
           <>
             <CircleCheckIcon className="mb-4" color="#22c55e" size="5x" />
             <p className="text-center text-lg font-semibold text-green-600">Email sent!</p>
@@ -37,37 +31,31 @@ export default function Page() {
           </>
         ) : (
           <>
-            <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
-              {errorForgotPassword && (
-                <p className="w-full text-center text-base text-red-400">{errorForgotPassword}</p>
+            <Form action={formAction} id={formId} validationErrors={state?.errors}>
+              {state?.errors?.message && (
+                <p className="w-full text-center text-base text-red-400">{state.errors.message}</p>
               )}
               <Input
                 autoFocus
                 classNames={{ input: 'text-base' }}
-                color={errors.email ? 'danger' : 'default'}
                 endContent={<EnvelopeIcon className="pointer-events-none" size="1x" />}
-                errorMessage={errors.email?.message}
-                isDisabled={isSubmitting}
-                isInvalid={!!errors.email}
+                isDisabled={isPending}
                 label="Email"
                 placeholder="Enter your email"
                 type="email"
                 variant="bordered"
-                {...register('email', {
-                  onChange: () => setErrorForgotPassword(''),
-                })}
               />
             </Form>
           </>
         )
       }
       footer={
-        isSuccess ? (
+        state?.success ? (
           <Button as={Link} color="primary" href="/" variant="flat">
             Home
           </Button>
         ) : (
-          <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
+          <Button color="primary" form={formId} isDisabled={isPending} isLoading={isPending} type="submit">
             Send Email
           </Button>
         )

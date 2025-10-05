@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Button, Image as ImgGif, useDisclosure } from '@heroui/react'
 
 import { ExpandIcon, LikeIcon, NotLikeIcon } from '@/components/Icons'
-import { ModalSignIn } from '@/components/Modals/ModalSignIn'
+import { ModalSignin } from '@/components/Modals/ModalSignin'
 import { useGifActions } from '@/hooks'
 import { DataGif } from '@/types'
 import { ModalGif } from './ModalGif'
@@ -78,7 +78,7 @@ export const Gif = memo(
         </Link>
 
         <ModalGif {...gif} {...gifModalControl} />
-        <ModalSignIn {...signInModalControl} />
+        <ModalSignin {...signInModalControl} />
       </>
     )
   },

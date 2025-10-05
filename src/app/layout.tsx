@@ -10,7 +10,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import type { Metadata } from 'next'
 import clsx from 'clsx'
 
-import { Providers } from './_lib/context'
+import { Providers } from '../providers/Providers'
 
 config.autoAddCss = false
 
