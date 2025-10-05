@@ -2,34 +2,27 @@
 
 import { useState } from 'react'
 import { Form, Input, Link } from '@heroui/react'
-import { UseFormReturn } from 'react-hook-form'
 
 import { CircleExclamationIcon, EnvelopeIcon } from '@/components/Icons'
-import { ErrorEnum, TSignInSchema } from '@/types'
+import { SigninState } from '@/lib/validations/signin.schema'
+import { ErrorEnum } from '@/types'
 import { PasswordVisibilityToggle } from '../PasswordVisibilityToggle'
 
 interface SignInFormProps {
-  form: UseFormReturn<TSignInSchema>
-  errorSignIn?: string
-  isSubmitting?: boolean
-  setErrorSignIn: (msg: string) => void
-  onSubmit: (data: TSignInSchema) => void
   formId: string
+  state: SigninState
+  formAction: (payload: FormData) => void
+  isPending: boolean
 }
 
-export function SignInForm({ form, errorSignIn, isSubmitting, setErrorSignIn, onSubmit, formId }: SignInFormProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = form
+export function SigninForm({ formAction, formId, isPending, state }: SignInFormProps) {
   const [isVisible, setIsVisible] = useState(false)
 
-  if (errorSignIn === ErrorEnum.UnverifiedEmail) {
+  if (state?.errors?.message === ErrorEnum.UnverifiedEmail) {
     return (
       <>
         <CircleExclamationIcon className="mb-4" color="#fb923c" size="5x" />
-        <p className="tex-or text-lg font-medium text-gray-500">
+        <p className="text-base font-medium text-gray-500">
           Your email is not verified. Please check your inbox for a verification email.
         </p>
       </>
@@ -37,34 +30,31 @@ export function SignInForm({ form, errorSignIn, isSubmitting, setErrorSignIn, on
   }
 
   return (
-    <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
-      {errorSignIn && <p className="w-full text-center text-base text-red-400">{errorSignIn}</p>}
+    <Form action={formAction} id={formId} validationErrors={state?.errors}>
+      {state?.errors?.message && <p className="w-full text-center text-base text-red-400">{state.errors.message}</p>}
       <Input
-        autoFocus
+        autoComplete="email"
         classNames={{ input: 'text-base' }}
-        color={errors.email ? 'danger' : 'default'}
+        defaultValue={state?.lastSubmittedValues?.email}
         endContent={<EnvelopeIcon className="pointer-events-none" size="1x" />}
-        errorMessage={errors.email?.message}
-        isDisabled={isSubmitting}
-        isInvalid={!!errors.email}
+        isDisabled={isPending}
         label="Email"
+        name="email"
         placeholder="Enter your email"
         type="email"
         variant="bordered"
-        {...register('email', { onChange: () => setErrorSignIn('') })}
       />
       <Input
+        autoComplete="current-password"
         classNames={{ input: 'text-base' }}
-        color={errors.password ? 'danger' : 'default'}
+        defaultValue={state?.lastSubmittedValues?.password}
         endContent={<PasswordVisibilityToggle isVisible={isVisible} onToggle={() => setIsVisible((v) => !v)} />}
-        errorMessage={errors.password?.message}
-        isDisabled={isSubmitting}
-        isInvalid={!!errors.password}
+        isDisabled={isPending}
         label="Password"
+        name="password"
         placeholder="Enter your password"
         type={isVisible ? 'text' : 'password'}
         variant="bordered"
-        {...register('password', { onChange: () => setErrorSignIn('') })}
       />
 
       <div className="flex justify-between">
@@ -75,7 +65,7 @@ export function SignInForm({ form, errorSignIn, isSubmitting, setErrorSignIn, on
             >
               Remember me
             </Checkbox> */}
-        <Link color="primary" href="/auth/forgot-password" size="sm" target="_blank">
+        <Link color="primary" href="/auth/forgot-password" isDisabled={isPending} size="sm" target="_blank">
           Forgot password?
         </Link>
       </div>

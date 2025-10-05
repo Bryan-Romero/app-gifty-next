@@ -2,85 +2,69 @@
 
 import { useState } from 'react'
 import { Form, Input } from '@heroui/react'
-import { UseFormReturn } from 'react-hook-form'
 
-import { TSignUpSchema } from '@/types'
+import { SignupState } from '@/lib/validations/signup.schema'
 import { EnvelopeIcon, UserIcon } from '../Icons'
 import { PasswordVisibilityToggle } from '../PasswordVisibilityToggle'
 
 interface SignUpFormProps {
-  form: UseFormReturn<TSignUpSchema>
-  errorSignUp?: string
-  isSubmitting?: boolean
-  setErrorSignUp: (msg: string) => void
-  onSubmit: (data: TSignUpSchema) => void
   formId: string
+  state: SignupState
+  formAction: (payload: FormData) => void
+  isPending: boolean
 }
 
-export function SignUpForm({ form, errorSignUp, isSubmitting, setErrorSignUp, onSubmit, formId }: SignUpFormProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = form
+export function SignupForm({ formAction, formId, isPending, state }: SignUpFormProps) {
   const [isVisibleP, setIsVisibleP] = useState(false)
   const [isVisibleCP, setIsVisibleCP] = useState(false)
 
   return (
-    <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
-      {errorSignUp && <p className="w-full text-center text-base text-red-400">{errorSignUp}</p>}
+    <Form action={formAction} id={formId} validationErrors={state?.errors}>
+      {state?.errors?.message && <p className="w-full text-center text-base text-red-400">{state.errors.message[0]}</p>}
       <Input
         autoFocus
         classNames={{ input: 'text-base' }}
-        color={errors.username ? 'danger' : 'default'}
+        defaultValue={state?.lastSubmittedValues?.username}
         endContent={<UserIcon className="pointer-events-none" size="1x" />}
-        errorMessage={errors.username?.message}
-        isDisabled={isSubmitting}
-        isInvalid={!!errors.username}
+        isDisabled={isPending}
         label="Username"
+        name="username"
         placeholder="Enter username"
         type="text"
         variant="bordered"
-        {...register('username', { onChange: () => setErrorSignUp('') })}
       />
       <Input
         classNames={{ input: 'text-base' }}
-        color={errors.email ? 'danger' : 'default'}
+        defaultValue={state?.lastSubmittedValues?.email}
         endContent={<EnvelopeIcon className="pointer-events-none" size="1x" />}
-        errorMessage={errors.email?.message}
-        isDisabled={isSubmitting}
-        isInvalid={!!errors.email}
+        isDisabled={isPending}
         label="Email"
+        name="email"
         placeholder="Enter email"
         type="email"
         variant="bordered"
-        {...register('email', { onChange: () => setErrorSignUp('') })}
       />
       <Input
         classNames={{ input: 'text-base' }}
-        color={errors.password ? 'danger' : 'default'}
+        defaultValue={state?.lastSubmittedValues?.password}
         endContent={<PasswordVisibilityToggle isVisible={isVisibleP} onToggle={() => setIsVisibleP((v) => !v)} />}
-        errorMessage={errors.password?.message}
-        isDisabled={isSubmitting}
-        isInvalid={!!errors.password}
+        isDisabled={isPending}
         label="Password"
+        name="password"
         placeholder="Enter password"
         type={isVisibleP ? 'text' : 'password'}
         variant="bordered"
-        {...register('password', { onChange: () => setErrorSignUp('') })}
       />
       <Input
         classNames={{ input: 'text-base' }}
-        color={errors.confirmPassword ? 'danger' : 'default'}
+        defaultValue={state?.lastSubmittedValues?.confirmPassword}
         endContent={<PasswordVisibilityToggle isVisible={isVisibleCP} onToggle={() => setIsVisibleCP((v) => !v)} />}
-        errorMessage={errors.confirmPassword?.message}
-        isDisabled={isSubmitting}
-        isInvalid={!!errors.confirmPassword}
+        isDisabled={isPending}
         label="Confirm Password"
+        name="confirmPassword"
         placeholder="Confirm your password"
         type={isVisibleCP ? 'text' : 'password'}
         variant="bordered"
-        {...register('confirmPassword', { onChange: () => setErrorSignUp('') })}
       />
     </Form>
   )

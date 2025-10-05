@@ -1,47 +1,32 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useActionState } from 'react'
 import { Button, Card, CardBody, Link } from '@heroui/react'
 
 import { CardMinimal } from '@/components/CardMinimal'
-import { SignInForm } from '@/components/Forms/SignInForm'
-import { useSignInForm } from '@/hooks'
+import { SigninForm } from '@/components/Forms/SigninForm'
+import { signin } from '@/lib/actions/signin'
 import { ErrorEnum } from '@/types'
 
 export default function Page() {
   const formId = 'sign-in-form'
-  const { form, errorSignIn, setErrorSignIn, isSubmitting, onSubmit } = useSignInForm({ redirect: '/' })
-  const router = useRouter()
+  const [state, formAction, isPending] = useActionState(signin, {})
 
   return (
     <CardMinimal
-      body={
-        <SignInForm
-          errorSignIn={errorSignIn}
-          form={form}
-          formId={formId}
-          isSubmitting={isSubmitting}
-          setErrorSignIn={setErrorSignIn}
-          onSubmit={onSubmit}
-        />
-      }
+      body={<SigninForm formAction={formAction} formId={formId} isPending={isPending} state={state} />}
       footer={
         <>
-          <Button as={Link} color="primary" href="/" variant="flat">
+          <Button as={Link} color="primary" href="/" isDisabled={isPending} variant="flat">
             Homepage
           </Button>
-          {errorSignIn === ErrorEnum.UnverifiedEmail ? (
-            <Button
-              as={Link}
-              color="primary"
-              href="/auth/resend-confirmation-email"
-              target="_blank"
-              onPress={() => router.push('/')}
-            >
+
+          {state?.errors?.message === ErrorEnum.UnverifiedEmail ? (
+            <Button as={Link} color="primary" href="/auth/resend-confirmation-email" target="_blank">
               Resend email
             </Button>
           ) : (
-            <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
+            <Button color="primary" form={formId} isDisabled={isPending} isLoading={isPending} type="submit">
               Sign in
             </Button>
           )}
@@ -60,7 +45,8 @@ export default function Page() {
           </CardBody>
         </Card>
       }
-      title={errorSignIn === ErrorEnum.UnverifiedEmail ? 'Email not verified' : 'Sign in'}
+      title="Sign in"
+      // title={errorSignIn === ErrorEnum.UnverifiedEmail ? 'Email not verified' : 'Sign in'}
     />
   )
 }

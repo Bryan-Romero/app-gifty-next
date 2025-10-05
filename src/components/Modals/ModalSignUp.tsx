@@ -1,44 +1,52 @@
 'use client'
 
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalProps } from '@heroui/react'
+import { useCallback, useEffect } from 'react'
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@heroui/react'
 
-import { useSignUpForm } from '@/hooks'
-import { SignUpForm } from '../Forms/SignUpForm'
+import { useResettableActionState } from '@/hooks'
+import { signup } from '@/lib/actions/signup'
+import { SignupForm } from '../Forms/SignupForm'
 
-export function ModalSignUp({ isOpen, onOpenChange, onClose }: Omit<ModalProps, 'children'>) {
+interface Props {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export function ModalSignup({ isOpen, onClose }: Props) {
   const formId = 'sign-up-form-modal'
-  const { form, errorSignUp, setErrorSignUp, isSubmitting, onSubmit, handleModalClose } = useSignUpForm({
-    onCloseModal: onClose,
-  })
+  const [state, formAction, isPending, reset] = useResettableActionState(signup, {})
+
+  const handleOnClose = useCallback(() => {
+    if (!isPending) {
+      // Close the modal
+      onClose()
+      // Reset the form
+      reset()
+    }
+  }, [isPending, onClose, reset])
+
+  // Handle successful signup
+  useEffect(() => {
+    if (state?.success) {
+      // Close the modal
+      handleOnClose()
+    }
+  }, [handleOnClose, state?.success])
 
   return (
-    <Modal
-      isOpen={isOpen}
-      placement="center"
-      onClose={handleModalClose}
-      onOpenChange={(open) => {
-        if (!isSubmitting) onOpenChange(open)
-      }}
-    >
+    <Modal isOpen={isOpen} placement="center" onClose={handleOnClose}>
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">Sign up</ModalHeader>
 
         <ModalBody>
-          <SignUpForm
-            errorSignUp={errorSignUp}
-            form={form}
-            formId={formId}
-            isSubmitting={isSubmitting}
-            setErrorSignUp={setErrorSignUp}
-            onSubmit={onSubmit}
-          />
+          <SignupForm formAction={formAction} formId={formId} isPending={isPending} state={state} />
         </ModalBody>
 
         <ModalFooter>
-          <Button color="danger" isDisabled={isSubmitting} variant="flat" onPress={handleModalClose}>
+          <Button color="danger" isDisabled={isPending} variant="flat" onPress={handleOnClose}>
             Close
           </Button>
-          <Button color="primary" form={formId} isDisabled={isSubmitting} isLoading={isSubmitting} type="submit">
+          <Button color="primary" form={formId} isDisabled={isPending} isLoading={isPending} type="submit">
             Sign up
           </Button>
         </ModalFooter>

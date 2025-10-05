@@ -3,7 +3,7 @@
 import { Button, useDisclosure } from '@heroui/react'
 import { twMerge } from 'tailwind-merge'
 
-import { ModalSignIn } from '@/components/Modals/ModalSignIn'
+import { ModalSignin } from '@/components/Modals/ModalSignin'
 import { useGifActions } from '@/hooks'
 import { DataGif } from '@/types'
 import { DownloadIcon, LikeIcon, LinkIcon, NotLikeIcon, PaperPlaneIcom } from '../../Icons'
@@ -92,7 +92,7 @@ export const ButtonsSection = ({ className, isInFavorites, ...gif }: ButtonsSect
         </Button>
       </div>
       <ModalShare isOpen={shareModalControl.isOpen} onOpenChange={shareModalControl.onOpenChange} />
-      <ModalSignIn {...signInModalControl} />
+      <ModalSignin {...signInModalControl} />
     </>
   )
 }
