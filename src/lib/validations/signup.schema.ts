@@ -20,8 +20,8 @@ export type SignupFieldErrors = {
 }
 
 export type SignupState = {
-  values?: Signup
-  lastSubmittedValues?: Signup
-  errors?: SignupFieldErrors & { message?: string }
+  data?: Signup
+  message?: string
+  errors?: SignupFieldErrors
   success?: boolean
 }

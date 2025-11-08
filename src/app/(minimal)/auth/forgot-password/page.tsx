@@ -32,9 +32,7 @@ export default function Page() {
         ) : (
           <>
             <Form action={formAction} id={formId} validationErrors={state?.errors}>
-              {state?.errors?.message && (
-                <p className="w-full text-center text-base text-red-400">{state.errors.message}</p>
-              )}
+              {state?.message && <p className="w-full text-center text-base text-red-400">{state.message}</p>}
               <Input
                 autoFocus
                 classNames={{ input: 'text-base' }}

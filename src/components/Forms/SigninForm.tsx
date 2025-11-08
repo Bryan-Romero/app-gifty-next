@@ -18,7 +18,7 @@ interface SignInFormProps {
 export function SigninForm({ formAction, formId, isPending, state }: SignInFormProps) {
   const [isVisible, setIsVisible] = useState(false)
 
-  if (state?.errors?.message === ErrorEnum.UnverifiedEmail) {
+  if (state?.message === ErrorEnum.UnverifiedEmail) {
     return (
       <>
         <CircleExclamationIcon className="mb-4" color="#fb923c" size="5x" />
@@ -31,11 +31,11 @@ export function SigninForm({ formAction, formId, isPending, state }: SignInFormP
 
   return (
     <Form action={formAction} id={formId} validationErrors={state?.errors}>
-      {state?.errors?.message && <p className="w-full text-center text-base text-red-400">{state.errors.message}</p>}
+      {state?.message && <p className="w-full text-center text-base text-red-400">{state.message}</p>}
       <Input
         autoComplete="email"
         classNames={{ input: 'text-base' }}
-        defaultValue={state?.lastSubmittedValues?.email}
+        defaultValue={state?.data?.email}
         endContent={<EnvelopeIcon className="pointer-events-none" size="1x" />}
         isDisabled={isPending}
         label="Email"
@@ -47,7 +47,7 @@ export function SigninForm({ formAction, formId, isPending, state }: SignInFormP
       <Input
         autoComplete="current-password"
         classNames={{ input: 'text-base' }}
-        defaultValue={state?.lastSubmittedValues?.password}
+        defaultValue={state?.data?.password}
         endContent={<PasswordVisibilityToggle isVisible={isVisible} onToggle={() => setIsVisible((v) => !v)} />}
         isDisabled={isPending}
         label="Password"

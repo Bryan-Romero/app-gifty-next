@@ -14,7 +14,7 @@ export default function Page({ searchParams }: { searchParams: Promise<{ [key: s
   const [isVisibleP, setIsVisibleP] = useState(false)
   const [isVisibleCP, setIsVisibleCP] = useState(false)
   const [state, formAction, isPending] = useActionState(resetPassword, {
-    values: { token },
+    data: { token },
   })
 
   useEffect(() => {
@@ -40,9 +40,7 @@ export default function Page({ searchParams }: { searchParams: Promise<{ [key: s
         ) : (
           <>
             <Form action={formAction} id={formId} validationErrors={state?.errors}>
-              {state?.errors?.message && (
-                <p className="w-full text-center text-base text-red-400">{state?.errors?.message}</p>
-              )}
+              {state?.message && <p className="w-full text-center text-base text-red-400">{state?.message}</p>}
               <Input
                 classNames={{ input: 'text-base' }}
                 endContent={

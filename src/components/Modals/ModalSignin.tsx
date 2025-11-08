@@ -43,7 +43,7 @@ export function ModalSignin({ isOpen, onClose }: Props) {
     <Modal isOpen={isOpen} placement="center" onClose={handleOnClose}>
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">
-          {state?.errors?.message === ErrorEnum.UnverifiedEmail ? 'Email not verified' : 'Sign in'}
+          {state?.message === ErrorEnum.UnverifiedEmail ? 'Email not verified' : 'Sign in'}
         </ModalHeader>
 
         <ModalBody>
@@ -54,7 +54,7 @@ export function ModalSignin({ isOpen, onClose }: Props) {
           <Button color="danger" isDisabled={isPending} variant="flat" onPress={handleOnClose}>
             Close
           </Button>
-          {state?.errors?.message === ErrorEnum.UnverifiedEmail ? (
+          {state?.message === ErrorEnum.UnverifiedEmail ? (
             <Button
               as={Link}
               color="primary"
