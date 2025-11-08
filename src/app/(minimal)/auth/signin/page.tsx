@@ -21,7 +21,7 @@ export default function Page() {
             Homepage
           </Button>
 
-          {state?.errors?.message === ErrorEnum.UnverifiedEmail ? (
+          {state?.message === ErrorEnum.UnverifiedEmail ? (
             <Button as={Link} color="primary" href="/auth/resend-confirmation-email" target="_blank">
               Resend email
             </Button>

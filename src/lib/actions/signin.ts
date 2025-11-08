@@ -6,10 +6,10 @@ import z from 'zod'
 import { signIn } from '@/auth'
 import { Signin, signinSchema, SigninState } from '../validations/signin.schema'
 
-export async function signin(initialState: SigninState | undefined, formData: FormData): Promise<SigninState> {
+export async function signin(prevState: SigninState | undefined, formData: FormData): Promise<SigninState> {
   const email = formData.get('email')
   const password = formData.get('password')
-  const lastSubmittedValues: Signin = {
+  const fields: Signin = {
     email: email?.toString() || '',
     password: password?.toString() || '',
   }
@@ -22,8 +22,9 @@ export async function signin(initialState: SigninState | undefined, formData: Fo
   // Return early if the form data is invalid
   if (!validatedFields.success) {
     return {
+      success: false,
       errors: z.flattenError(validatedFields.error).fieldErrors,
-      lastSubmittedValues,
+      data: fields,
     }
   }
 
@@ -41,15 +42,14 @@ export async function signin(initialState: SigninState | undefined, formData: Fo
     // Return success when signin is successful
     return {
       success: true,
-      lastSubmittedValues,
+      data: validatedFields.data,
     }
   } catch (error) {
     // Handle authentication errors
     return {
-      errors: {
-        message: error.code,
-      },
-      lastSubmittedValues,
+      success: false,
+      message: error.code,
+      data: fields,
     }
   }
 }

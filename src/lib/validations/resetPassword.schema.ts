@@ -14,15 +14,13 @@ export const resetPasswordSchema = z
 // extract the inferred type
 export type ResetPassword = Partial<z.infer<typeof resetPasswordSchema>>
 
-export const resetPasswordKeys = Object.keys(resetPasswordSchema.shape)
-
 export type ResetPasswordFieldErrors = {
   [K in keyof ResetPassword]?: string[]
 }
 
 export type ResetPasswordState = {
-  values?: ResetPassword
-  lastSubmittedValues?: ResetPassword
-  errors?: ResetPasswordFieldErrors & { message?: string }
+  data?: ResetPassword
+  message?: string
+  errors?: ResetPasswordFieldErrors
   success?: boolean
 }

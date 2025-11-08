@@ -13,8 +13,8 @@ export type SigninFieldErrors = {
 }
 
 export type SigninState = {
-  values?: Signin
-  lastSubmittedValues?: Signin
-  errors?: SigninFieldErrors & { message?: string }
+  data?: Signin
+  message?: string
+  errors?: SigninFieldErrors
   success?: boolean
 }

@@ -5,9 +5,9 @@ import z from 'zod'
 import { forgotPassword as forgotPasswordService } from '@/services'
 import { Email, emailSchema, EmailState } from '../validations/email.schema'
 
-export async function forgotPassword(initialState: EmailState | undefined, formData: FormData): Promise<EmailState> {
+export async function forgotPassword(prevState: EmailState | undefined, formData: FormData): Promise<EmailState> {
   const email = formData.get('email')
-  const lastSubmittedValues: Email = {
+  const fields: Email = {
     email: email?.toString() || '',
   }
 
@@ -18,8 +18,9 @@ export async function forgotPassword(initialState: EmailState | undefined, formD
   // Return early if the form data is invalid
   if (!validatedFields.success) {
     return {
+      success: false,
       errors: z.flattenError(validatedFields.error).fieldErrors,
-      lastSubmittedValues,
+      data: fields,
     }
   }
 
@@ -30,7 +31,7 @@ export async function forgotPassword(initialState: EmailState | undefined, formD
     // Return success when signup is successful
     return {
       success: true,
-      lastSubmittedValues,
+      data: validatedFields.data,
     }
   } catch (error) {
     // Handle signup errors
@@ -40,15 +41,15 @@ export async function forgotPassword(initialState: EmailState | undefined, formD
         errors[field] = messages
       })
       return {
+        success: false,
         errors,
-        lastSubmittedValues,
+        data: fields,
       }
     }
     return {
-      errors: {
-        message: error.message,
-      },
-      lastSubmittedValues,
+      success: false,
+      message: error.message,
+      data: fields,
     }
   }
 }

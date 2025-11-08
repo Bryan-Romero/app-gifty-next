@@ -6,13 +6,13 @@ import { resetPassword as resetPasswordService } from '@/services'
 import { ResetPassword, resetPasswordSchema, ResetPasswordState } from '../validations/resetPassword.schema'
 
 export async function resetPassword(
-  initialState: ResetPasswordState | undefined,
+  prevState: ResetPasswordState | undefined,
   formData: FormData
 ): Promise<ResetPasswordState> {
   const password = formData.get('password')
   const confirmPassword = formData.get('confirmPassword')
   const token = formData.get('token') || 'aaa'
-  const lastSubmittedValues: ResetPassword = {
+  const fields: ResetPassword = {
     password: password?.toString() || '',
     confirmPassword: confirmPassword?.toString() || '',
     token: token?.toString() || '',
@@ -27,8 +27,9 @@ export async function resetPassword(
   // Return early if the form data is invalid
   if (!validatedFields.success) {
     return {
+      success: false,
       errors: z.flattenError(validatedFields.error).fieldErrors,
-      lastSubmittedValues,
+      data: fields,
     }
   }
 
@@ -39,7 +40,7 @@ export async function resetPassword(
     // Return success when signup is successful
     return {
       success: true,
-      lastSubmittedValues,
+      data: validatedFields.data,
     }
   } catch (error) {
     // Handle signup errors
@@ -49,15 +50,15 @@ export async function resetPassword(
         errors[field] = messages
       })
       return {
+        success: false,
         errors,
-        lastSubmittedValues,
+        data: fields,
       }
     }
     return {
-      errors: {
-        message: error.message,
-      },
-      lastSubmittedValues,
+      success: false,
+      message: error.message,
+      data: fields,
     }
   }
 }
