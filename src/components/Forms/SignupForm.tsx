@@ -20,11 +20,11 @@ export function SignupForm({ formAction, formId, isPending, state }: SignUpFormP
 
   return (
     <Form action={formAction} id={formId} validationErrors={state?.errors}>
-      {state?.errors?.message && <p className="w-full text-center text-base text-red-400">{state.errors.message[0]}</p>}
+      {state?.message && <p className="w-full text-center text-base text-red-400">{state.message}</p>}
       <Input
         autoFocus
         classNames={{ input: 'text-base' }}
-        defaultValue={state?.lastSubmittedValues?.username}
+        defaultValue={state?.data?.username}
         endContent={<UserIcon className="pointer-events-none" size="1x" />}
         isDisabled={isPending}
         label="Username"
@@ -35,7 +35,7 @@ export function SignupForm({ formAction, formId, isPending, state }: SignUpFormP
       />
       <Input
         classNames={{ input: 'text-base' }}
-        defaultValue={state?.lastSubmittedValues?.email}
+        defaultValue={state?.data?.email}
         endContent={<EnvelopeIcon className="pointer-events-none" size="1x" />}
         isDisabled={isPending}
         label="Email"
@@ -46,7 +46,7 @@ export function SignupForm({ formAction, formId, isPending, state }: SignUpFormP
       />
       <Input
         classNames={{ input: 'text-base' }}
-        defaultValue={state?.lastSubmittedValues?.password}
+        defaultValue={state?.data?.password}
         endContent={<PasswordVisibilityToggle isVisible={isVisibleP} onToggle={() => setIsVisibleP((v) => !v)} />}
         isDisabled={isPending}
         label="Password"
@@ -57,7 +57,7 @@ export function SignupForm({ formAction, formId, isPending, state }: SignUpFormP
       />
       <Input
         classNames={{ input: 'text-base' }}
-        defaultValue={state?.lastSubmittedValues?.confirmPassword}
+        defaultValue={state?.data?.confirmPassword}
         endContent={<PasswordVisibilityToggle isVisible={isVisibleCP} onToggle={() => setIsVisibleCP((v) => !v)} />}
         isDisabled={isPending}
         label="Confirm Password"

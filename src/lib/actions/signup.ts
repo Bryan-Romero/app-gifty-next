@@ -5,12 +5,12 @@ import z from 'zod'
 import { signup as signupService } from '@/services'
 import { Signup, signupSchema, SignupState } from '../validations/signup.schema'
 
-export async function signup(initialState: SignupState | undefined, formData: FormData): Promise<SignupState> {
+export async function signup(prevState: SignupState | undefined, formData: FormData): Promise<SignupState> {
   const username = formData.get('username')
   const email = formData.get('email')
   const password = formData.get('password')
   const confirmPassword = formData.get('confirmPassword')
-  const lastSubmittedValues: Signup = {
+  const fields: Signup = {
     username: username?.toString() || '',
     email: email?.toString() || '',
     password: password?.toString() || '',
@@ -27,8 +27,9 @@ export async function signup(initialState: SignupState | undefined, formData: Fo
   // Return early if the form data is invalid
   if (!validatedFields.success) {
     return {
+      success: false,
       errors: z.flattenError(validatedFields.error).fieldErrors,
-      lastSubmittedValues,
+      data: fields,
     }
   }
 
@@ -39,7 +40,7 @@ export async function signup(initialState: SignupState | undefined, formData: Fo
     // Return success when signup is successful
     return {
       success: true,
-      lastSubmittedValues,
+      data: validatedFields.data,
     }
   } catch (error) {
     // Handle signup errors
@@ -49,15 +50,15 @@ export async function signup(initialState: SignupState | undefined, formData: Fo
         errors[field] = messages
       })
       return {
+        success: false,
         errors,
-        lastSubmittedValues,
+        data: fields,
       }
     }
     return {
-      errors: {
-        message: error.message,
-      },
-      lastSubmittedValues,
+      success: false,
+      message: error.message,
+      data: fields,
     }
   }
 }

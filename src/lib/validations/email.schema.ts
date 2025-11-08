@@ -12,8 +12,8 @@ export type EmailFieldErrors = {
 }
 
 export type EmailState = {
-  values?: Email
-  lastSubmittedValues?: Email
-  errors?: EmailFieldErrors & { message?: string }
+  data?: Email
+  message?: string
+  errors?: EmailFieldErrors
   success?: boolean
 }
