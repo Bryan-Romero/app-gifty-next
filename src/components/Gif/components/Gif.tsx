@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, MouseEvent } from 'react'
+import { memo, MouseEvent, useMemo } from 'react'
 import Link from 'next/link'
 import { Button, Image as ImgGif, useDisclosure } from '@heroui/react'
 
@@ -14,6 +14,13 @@ interface GifProps extends DataGif {
   isInFavorites: boolean
 }
 
+interface ResponsiveGifSources {
+  mobile: string
+  tablet: string
+  laptop: string
+  desktop: string
+}
+
 export const Gif = memo(
   function Gif({ isInFavorites, ...gif }: GifProps) {
     const { images, id, title, alt_text } = gif
@@ -21,10 +28,30 @@ export const Gif = memo(
     const signInModalControl = useDisclosure()
     const { handleAddToFavorites, handleRemoveFromFavorites } = useGifActions(gif, signInModalControl)
 
+    // Configure responsive sources based on screen size
+    const responsiveGif: ResponsiveGifSources = useMemo(
+      () => ({
+        mobile: images.fixed_width_downsampled.webp || images.fixed_width_downsampled.url,
+        tablet: images.fixed_width_small.webp || images.fixed_width_small.url,
+        laptop: images.fixed_width.webp || images.fixed_width.url,
+        desktop: images.fixed_width.webp || images.fixed_width.url,
+      }),
+      [images]
+    )
+
+    // Generate srcSet for responsive images
+    const srcSet = useMemo(
+      () =>
+        `${responsiveGif.mobile} 640w, ${responsiveGif.tablet} 768w, ${responsiveGif.laptop} 1024w, ${responsiveGif.desktop} 1536w`,
+      [responsiveGif]
+    )
+
+    // Define sizes based on breakpoints
+    const sizes = '(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw'
+
     const handleExpand = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
-      e.preventDefault() // Evita que se siga el enlace
-      e.stopPropagation() // Evita que el clic se propague al Link
-      // Tu lógica...
+      e.preventDefault()
+      e.stopPropagation()
       gifModalControl.onOpen()
     }
 
@@ -40,7 +67,9 @@ export const Gif = memo(
             className="h-full w-full object-cover"
             loading="lazy"
             radius="none"
-            src={images.fixed_width.url}
+            sizes={sizes}
+            src={responsiveGif.tablet}
+            srcSet={srcSet}
           />
           <div className="absolute bottom-0 left-0 z-10 hidden w-full flex-row justify-start overflow-auto bg-black/40 p-1 group-hover/item:flex">
             <h3 className="text-xs font-medium">{title}</h3>
@@ -48,30 +77,15 @@ export const Gif = memo(
 
           <div className="absolute top-0 right-0 z-10 flex h-full flex-col justify-start gap-2 overflow-hidden p-1">
             {isInFavorites ? (
-              <Button
-                disableAnimation
-                isIconOnly
-                className="bg-black/15"
-                onClick={handleRemoveFromFavorites} //Usar onClick solo en los botones dentro de <Link></Link>
-              >
+              <Button disableAnimation isIconOnly className="bg-black/15" onClick={handleRemoveFromFavorites}>
                 <LikeIcon color="#F05161" size="2x" />
               </Button>
             ) : (
-              <Button
-                disableAnimation
-                isIconOnly
-                className="bg-black/15"
-                onClick={handleAddToFavorites} //Usar onClick solo en los botones dentro de <Link></Link>
-              >
+              <Button disableAnimation isIconOnly className="bg-black/15" onClick={handleAddToFavorites}>
                 <NotLikeIcon size="2x" />
               </Button>
             )}
-            <Button
-              disableAnimation
-              isIconOnly
-              className="bg-black/15"
-              onClick={handleExpand} //Usar onClick solo en los botones dentro de <Link></Link>
-            >
+            <Button disableAnimation isIconOnly className="bg-black/15" onClick={handleExpand}>
               <ExpandIcon size="2x" />
             </Button>
           </div>
