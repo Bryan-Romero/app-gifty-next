@@ -10,8 +10,9 @@ import { Gif } from './components/Gif'
 type GifsProps = UseInfiniteQueryResult<InfiniteData<Gifs, unknown>, Error> & {
   scrollTriggerRef: (node?: Element | null) => void
   inView: boolean
-  tittle?: string
-  subTittle?: string
+  title?: string
+  subTitle?: string
+  firstGifPriority?: boolean
 }
 
 export const GifsPage = ({
@@ -19,9 +20,10 @@ export const GifsPage = ({
   hasNextPage,
   isFetchingNextPage,
   scrollTriggerRef,
-  tittle,
-  subTittle,
+  title,
+  subTitle,
   isError,
+  firstGifPriority,
 }: GifsProps) => {
   const { data: favoritesIDs } = useAllIDsFavorites()
   const hasGifs = data?.pages.some((page) => page?.data.length > 0)
@@ -29,7 +31,7 @@ export const GifsPage = ({
   if (isError) {
     return (
       <div className="flex flex-1 items-center justify-center">
-        <h3 className="text-2xl font-semibold md:text-4xl">Oops! Something went wrong.</h3>
+        <p className="text-2xl font-semibold md:text-4xl">Oops! Something went wrong.</p>
       </div>
     )
   }
@@ -45,16 +47,23 @@ export const GifsPage = ({
   return (
     <div className="flex w-full max-w-[90rem] flex-1 flex-col gap-4 self-center p-4">
       <div className="">
-        {tittle && (
-          <h3 className="text-2xl font-semibold md:text-4xl">{tittle.charAt(0).toUpperCase() + tittle.slice(1)}</h3>
+        {title && (
+          <h1 className="text-2xl font-semibold md:text-4xl">{title.charAt(0).toUpperCase() + title.slice(1)}</h1>
         )}
 
-        {subTittle && <p className="text-gray-400">{subTittle}</p>}
+        {subTitle && <h2 className="text-gray-400">{subTitle}</h2>}
       </div>
 
       <div className="grid-cols-gifs auto-rows-gifs md:grid-cols-gifs-md md:auto-rows-gifs-md grid w-full grid-flow-row-dense items-center gap-3">
         {data.pages.map((page) =>
-          page.data.map((gif) => <Gif key={gif.id} isInFavorites={favoritesIDs.includes(gif.id)} {...gif} />)
+          page.data.map((gif, idx) => (
+            <Gif
+              key={gif.id}
+              fetchPriorityHigh={firstGifPriority && idx === 0}
+              isInFavorites={favoritesIDs.includes(gif.id)}
+              {...gif}
+            />
+          ))
         )}
       </div>
 

@@ -35,9 +35,9 @@ export default function DetailPage({ gif_id }: Props) {
     <>
       <div className="grid w-full max-w-[95rem] grid-cols-[1fr_auto] gap-3 self-center px-3 py-5 md:grid-cols-[1fr_800px_1fr] md:gap-10 md:px-0 md:py-10">
         {/** TITLE */}
-        <h3 className="col-span-2 col-start-1 text-2xl font-bold md:col-span-1 md:col-start-2 md:text-5xl">
+        <h1 className="col-span-2 col-start-1 text-2xl font-bold md:col-span-1 md:col-start-2 md:text-5xl">
           {gif.data.title}
-        </h3>
+        </h1>
 
         {/** USER */}
         <UserSection className="row-start-3 md:row-start-2" {...gif.data.user} />
@@ -47,6 +47,7 @@ export default function DetailPage({ gif_id }: Props) {
           removeWrapper
           alt={gif.data.alt_text || gif.data.title}
           className="col-span-2 row-start-2 w-full md:col-span-1"
+          fetchPriority="high"
           isLoading={isLoading}
           src={gif.data.images.downsized_medium.url}
         />
@@ -60,7 +61,7 @@ export default function DetailPage({ gif_id }: Props) {
       </div>
 
       {/** Related GIFs */}
-      <GifsPage subTittle={gif.data.title} tittle="Related GIFs" {...data} />
+      <GifsPage subTitle={gif.data.title} title="Related GIFs" {...data} />
     </>
   )
 }

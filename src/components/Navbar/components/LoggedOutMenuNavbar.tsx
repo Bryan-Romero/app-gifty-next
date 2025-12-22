@@ -9,50 +9,57 @@ import { ModalControl } from '@/types'
 interface NavbarMenuComponentProps {
   signInModalControl: ModalControl
   signUpModalControl: ModalControl
+  className: string
 }
 
-export const LoggedOutMenuNavbar = ({ signInModalControl, signUpModalControl }: NavbarMenuComponentProps) => {
+export const LoggedOutMenuNavbar = ({
+  className,
+  signInModalControl,
+  signUpModalControl,
+}: NavbarMenuComponentProps) => {
   const { isDark, mounted, toggleTheme } = useCustomTheme()
 
   return (
-    <Dropdown backdrop="opaque" placement="bottom-end">
-      <DropdownTrigger>
-        <Button isIconOnly className="bg-transparent">
-          <BarsIcon size="2x" />
-        </Button>
-      </DropdownTrigger>
-      <DropdownMenu aria-label="Profile Actions" variant="flat">
-        {mounted && (
+    <div className={className}>
+      <Dropdown backdrop="opaque" placement="bottom-end">
+        <DropdownTrigger>
+          <Button isIconOnly className="bg-transparent" title="bars">
+            <BarsIcon size="2x" />
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu aria-label="Profile Actions" variant="flat">
+          {mounted && (
+            <DropdownItem
+              key="theme"
+              endContent={isDark ? <SunFilledIcon size="lg" /> : <MoonFilledIcon size="lg" />}
+              textValue="Theme"
+              onClick={toggleTheme}
+            >
+              Theme
+            </DropdownItem>
+          )}
+
           <DropdownItem
-            key="theme"
-            endContent={isDark ? <SunFilledIcon size="lg" /> : <MoonFilledIcon size="lg" />}
-            textValue="Theme"
-            onClick={toggleTheme}
+            key="sign_in"
+            color="primary"
+            textValue="Sign In"
+            variant="light"
+            onClick={signInModalControl.onOpen}
           >
-            Theme
+            Sign In
           </DropdownItem>
-        )}
 
-        <DropdownItem
-          key="sign_in"
-          color="primary"
-          textValue="Sign In"
-          variant="light"
-          onClick={signInModalControl.onOpen}
-        >
-          Sign In
-        </DropdownItem>
-
-        <DropdownItem
-          key="sign_up"
-          color="primary"
-          textValue="Sign Up"
-          variant="flat"
-          onClick={signUpModalControl.onOpen}
-        >
-          Sign Up
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+          <DropdownItem
+            key="sign_up"
+            color="primary"
+            textValue="Sign Up"
+            variant="flat"
+            onClick={signUpModalControl.onOpen}
+          >
+            Sign Up
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </div>
   )
 }

@@ -12,6 +12,7 @@ import { ModalGif } from './ModalGif'
 
 interface GifProps extends DataGif {
   isInFavorites: boolean
+  fetchPriorityHigh: boolean
 }
 
 interface ResponsiveGifSources {
@@ -22,7 +23,7 @@ interface ResponsiveGifSources {
 }
 
 export const Gif = memo(
-  function Gif({ isInFavorites, ...gif }: GifProps) {
+  function Gif({ isInFavorites, fetchPriorityHigh, ...gif }: GifProps) {
     const { images, id, title, alt_text } = gif
     const gifModalControl = useDisclosure()
     const signInModalControl = useDisclosure()
@@ -65,11 +66,11 @@ export const Gif = memo(
             removeWrapper
             alt={alt_text || title}
             className="h-full w-full object-cover"
-            loading="lazy"
             radius="none"
             sizes={sizes}
             src={responsiveGif.tablet}
             srcSet={srcSet}
+            {...(fetchPriorityHigh ? { fetchPriority: 'high' } : { loading: 'lazy' })}
           />
           <div className="absolute bottom-0 left-0 z-10 hidden w-full flex-row justify-start overflow-auto bg-black/40 p-1 group-hover/item:flex">
             <h3 className="text-xs font-medium">{title}</h3>
@@ -77,15 +78,27 @@ export const Gif = memo(
 
           <div className="absolute top-0 right-0 z-10 flex h-full flex-col justify-start gap-2 overflow-hidden p-1">
             {isInFavorites ? (
-              <Button disableAnimation isIconOnly className="bg-black/15" onClick={handleRemoveFromFavorites}>
+              <Button
+                disableAnimation
+                isIconOnly
+                className="bg-black/15"
+                title="like"
+                onClick={handleRemoveFromFavorites}
+              >
                 <LikeIcon color="#F05161" size="2x" />
               </Button>
             ) : (
-              <Button disableAnimation isIconOnly className="bg-black/15" onClick={handleAddToFavorites}>
+              <Button
+                disableAnimation
+                isIconOnly
+                className="bg-black/15"
+                title="notLike"
+                onClick={handleAddToFavorites}
+              >
                 <NotLikeIcon size="2x" />
               </Button>
             )}
-            <Button disableAnimation isIconOnly className="bg-black/15" onClick={handleExpand}>
+            <Button disableAnimation isIconOnly className="bg-black/15" title="expand" onClick={handleExpand}>
               <ExpandIcon size="2x" />
             </Button>
           </div>
