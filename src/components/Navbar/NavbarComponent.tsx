@@ -2,15 +2,7 @@
 
 import { FormEvent, memo, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import {
-  Input,
-  Link,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Navbar as NextUINavbar,
-  useDisclosure,
-} from '@heroui/react'
+import { Input, Link, NavbarBrand, NavbarContent, Navbar as NextUINavbar, useDisclosure } from '@heroui/react'
 import { useSession } from 'next-auth/react'
 
 import { SearchIcon } from '../Icons'
@@ -61,9 +53,7 @@ const NavbarComponent = () => {
         </NavbarContent>
 
         <NavbarContent as="div" justify="center">
-          <NavbarItem className="hidden md:flex">
-            <ThemeSwitch />
-          </NavbarItem>
+          <ThemeSwitch className="hidden md:flex" />
 
           {status === 'authenticated' ? (
             <LoggedInNavbar {...session} />

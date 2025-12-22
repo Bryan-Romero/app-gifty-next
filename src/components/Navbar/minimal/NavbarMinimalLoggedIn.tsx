@@ -1,6 +1,6 @@
 'use client'
 
-import { Link, NavbarBrand, NavbarContent, NavbarItem, Navbar as NextUINavbar } from '@heroui/react'
+import { Link, NavbarBrand, NavbarContent, Navbar as NextUINavbar } from '@heroui/react'
 import { useSession } from 'next-auth/react'
 
 import { ThemeSwitch } from '../../ThemeSwitch'
@@ -20,9 +20,7 @@ export const NavbarMinimalLoggedIn = () => {
       </NavbarContent>
 
       <NavbarContent as="div" justify="center">
-        <NavbarItem className="hidden md:flex">
-          <ThemeSwitch />
-        </NavbarItem>
+        <ThemeSwitch className="hidden md:flex" />
 
         {session && <LoggedInNavbar {...session} />}
       </NavbarContent>

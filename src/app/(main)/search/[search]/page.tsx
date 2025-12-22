@@ -10,5 +10,5 @@ export default function Page(props: { params: Promise<{ search: string }> }) {
   const search = decodeURIComponent(params.search)
   const data = useGifsSearch(search)
 
-  return <GifsPage tittle={search} {...data} />
+  return <GifsPage firstGifPriority title={search} {...data} />
 }
