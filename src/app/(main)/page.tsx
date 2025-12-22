@@ -6,5 +6,5 @@ import { useGifsTrending } from '@/hooks'
 export default function Page() {
   const data = useGifsTrending()
 
-  return <GifsPage tittle="Trending Now" {...data} />
+  return <GifsPage firstGifPriority title="Trending Now" {...data} />
 }
