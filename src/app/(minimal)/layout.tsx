@@ -1,5 +1,3 @@
-'use client'
-
 import { Suspense } from 'react'
 
 import { NavbarMinimal } from '@/components/Navbar/minimal/NavbarMinimal'

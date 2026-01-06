@@ -12,7 +12,7 @@ export const TrendingSearches = () => {
   if (!isLoading && !isError) {
     return (
       <div className="mt-4 flex justify-center md:mt-6">
-        <div className="group relative w-full max-w-[95rem] px-4">
+        <div className="group relative w-full max-w-380 px-4">
           {/* Botón izquierda */}
           {!atStart && (
             <Button

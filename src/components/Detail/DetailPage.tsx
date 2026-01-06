@@ -33,7 +33,7 @@ export default function DetailPage({ gif_id }: Props) {
 
   return (
     <>
-      <div className="grid w-full max-w-[95rem] grid-cols-[1fr_auto] gap-3 self-center px-3 py-5 md:grid-cols-[1fr_800px_1fr] md:gap-10 md:px-0 md:py-10">
+      <div className="grid w-full max-w-380 grid-cols-[1fr_auto] gap-3 self-center px-3 py-5 md:grid-cols-[1fr_800px_1fr] md:gap-10 md:px-0 md:py-10">
         {/** TITLE */}
         <h1 className="col-span-2 col-start-1 text-2xl font-bold md:col-span-1 md:col-start-2 md:text-5xl">
           {gif.data.title}

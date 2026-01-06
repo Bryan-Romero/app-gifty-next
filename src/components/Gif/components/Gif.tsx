@@ -59,7 +59,7 @@ export const Gif = memo(
     return (
       <>
         <Link
-          className="group/item relative col-span-1 row-span-1 h-full overflow-hidden rounded-md border-none hover:scale-101 hover:ring-[6px] md:[&:nth-child(10n_+_3)]:col-span-2 md:[&:nth-child(10n_+_3)]:row-span-1 md:[&:nth-child(11n_+_1)]:col-span-2 md:[&:nth-child(11n_+_1)]:row-span-2 [&:nth-child(5n_+_1)]:hover:ring-rose-500 [&:nth-child(5n_+_2)]:hover:ring-blue-500 [&:nth-child(5n_+_3)]:hover:ring-green-500 [&:nth-child(5n_+_4)]:hover:ring-yellow-500 [&:nth-child(5n_+_5)]:hover:ring-purple-500 md:[&:nth-child(8n_+_1)]:col-span-2 md:[&:nth-child(8n_+_1)]:row-span-2"
+          className="group/item relative col-span-1 row-span-1 h-full overflow-hidden rounded-md border-none hover:scale-101 hover:ring-[6px] nth-[5n+1]:hover:ring-rose-500 nth-[5n+2]:hover:ring-blue-500 nth-[5n+3]:hover:ring-green-500 nth-[5n+4]:hover:ring-yellow-500 nth-[5n+5]:hover:ring-purple-500 md:nth-[10n+3]:col-span-2 md:nth-[10n+3]:row-span-1 md:nth-[11n+1]:col-span-2 md:nth-[11n+1]:row-span-2 md:nth-[8n+1]:col-span-2 md:nth-[8n+1]:row-span-2"
           href={`/gif/${id}`}
         >
           <ImgGif

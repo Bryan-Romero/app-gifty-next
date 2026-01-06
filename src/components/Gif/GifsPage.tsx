@@ -45,7 +45,7 @@ export const GifsPage = ({
   }
 
   return (
-    <div className="flex w-full max-w-[90rem] flex-1 flex-col gap-4 self-center p-4">
+    <div className="flex w-full max-w-360 flex-1 flex-col gap-4 self-center p-4">
       <div className="">
         {title && (
           <h1 className="text-2xl font-semibold md:text-4xl">{title.charAt(0).toUpperCase() + title.slice(1)}</h1>

@@ -23,7 +23,7 @@ export const UserSection = ({ display_name, username, avatar_url, description, c
   }, [description])
 
   return (
-    <Card className={twMerge('w-full md:max-w-[340px]', read || !isOverflowing ? 'h-fit' : 'max-h-40', className)}>
+    <Card className={twMerge('w-full md:max-w-85', read || !isOverflowing ? 'h-fit' : 'max-h-40', className)}>
       <CardHeader className="justify-between">
         <div className="flex gap-5">
           <Avatar isBordered radius="full" size="md" src={avatar_url} />
